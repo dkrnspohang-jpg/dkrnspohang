@@ -628,41 +628,6 @@
     .card .val{font-size:18px}
   }
 </style>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBzyx8LDxoR9VgOfVEAqK7Q8boyc8PtRcM",
-    authDomain: "dkrnspohang-23523.firebaseapp.com",
-    projectId: "dkrnspohang-23523",
-    storageBucket: "dkrnspohang-23523.firebasestorage.app",
-    messagingSenderId: "627231728439",
-    appId: "1:627231728439:web:236ad14a94057aa65570b2",
-    measurementId: "G-TPW1Y7MTWJ"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  
-// Firestore 데이터 읽기
-import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-
-const db = getFirestore(app);
-const boardsRef = collection(db, 'boards');
-
-onSnapshot(boardsRef, (snapshot) => {
-  snapshot.forEach((doc) => {
-    console.log(doc.id + ": " + JSON.stringify(doc.data()));
-  });
-});
-</script>  
 </head>
 <body>
 <!-- ===== 사이드바 ===== -->
@@ -8248,6 +8213,167 @@ function dayWatch(){
     try{toast('날짜가 '+t+'로 변경되었습니다');}catch(e){}
   },30000);
 }
+
+/* ============ Firestore 실시간 대시보드 ============ */
+let boardData = {
+  EAF: { status: '대기중', temperature: 0, lastUpdate: new Date().toISOString().split('T')[0] },
+  Ladle: { status: '대기중', temperature: 0, lastUpdate: new Date().toISOString().split('T')[0] },
+  Tundish: { status: '대기중', temperature: 0, lastUpdate: new Date().toISOString().split('T')[0] }
+};
+
+// Firestore에서 실시간 데이터 수신 및 대시보드 업데이트
+async function initFirestoreBoard(){
+  try {
+    // Firebase 설정 확인
+    const fbCfgVal = document.getElementById('fb_cfg')?.value;
+    if(!fbCfgVal){
+      console.log('📊 Firestore 설정 미적용 - 팀 공유 설정 후 활성화됩니다');
+      return;
+    }
+
+    // Firestore 초기화 (기존 팀 공유 코드 활용)
+    if(!window.firebase){
+      console.log('⏳ Firebase SDK 로딩 중...');
+      return;
+    }
+
+    const db = firebase.firestore();
+    const boardsRef = db.collection('boards');
+
+    // 실시간 리스너 설정
+    boardsRef.onSnapshot(snapshot => {
+      snapshot.forEach(doc => {
+        const docId = doc.id;
+        const data = doc.data();
+
+        if(docId === 'EAF' || docId === 'Ladle' || docId === 'Tundish'){
+          boardData[docId] = {
+            status: data.status || '대기중',
+            temperature: data.temperature || 0,
+            lastUpdate: data.lastUpdate || new Date().toISOString().split('T')[0]
+          };
+          console.log(`📊 ${docId} 업데이트:`, boardData[docId]);
+        }
+      });
+
+      // ✅ 수정: 항상 렌더링 (보드 탭 활성화 여부 무관)
+      setTimeout(() => renderBoardFromFirestore(), 50);
+    }, error => {
+      console.warn('⚠️ Firestore 연결 오류:', error.message);
+    });
+
+    console.log('✅ Firestore 실시간 리스너 활성화');
+  } catch(e){
+    console.log('ℹ️ Firestore 설정이 필요합니다 (팀 공유 메뉴에서)');
+  }
+}
+
+// Firestore 데이터로 대시보드 렌더링
+function renderBoardFromFirestore(){
+  const eafCard = createEquipmentCard('EAF', '전기로', boardData.EAF);
+  const ladleCard = createEquipmentCard('Ladle', '래들', boardData.Ladle);
+  const tundishCard = createEquipmentCard('Tundish', '턴디쉬', boardData.Tundish);
+
+  // 각 탭에 카드 렌더링
+  const eafContainer = document.getElementById('boardEaf');
+  const ladleContainer = document.getElementById('boardLadle');
+  const tundishContainer = document.getElementById('boardTundish');
+
+  if(eafContainer) eafContainer.innerHTML = eafCard;
+  if(ladleContainer) ladleContainer.innerHTML = ladleCard;
+  if(tundishContainer) tundishContainer.innerHTML = tundishCard;
+}
+
+// 장비 카드 HTML 생성
+function createEquipmentCard(equipId, equipName, data){
+  const statusColor = data.status === '정상' ? '#16a34a' :
+                      data.status === '사용중' ? '#2563eb' :
+                      data.status === '점검중' ? '#ea580c' : '#64748b';
+
+  const statusBgColor = data.status === '정상' ? '#dcfce7' :
+                        data.status === '사용중' ? '#dbeafe' :
+                        data.status === '점검중' ? '#fff2e8' : '#f1f5f9';
+
+  return `
+    <div style="border:1px solid var(--line);border-radius:12px;padding:20px;background:#fff;display:grid;gap:16px;grid-template-columns:1fr 1fr">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">설비 상태</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <div style="font-size:28px;font-weight:800;color:${statusColor}">${equipName}</div>
+          <span style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:${statusBgColor};color:${statusColor}">${data.status}</span>
+        </div>
+        <div style="font-size:11.5px;color:var(--muted)">마지막 업데이트: ${data.lastUpdate}</div>
+      </div>
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">온도</div>
+        <div style="font-size:32px;font-weight:800;color:var(--accent);line-height:1">${data.temperature}<small style="font-size:14px;font-weight:600;color:var(--muted)">°C</small></div>
+        <button class="btn primary" onclick="openEquipmentUpdate('${equipId}')" style="margin-top:12px;width:100%">상태 업데이트</button>
+      </div>
+    </div>
+  `;
+}
+
+// 장비 상태 업데이트 폼 열기
+function openEquipmentUpdate(equipId){
+  const equipName = {EAF:'전기로(EAF)', Ladle:'래들(Ladle)', Tundish:'턴디쉬(Tundish)'}[equipId];
+  const current = boardData[equipId] || {};
+
+  const status = prompt(`${equipName} 상태 입력\n(정상 / 사용중 / 점검중 / 대기중):`, current.status || '정상');
+  if(status === null) return;
+
+  const tempStr = prompt(`${equipName} 온도 입력 (숫자):`, current.temperature || '0');
+  if(tempStr === null) return;
+
+  const temperature = parseInt(tempStr, 10) || 0;
+  updateEquipmentStatus(equipId, status, temperature);
+}
+
+// Firestore에 장비 상태 저장
+async function updateEquipmentStatus(equipId, status, temperature){
+  try {
+    if(!window.firebase){
+      toast('Firestore 설정이 필요합니다');
+      return;
+    }
+
+    const db = firebase.firestore();
+    const boardsRef = db.collection('boards');
+
+    await boardsRef.doc(equipId).set({
+      status: status,
+      temperature: temperature,
+      lastUpdate: todayStr()
+    }, { merge: true });
+
+    // 로컬 상태 업데이트
+    boardData[equipId] = { status, temperature, lastUpdate: todayStr() };
+
+    console.log(`✅ ${equipId} 저장 완료:`, { status, temperature });
+    toast(`${equipId} 상태가 업데이트되었습니다`);
+
+    // 대시보드 재렌더링
+    renderBoardFromFirestore();
+  } catch(e){
+    console.error('❌ 저장 실패:', e);
+    toast('저장에 실패했습니다: ' + e.message);
+  }
+}
+
+// 보드 탭 클릭 이벤트 처리
+const originalBoardTab = window.boardTab;
+window.boardTab = function(tab){
+  if(originalBoardTab) originalBoardTab(tab);
+  // Firestore 데이터로 렌더링
+  setTimeout(() => renderBoardFromFirestore(), 100);
+};
+
+// 페이지 로드 시 초기화
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    initFirestoreBoard();
+    renderBoardFromFirestore();
+  }, 1000);
+});
 </script>
 </body>
 </html>
