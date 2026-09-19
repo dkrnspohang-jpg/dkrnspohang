@@ -122,6 +122,13 @@
   .subpanel{display:none}
   .subpanel.active{display:block}
   .bomtbl{font-size:12.5px;min-width:720px}
+  .eaf-zone-tbl th{background:#f6f8fa;text-align:left;font-size:12px;padding:6px 10px;white-space:nowrap}
+  .eaf-zone-tbl td{padding:4px 8px}
+  .eaf-zone-tbl .zchk{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:3px 8px;border-radius:6px;cursor:pointer}
+  .eaf-zone-tbl .zchk:has(input:checked){background:#fde68a;font-weight:700}
+  .eaf-cat-hdr td{background:#eef2f6;font-weight:800;font-size:11.5px}
+  .eaf-sub-row td{background:#f6f8fa;font-weight:700}
+  .eaf-total-row td{background:#fde68a;font-weight:800}
   .bomtbl td.n,.bomtbl th.n{text-align:right;font-variant-numeric:tabular-nums}
   .bomtbl tfoot td{font-weight:800;background:#f6f8fa}
   .bomtbl tbody tr td:first-child{font-weight:600}
@@ -157,7 +164,7 @@
   .bcol{min-width:0}
   .boardwrap3>.bcol{min-width:0;overflow:hidden}
   /* 작업현황판 턴디쉬 셀 크기 확대(2차) — 툴/구조는 동일, 가독성만 개선 */
-  .btd-row{display:grid;grid-template-columns:42px 138px 86px 86px minmax(0,1fr);gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid #eef1f4;font-size:15.5px}
+  .btd-row{display:grid;grid-template-columns:36px 138px 116px 76px 64px minmax(0,1fr);gap:8px;align-items:center;padding:12px 14px;border-bottom:1px solid #eef1f4;font-size:15.5px}
   .btd-row>*{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
   .btd-head{background:#f4f6f8;font-weight:700;color:#516170;font-size:13.5px;padding:10px 14px}
   .btd-row .bno{font-size:17px;font-weight:800}
@@ -175,8 +182,9 @@
   .bcol-h{padding:16px 20px;font-weight:800;font-size:18px;color:#fff}
   .btbl{width:100%;border-collapse:collapse;font-size:14.5px}
   .btbl th{background:#f4f6f8;padding:9px 10px;font-weight:700;color:#516170;border-bottom:1px solid var(--line);text-align:left}
+  .btbl th.n{text-align:center}
   .btbl td{padding:10px 10px;border-bottom:1px solid #eef1f4;vertical-align:middle}
-  .btbl td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .btbl td.n{text-align:center;font-variant-numeric:tabular-nums}
   .btbl .bno{font-weight:800;font-size:16.5px}
   .bstat{display:inline-block;font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:20px}
   .bsel{font-size:12.5px;font-weight:700;padding:4px 6px;border:none;border-radius:6px;cursor:pointer;width:100%;min-width:0}
@@ -911,7 +919,7 @@
     <div class="toolrow">
       <input class="search" id="pm_search" placeholder="제품명·배합·규격·종류 검색" oninput="renderProdMaster()">
       <select class="selbox" id="pm_cat" onchange="renderProdMaster()">
-        <option value="">전체 설비</option><option>공통</option><option>래들</option><option>턴디쉬</option><option>전기로</option>
+        <option value="">전체 설비</option><option value="공통">공통</option><option value="래들">LF</option><option value="턴디쉬">CC</option><option value="전기로">EAF</option>
       </select>
       <select class="selbox" id="pm_gubun" onchange="renderProdMaster()">
         <option value="">전체(상품/제품)</option><option value="제품">제품</option><option value="상품">상품</option>
@@ -965,6 +973,7 @@
       <button class="btn" onclick="addBomType()">＋ 유형</button>
       <button class="btn" onclick="copyBomType()" title="현재 물량표를 그대로 복사해 새 유형을 만듭니다 (비슷한 유형은 복사 후 다른 부분만 수정)">📋 복사</button>
       <button class="btn" onclick="refreshBom()" title="저장된 최신 물량표·제품 단가를 다시 불러옵니다">🔄 새로고침</button>
+      <button class="btn" onclick="relinkBomProd()" title="아직 제품 마스터와 연동되지 않은 행을 제품명·규격 기준으로 다시 연동 시도 (연동되면 규격·배합·단가가 제품 마스터에서 자동으로 채워집니다)">🔗 마스터 재연동</button>
       <button class="btn sm danger del-rec" onclick="delBomType()">유형삭제</button>
       <span class="spacer"></span>
       <span id="l_bomHint" style="font-size:11.5px;color:var(--muted)"></span>
@@ -1032,7 +1041,7 @@
         <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="lv_count"></span>
       </div>
       <div class="tablewrap"><table>
-        <thead><tr><th>상신일</th><th>신청자</th><th>소속</th><th>종류</th><th>기간</th><th class="n">일수</th><th>대근자</th><th>사유</th><th>결재 상태</th><th style="width:230px">관리</th></tr></thead>
+        <thead><tr><th>상신일</th><th style="min-width:64px;white-space:nowrap">신청자</th><th>소속</th><th>종류</th><th>기간</th><th class="n">일수</th><th>대근자</th><th>사유</th><th>결재 상태</th><th style="width:230px">관리</th></tr></thead>
         <tbody id="leaveBody"></tbody>
       </table></div>
     </div>
@@ -1078,7 +1087,7 @@
         <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="ot_count"></span>
       </div>
       <div class="tablewrap"><table>
-        <thead><tr><th>상신일</th><th>신청자</th><th>소속</th><th>근무일</th><th>시간대</th><th class="n">총</th><th class="n">휴게</th><th class="n">실잔업</th><th>유형</th><th>작업내용</th><th>결재 상태</th><th style="width:230px">관리</th></tr></thead>
+        <thead><tr><th>상신일</th><th style="min-width:64px;white-space:nowrap">신청자</th><th>소속</th><th>근무일</th><th>시간대</th><th class="n">총</th><th class="n">휴게</th><th class="n">실잔업</th><th>유형</th><th>작업내용</th><th>결재 상태</th><th style="width:230px">관리</th></tr></thead>
         <tbody id="otBody"></tbody>
       </table></div>
     </div>
@@ -1232,8 +1241,8 @@
       <button class="btn" onclick="setPartPin()" title="업무 파트별 공용 PIN 설정(관리자)">🔒 파트 PIN 설정</button>
       <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="em_count"></span>
     </div>
-    <div class="tablewrap"><table style="min-width:1500px">
-      <thead><tr><th style="width:80px">성명</th><th style="width:96px">소속</th><th style="width:78px">직급</th><th style="width:104px">파트(권한)</th><th style="width:272px">결재선</th><th style="width:128px">반/근무</th><th style="width:92px">입사일</th><th class="n" style="width:100px">연차(잔여/부여)</th><th class="n" style="width:100px">연중휴가(잔여/부여)</th><th style="width:96px">사인</th><th style="width:80px">비밀번호</th><th style="width:170px">관리</th></tr></thead>
+    <div class="tablewrap"><table style="min-width:1560px">
+      <thead><tr><th style="width:120px">성명</th><th style="width:96px">소속</th><th style="width:78px">직급</th><th style="width:104px">파트(권한)</th><th style="width:272px">결재선</th><th style="width:128px">반/근무</th><th style="width:92px">입사일</th><th class="n" style="width:118px;white-space:nowrap">연차(잔여/부여)</th><th class="n" style="width:126px;white-space:nowrap">연중휴가(잔여/부여)</th><th style="width:96px">사인</th><th style="width:80px">비밀번호</th><th style="width:170px">관리</th></tr></thead>
       <tbody id="empBody"></tbody>
     </table></div>
   </section>
@@ -1560,36 +1569,58 @@ service cloud.firestore {
     </div><!-- /esp-cost -->
     <div class="subpanel" id="esp-teardown">
       <div class="formbar">
-        <h3>＋ 로저전극해체 · 발코니해체 점검 보고서 등록</h3>
+        <h3>＋ 로저전극해체 · 발코니해체 점검 보고서 등록 <span class="hint">현장 점검보고서(PDF) 양식 그대로 반영</span></h3>
         <div class="frow">
           <div class="field w-no"><label>로</label><select id="etd_ro"><option value="A">A로</option><option value="B">B로</option></select></div>
           <div class="field w-date"><label>보수일자</label><input type="date" id="etd_date"></div>
+          <div class="field w-no"><label>정비대상</label><select id="etd_target" onchange="eafTdTargetChange()"><option value="로저전극">로저전극</option><option value="발코니">발코니</option></select></div>
           <div class="field grow"><label>보수구분</label><div id="etd_types" style="display:flex;flex-wrap:wrap;align-items:center;min-height:34px;font-size:12.5px"></div></div>
-          <div class="field w-ch"><label>수명(CH)</label><input type="number" id="etd_life" placeholder="예:1455"></div>
+          <div class="field w-ch"><label id="etd_lifeLab">수명(CH)</label><input type="number" id="etd_life" placeholder="예:1455"></div>
         </div>
         <div class="frow">
+          <div class="field w-no"><label>사유코드</label><select id="etd_reasonCode"><option value="바닥부상">바닥부상</option><option value="지락발생">지락발생</option><option value="잔존부족">잔존부족</option><option value="대보수">대보수</option><option value="기타">기타</option></select></div>
           <div class="field grow"><label>상세사유</label><input type="text" id="etd_reason" placeholder="예: 바닥 부상으로 인한 교체"></div>
         </div>
-        <div class="subhead" style="margin-top:10px">잔존현황 <span class="hint">부위별 원치수·잔존·용손율</span> <button class="btn sm" onclick="eafTdAddResidualRow()">＋ 부위 추가</button></div>
+        <div class="subhead" style="margin-top:10px">교체 범위 <span class="hint">PDF 상단표와 동일 · 해당 부위 체크 시 노란색으로 표시됩니다</span></div>
+        <div class="tablewrap"><table class="bomtbl eaf-zone-tbl" style="min-width:520px">
+          <tbody>
+            <tr><th style="width:90px">EBT</th><td colspan="4"><label class="zchk"><input type="checkbox" id="etz_ebt"> Ø200 (EBT 교체)</label></td></tr>
+            <tr><th>EBT 외주링</th>
+              <td><label class="zchk"><input type="checkbox" id="etz_ring1"> 1단</label></td>
+              <td><label class="zchk"><input type="checkbox" id="etz_ring2"> 2단</label></td>
+              <td><label class="zchk"><input type="checkbox" id="etz_ring3"> 3단</label></td><td></td></tr>
+            <tr><th>전기로 벽체</th>
+              <td><label class="zchk"><input type="checkbox" id="etz_wallL"> 벽체(좌)</label></td>
+              <td><label class="zchk"><input type="checkbox" id="etz_wallR"> 벽체(우)</label></td>
+              <td><label class="zchk"><input type="checkbox" id="etz_balcony"> 발코니</label></td>
+              <td><label class="zchk"><input type="checkbox" id="etz_workhole"> 작업구</label></td></tr>
+          </tbody>
+        </table></div>
+        <div class="subhead" style="margin-top:10px" id="etd_residualHead">잔존현황 (로저전극) <span class="hint">부위별 원치수·잔존·용손율</span></div>
         <div class="tablewrap"><table class="bomtbl" style="min-width:420px">
           <thead><tr><th>부위</th><th class="n">원치수</th><th class="n">잔존</th><th class="n">용손율</th><th style="width:34px"></th></tr></thead>
           <tbody id="etd_residualBody"></tbody>
         </table></div>
-        <div class="subhead" style="margin-top:10px">내화물 사용량 <span class="hint">품목마스터 연동 시 단가 자동 · 중량=단중×수량 · 금액=중량×단가</span> <button class="btn sm" onclick="eafTdAddItemRow()">＋ 품목 추가</button></div>
-        <div class="tablewrap"><table class="bomtbl" style="min-width:680px">
-          <thead><tr><th>품목마스터 연동</th><th>품명</th><th>규격</th><th class="n">단중</th><th class="n">수량</th><th class="n">중량</th><th class="n">단가</th><th class="n">금액</th><th style="width:34px"></th></tr></thead>
+        <div class="subhead" style="margin-top:10px">잔존현황 사진 <span class="hint">치수 표기 등 잔존현황을 보여주는 사진</span> <button class="btn sm" onclick="eafTdAddResidualPhoto()">📷 사진 추가</button></div>
+        <div id="etd_residualPhotoBox"></div>
+        <div class="subhead" style="margin-top:10px">내화물 사용량 <span class="hint">구분(카테고리)별로 묶여 소계·합계가 자동 계산됩니다 · 품목마스터 연동 시 단가 자동</span> <button class="btn sm" onclick="eafTdAddItemRow()">＋ 품목 추가</button></div>
+        <div class="tablewrap"><table class="bomtbl" style="min-width:760px">
+          <thead><tr><th style="width:110px">구분</th><th>품목마스터 연동</th><th>품명</th><th>규격</th><th class="n">단중</th><th class="n">수량</th><th class="n">중량</th><th class="n">단가</th><th class="n">금액</th><th style="width:34px"></th></tr></thead>
           <tbody id="etd_itemBody"></tbody>
         </table></div>
         <div style="font-size:12px;font-weight:700;color:var(--accent);margin-top:6px;text-align:right" id="etd_sumRow"></div>
-        <div class="subhead" style="margin-top:10px">현장 사진 <span class="hint">잔존현황·해체 전후 등 필요한 부분만 잘라서 첨부</span> <button class="btn sm" onclick="eafTdAddPhoto()">📷 사진 추가</button></div>
+        <div class="subhead" style="margin-top:10px">점검사진 <span class="hint">해체 중·해체 완료·축로중·축로 완료 등 단계별 사진</span> <button class="btn sm" onclick="eafTdAddPhoto()">📷 사진 추가</button></div>
         <div id="etd_photoBox"></div>
         <div class="frow" style="margin-top:8px">
           <div class="field grow"><label>비고</label><input type="text" id="etd_note" placeholder="점검 특이사항 등"></div>
           <div class="field"><label>&nbsp;</label><button class="btn primary" onclick="submitEafTd()">등록</button></div>
         </div>
       </div>
+      <div class="subhead" style="margin-top:4px">📊 연도별 전기로 보수 내역 <span class="hint">등록된 보고서를 연도별·A로/B로별로 자동 집계 (PDF 하단표와 동일 형식)</span> <button class="btn sm" onclick="downloadEafTdHistory()">📥 엑셀</button></div>
+      <div id="etd_historyBox" style="margin-bottom:8px"></div>
       <div class="toolrow">
         <select class="selbox" id="etd_filterRo" onchange="renderEafTdList()"><option value="">전체 로</option><option value="A">A로</option><option value="B">B로</option></select>
+        <select class="selbox" id="etd_filterTarget" onchange="renderEafTdList()"><option value="">전체 대상</option><option value="로저전극">로저전극</option><option value="발코니">발코니</option></select>
         <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="etd_count"></span>
         <button class="btn" onclick="downloadEafTd()">📥 엑셀</button>
       </div>
@@ -1598,12 +1629,19 @@ service cloud.firestore {
   </section>
   <section id="v-fieldwork" class="hidden">
     <div class="subtabs" id="fieldSubtabs">
-      <button class="subtab active" data-sp="hist" onclick="fieldTab('hist')">🗂️ 외근 히스토리</button>
-      <button class="subtab" data-sp="company" onclick="fieldTab('company')">🏢 업체별</button>
+      <button class="subtab active" data-sp="company" onclick="fieldTab('company')">🏢 업체별</button>
+      <button class="subtab" data-sp="hist" onclick="fieldTab('hist')">🗂️ 외근 히스토리</button>
       <button class="subtab" data-sp="issue" onclick="fieldTab('issue')">⚠️ 이슈 · 후속사항</button>
     </div>
     <div class="cards" id="fieldCards"></div>
-    <div class="subpanel active" id="fsp-hist">
+    <div class="subpanel active" id="fsp-company">
+      <div id="fieldCompanyRoot">
+        <div class="toolrow"><span style="font-size:11.5px;color:var(--muted)">업체 폴더를 클릭하면 해당 업체의 담당자·미팅 이력을 볼 수 있습니다</span></div>
+        <div id="fieldCompanyList" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px"></div>
+        <div id="fieldCompanyDetail" style="margin-top:16px"></div>
+      </div>
+    </div>
+    <div class="subpanel" id="fsp-hist">
       <div class="toolrow">
         <input class="search" id="f_search" placeholder="고객·면담자·내용 검색" oninput="renderFieldHist()">
         <select class="selbox" id="f_cat" onchange="renderFieldHist()"><option value="">전체 구분</option><option value="구매">구매</option><option value="노재">노재</option></select>
@@ -1612,13 +1650,6 @@ service cloud.firestore {
         <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="f_count"></span>
       </div>
       <div id="fieldHist"></div>
-    </div>
-    <div class="subpanel" id="fsp-company">
-      <div id="fieldCompanyRoot">
-        <div class="toolrow"><span style="font-size:11.5px;color:var(--muted)">업체 폴더를 클릭하면 해당 업체의 담당자·미팅 이력을 볼 수 있습니다</span></div>
-        <div id="fieldCompanyList" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px"></div>
-        <div id="fieldCompanyDetail" style="margin-top:16px"></div>
-      </div>
     </div>
     <div class="subpanel" id="fsp-issue">
       <div class="toolrow">
@@ -1690,11 +1721,12 @@ service cloud.firestore {
     <div class="subpanel" id="isp-master">
       <div class="toolrow">
         <input class="search" id="invm_search" placeholder="품명·코드 검색" oninput="renderInvMaster()">
+        <button class="btn" onclick="addInvItem()">＋ 품목 추가</button>
         <button class="btn" onclick="downloadInvMaster()">📥 엑셀</button>
-        <span class="spacer"></span><span style="font-size:11.5px;color:var(--muted)">단가·단위는 여기서 수정하면 전 기간 원단위에 반영 · 내화물 기본정보와 연동시 단가 자동 동기화</span>
+        <span class="spacer"></span><span style="font-size:11.5px;color:var(--muted)">설비·품명·단가·단위는 여기서 직접 수정 가능 · 내화물 기본정보와 연동시 단가 자동 동기화</span>
       </div>
-      <div class="tablewrap"><table class="bomtbl" style="min-width:880px">
-        <thead><tr><th>설비</th><th>코드</th><th>품명</th><th>단위</th><th class="n">단가(원)</th><th>분류</th><th style="min-width:170px">내화물 기본정보 연동</th></tr></thead>
+      <div class="tablewrap"><table class="bomtbl" style="min-width:960px">
+        <thead><tr><th style="min-width:64px">설비</th><th>코드</th><th style="min-width:180px">품명</th><th>단위</th><th class="n">단가(원)</th><th>분류</th><th style="min-width:170px">내화물 기본정보 연동</th><th style="min-width:100px">관리</th></tr></thead>
         <tbody id="invMasterBody"></tbody>
       </table></div>
     </div>
@@ -1751,6 +1783,9 @@ service cloud.firestore {
         <option value="">동국 전체</option><option value="win">동국 낙찰</option><option value="1순위">1순위</option>
         <option value="2순위">2순위</option><option value="참여">참여(수주실패)</option><option value="미참여">미참여</option>
       </select>
+      <select class="selbox" id="p_site" onchange="renderPosco()" title="포항제철소·광양제철소 구분(공통 품목은 두 제철소 모두 해당)">
+        <option value="">제철소 전체</option><option value="포항제철소">포항제철소</option><option value="광양제철소">광양제철소</option><option value="공통">공통</option>
+      </select>
       <button class="btn" onclick="downloadPosco()">📥 엑셀</button>
       <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="p_count"></span>
     </div>
@@ -1761,8 +1796,9 @@ service cloud.firestore {
       <button class="btn sm" onclick="addPvend()">＋ 추가</button>
     </div>
     <div class="subpanel active" id="psp-result">
+      <div class="subhead" id="p_bidLabel" style="color:#1d4ed8"></div>
       <div class="tablewrap"><table class="bomtbl" style="min-width:1180px">
-        <thead><tr><th>품명</th><th style="min-width:140px">입찰가능업체</th><th style="min-width:120px">입찰 순위업체</th><th>기존업체</th><th class="n">기존단가</th><th class="n">낙찰가</th><th class="n">물량(kg)</th><th class="n">금액(원)</th><th>배분율</th><th>동국 순위</th><th class="n">동국 낙찰금액</th><th style="min-width:110px">계약업체·계약기간</th></tr></thead>
+        <thead><tr><th style="min-width:170px;white-space:nowrap">품명</th><th style="min-width:112px">제철소</th><th style="min-width:140px">입찰가능업체</th><th style="min-width:120px">입찰 순위업체</th><th>기존업체</th><th class="n">기존단가</th><th class="n">낙찰가</th><th class="n">물량(kg)</th><th class="n">금액(원)</th><th>배분율</th><th>동국 순위</th><th class="n">동국 낙찰금액</th><th style="min-width:110px">계약업체·계약기간</th></tr></thead>
         <tbody id="poscoBody"></tbody>
       </table></div>
       <div style="font-size:11.5px;color:var(--accent);margin-top:8px">※ 25·26년 범용B 입찰을 통합(중복 품목은 최신 회차 기준). 27년 통합 입찰 준비용 마스터 품목 리스트입니다. '계약업체·계약기간' 칸을 클릭하면 현재 계약업체와 계약기간(예: 27.03월)을 입력할 수 있고, 이전 값이 있으면 자동으로 이력에 남아 나중에 업체가 바뀐 시점을 비교할 수 있습니다.</div>
@@ -1859,6 +1895,34 @@ service cloud.firestore {
       <button class="btn" onclick="photoCropCancel()">취소</button>
       <button class="btn" onclick="photoCropApply(true)">전체 사용</button>
       <button class="btn primary" onclick="photoCropApply(false)">선택 영역 자르기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 포스코 계약기간 관리 오버레이 -->
+<div id="poscoContractPanel" class="hidden" style="position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:9999;display:flex;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:12px;padding:20px;max-width:min(94vw,520px);width:520px;box-shadow:0 10px 40px rgba(0,0,0,.3)">
+    <div style="font-weight:800;font-size:15px;margin-bottom:2px">📄 계약업체·계약기간 관리</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px" id="pcp_item"></div>
+    <div style="border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:10px">
+      <div style="font-weight:700;font-size:12.5px;color:#1d4ed8;margin-bottom:8px">현재 계약</div>
+      <div class="frow">
+        <div class="field"><label>계약업체</label><input class="selbox" id="pcp_vendor" placeholder="예: 동국R&S"></div>
+        <div class="field"><label>계약기간</label><input class="selbox" id="pcp_period" placeholder="예: 24.04월~27.03월"></div>
+      </div>
+    </div>
+    <div style="border:1px solid #dbeafe;background:#f8fbff;border-radius:8px;padding:12px;margin-bottom:10px">
+      <div style="font-weight:700;font-size:12.5px;color:#b45309;margin-bottom:8px">다음 계약(예정) <span style="font-weight:400;color:var(--muted)">· 미정이면 비워두세요</span></div>
+      <div class="frow">
+        <div class="field"><label>예정 업체</label><input class="selbox" id="pcp_nvendor" placeholder="예: 동국R&S"></div>
+        <div class="field"><label>예정 기간</label><input class="selbox" id="pcp_nperiod" placeholder="예: 27.04월~30.03월"></div>
+      </div>
+    </div>
+    <div style="font-weight:700;font-size:12.5px;color:var(--muted);margin-bottom:6px">과거 계약 이력</div>
+    <div id="pcp_hist" style="max-height:160px;overflow:auto;border:1px solid var(--line);border-radius:8px;margin-bottom:14px;font-size:12px"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn" onclick="closePoscoContract()">취소</button>
+      <button class="btn primary" onclick="savePoscoContractModal()">💾 저장</button>
     </div>
   </div>
 </div>
@@ -2906,6 +2970,10 @@ function linkRowProd(r){
   const baseSpec=(r.spec||'').replace(/\s*\([^)]*\)\s*/g,'').trim();
   let p=prodData.find(x=>x.name===r.nm&&x.spec===baseSpec);
   if(!p)p=prodData.find(x=>x.name===r.nm&&Math.abs((+x.uw||0)-(+r.uw||0))<0.01&&(+x.price||0)===(+r.price||0));
+  if(!p){ // 대소문자·공백 차이 허용 매칭(품명+규격)
+    const rn=(r.nm||'').trim().toLowerCase(),rs=baseSpec.toLowerCase();
+    if(rn)p=prodData.find(x=>(x.name||'').trim().toLowerCase()===rn&&(x.spec||'').trim().toLowerCase()===rs);
+  }
   if(p){r.pcode=p.id;
     const m=(r.spec||'').match(/\(([^)]+)\)/);if(m&&!(r.bu||'').includes(m[1]))r.bu=((r.bu||'')+' '+m[1]).trim();}
   return r;
@@ -2922,6 +2990,67 @@ const TUNDISH_BOM_SEED=[
    ['마모장','AMC TDP','',1,20,25976],
   ]},
  {code:'TD_PERM',name:'영구장(대수리)',group:'영구장',baseCH:0,order:2,rows:[]},
+ {code:'TD150_GEN',name:'150각 일반보수',group:'일반',baseCH:0,order:3,
+  // 출처: 2. 축조 물량표/2. 턴디쉬/동국포항 턴디쉬 내화물 물량표(230727).xlsx · C52 턴디쉬 마모장(2026-09-19 수령)
+  rows:[
+   ['마모장','T/D Gunning재','',1,2800,1010],
+   ['마모장','탕수연와B','',1,40.34,2294],
+   ['마모장','CA-180M','',1,250,1412],
+   ['마모장','RM-37S','',1,100,1286],
+   ['마모장','AMC-W','',1,141,1786],
+   ['마모장','AMC TDP','',1,20,25976],
+   ['마모장','DAM BLOCK','',1,2,271830],
+   ['마모장','IMPACT PAD BLOCK','',1,1,282838],
+   ['마모장','S-TUBE(350)','',1,2,81223],
+   ['마모장','S-TUBE(400)','',1,2,82254],
+   ['마모장','S-TUBE(420)','',1,1,83267],
+   ['마모장','MTNP','',1,5,244120],
+   ['마모장','Middle Plate','',1,5,97672],
+   ['마모장','Lower Plate','',1,5,120898],
+   ['마모장','S-TUBE COVER','',1,1,41416],
+   ['마모장','CAP BLOCK','',1,5,43617],
+   ['마모장','Gasket','',1,5,17162],
+   ['마모장','Ramming','',1,575,1469],
+  ]},
+ {code:'TD150_WALL',name:'150각 벽체 마모장보수',group:'마모장',baseCH:0,order:4,
+  // 출처: 2. 축조 물량표/2. 턴디쉬/동국포항 턴디쉬 내화물 물량표(230727).xlsx · C52 턴디쉬 벽체(SES BL/BB) (2026-09-19 수령)
+  rows:[
+   ['벽체','SES BL(250각)','',1,5,235011],
+   ['벽체','SES BL(300각)','',1,5,235011],
+   ['벽체','SES BB(BB)','',1,5,226765],
+  ]},
+ {code:'TD150_PERM',name:'150각 영구장 보수',group:'영구장',baseCH:0,order:5,
+  // 출처: 2. 축조 물량표/2. 턴디쉬/동국포항 턴디쉬 내화물 물량표(230727).xlsx · C52 턴디쉬 영구장(2026-09-19 수령)
+  rows:[
+   ['영구장','SK 36 1/2','',1,1500,648],
+   ['영구장','유입재','',1,13000,1026],
+   ['영구장','탕수연와A','',1,58.5,1927],
+   ['영구장','MAL','',1,250,1093],
+  ]},
+ {code:'TDBLBB_GEN',name:'B/L·BB 일반보수',group:'일반',baseCH:0,order:6,
+  // 출처: 2. 축조 물량표/2. 턴디쉬/동국포항 턴디쉬 내화물 물량표(230727).xlsx · ONQC 턴디쉬 마모장(2026-09-19 수령)
+  rows:[
+   ['마모장','T/D Gunning재','',1,3000,1010],
+   ['마모장','탕수연와B','',1,121,2294],
+   ['마모장','T/D DAM BRICK','',1,128.64,1829],
+   ['마모장','AMC-B','',1,172.8,1786],
+   ['마모장','AMC-W','',1,141,1786],
+   ['마모장','CA-180M','',1,325,1412],
+   ['마모장','AMC-TDP','',1,20,25976],
+   ['마모장','RM-37S','',1,100,1286],
+   ['마모장','Gasket','',1,5,7000],
+   ['마모장','ONQC W/B','',1,5,38545],
+   ['마모장','ONQC 상노즐','',1,5,36896],
+   ['마모장','ONQC 하노즐','',1,5,36655],
+  ]},
+ {code:'TDBLBB_PERM',name:'B/L·BB 영구장보수',group:'영구장',baseCH:0,order:7,
+  // 출처: 2. 축조 물량표/2. 턴디쉬/동국포항 턴디쉬 내화물 물량표(230727).xlsx · ONQC 턴디쉬 영구장(2026-09-19 수령)
+  rows:[
+   ['영구장','유입재','',1,9000,1026],
+   ['영구장','AMC-W','',1,2062.8,1786],
+   ['영구장','탕수연와A','',1,58.5,1927],
+   ['영구장','MAL','',1,250,1093],
+  ]},
 ];
 // ===== 전기로 축조물량표 시드 (260127 기준) =====
 const EAF_BOM_SEED=[
@@ -2966,6 +3095,18 @@ async function loadBom(){
                ...seedIf('tundish',seedBomRecsE('tundish',TUNDISH_BOM_SEED)),
                ...seedIf('eaf',seedBomRecsE('eaf',EAF_BOM_SEED))];
   for(const b of fresh){try{await putRec('bomstd',b);}catch(e){}}
+  // 턴디쉬 원가관리 카테고리 확장(1회): 150각 일반/벽체/영구장, B/L·BB 일반/영구장 추가
+  if(!localStorage.getItem('dgrns_td_bomcat_v1')){
+    const existTd=bomData.filter(b=>b.equip==='tundish').map(b=>b.code);
+    const toAdd=TUNDISH_BOM_SEED.filter(s=>!existTd.includes(s.code));
+    if(toAdd.length){
+      const recs=seedBomRecsE('tundish',toAdd);
+      recs.forEach(b=>(b.rows||[]).forEach(linkRowProd));
+      bomData.push(...recs);
+      for(const b of recs){try{await putRec('bomstd',b);}catch(e){}}
+    }
+    try{localStorage.setItem('dgrns_td_bomcat_v1','1');}catch(e){}
+  }
   // 기존(구버전) 래들 물량표 → 제품 마스터 자동 연결(1회)
   if(!localStorage.getItem('dgrns_prodlink')){
     const lad=bomData.filter(b=>b.equip==='ladle');
@@ -3125,7 +3266,7 @@ function bomRecByCode(equip,code){return bomData.find(b=>b.equip===equip&&b.code
 function ladleBoms(){return bomsFor('ladle');}
 function bomByCode(code){return bomRecByCode('ladle',code);}
 // 설비별 구분(그룹)·필수유형
-const BOM_GROUP_MAP={ladle:['신축','영구장','SL보수','콘보수','기타'],tundish:['영구장','일반','마모장','기타'],eaf:['신축','영구장','마모장','로저전극','로상재','기타']};
+const BOM_GROUP_MAP={ladle:['신축','영구장','SL보수','콘보수','기타'],tundish:['영구장','일반','마모장','벽체','기타'],eaf:['신축','영구장','마모장','로저전극','로상재','기타']};
 const BOM_CORE_MAP={ladle:['NEW','PERM_ALL','SL_P1','CONE'],tundish:[],eaf:[]};
 function bomGroupsFor(eq){return BOM_GROUP_MAP[eq]||['신축','기타'];}
 function bomCoreFor(eq){return BOM_CORE_MAP[eq]||[];}
@@ -3216,6 +3357,8 @@ function downloadEquipCost(equip){
 /* ---- 제품 마스터(백데이터) CRUD · 전 설비 공용 ---- */
 let prodDirty=false;
 const PROD_CATS=['공통','래들','턴디쉬','전기로'];
+const CAT_LABEL={'래들':'LF','턴디쉬':'CC','전기로':'EAF','공통':'공통'};
+function catLabel(c){return CAT_LABEL[c||'공통']||(c||'공통');}
 function prodUseCount(id){let n=0;bomData.forEach(b=>(b.rows||[]).forEach(r=>{if(r.pcode===id)n++;}));return n;}
 function bomIsActive(){return curView==='bom';}
 function refreshBomIfOpen(){if(bomIsActive())renderLadleBom();}
@@ -3239,7 +3382,7 @@ function renderProdMaster(){
   const viewLive=(pricePeriod==='');
   window.__pmShownIds=rows.map(({p})=>p.id);
   document.getElementById('pm_hint').textContent=`표시 ${rows.length} / 총 ${prodData.length}개 · 상품 ${nGoods}·제품 ${prodData.length-nGoods} · 선택 ${prodSel.size} · 단가시점 [${periodLabel(pricePeriod)}]${cmpPeriod?' vs '+periodLabel(cmpPeriod):''}`;
-  const catSel=(i,v)=>`<select onchange="editProd(${i},'cat',this.value)" style="font-size:11px">${PROD_CATS.map(c=>`<option${c===(v||'공통')?' selected':''}>${c}</option>`).join('')}</select>`;
+  const catSel=(i,v)=>`<select onchange="editProd(${i},'cat',this.value)" style="font-size:11px">${PROD_CATS.map(c=>`<option value="${c}"${c===(v||'공통')?' selected':''}>${catLabel(c)}</option>`).join('')}</select>`;
   const gubunSel=(i,v)=>`<select onchange="editProd(${i},'gubun',this.value);renderProdMaster()" style="font-size:11px">${PROD_GUBUN.map(g=>`<option${g===(v||'제품')?' selected':''}>${g}</option>`).join('')}</select>`;
   document.getElementById('prodBody').innerHTML=rows.map(({p,i})=>{const off=prodUse(p)===0;const sel=prodSel.has(p.id);
     const shown=priceAt(p.id,pricePeriod);
@@ -3322,7 +3465,7 @@ function saveProdMaster(){prodData.forEach(p=>{delete p._new;});saveProd();prodD
 function downloadProd(){
   let t=`<table><tr><th>설비</th><th>구분</th><th>당사 제품명</th><th>고객사 제품명</th><th>품목종류</th><th>배합</th><th>규격</th><th>단중(kg)</th><th>단가(원)</th><th>사용여부</th><th>사용물량표</th></tr>`;
   prodData.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||'','en')||(a.spec||'').localeCompare(b.spec||'','en'))
-    .forEach(p=>{t+=`<tr><td>${esc(p.cat||'공통')}</td><td>${esc(prodGubun(p))}</td><td>${esc(p.name)}</td><td>${esc(p.custName||'')}</td><td>${esc(p.kind||'')}</td><td>${esc(p.mix||'')}</td><td>${esc(p.spec)}</td><td>${p.uw||''}</td><td>${p.price||''}</td><td>${prodUse(p)?'사용':'미사용'}</td><td>${prodUseCount(p.id)}</td></tr>`;});
+    .forEach(p=>{t+=`<tr><td>${esc(catLabel(p.cat))}</td><td>${esc(prodGubun(p))}</td><td>${esc(p.name)}</td><td>${esc(p.custName||'')}</td><td>${esc(p.kind||'')}</td><td>${esc(p.mix||'')}</td><td>${esc(p.spec)}</td><td>${p.uw||''}</td><td>${p.price||''}</td><td>${prodUse(p)?'사용':'미사용'}</td><td>${prodUseCount(p.id)}</td></tr>`;});
   t+=`</table>`;downloadXls('내화물_제품마스터',t);
 }
 /* ---- 분기 단가 CSV 양식 내보내기 / 일괄 가져오기 ---- */
@@ -3425,6 +3568,14 @@ async function refreshBom(){
   try{bomData=await txAll('bomstd');}catch(e){}
   try{prodData=loadProd();}catch(e){}
   initLadleBom();toast('최신 물량표·단가로 새로고침했습니다');
+}
+// 아직 제품 마스터에 연동되지 않은 행(직접입력 규격/단가)을 현재 제품 마스터 기준으로 재매칭
+function relinkBomProd(){
+  if(!bomDraft||!bomDraft.length){toast('물량표를 먼저 선택하세요');return;}
+  let n=0;
+  bomDraft.forEach(r=>{if(!r.pcode){const before=r.pcode;linkRowProd(r);if(r.pcode&&r.pcode!==before)n++;}});
+  if(n){bomDirty=true;const s=document.getElementById('l_bomSave');if(s)s.textContent='💾 저장*';drawBomRows();toast(n+'개 행을 제품 마스터에 연동했습니다 · 저장을 눌러 반영하세요');}
+  else toast('추가로 연동할 수 있는 행이 없습니다 (품명·규격이 제품 마스터와 일치해야 연동됩니다)');
 }
 async function delBomType(){
   if(!canDelete()){alert('삭제는 관리자만 가능합니다.');return;}
@@ -3827,8 +3978,8 @@ function renderLadleDia(){
   const kindLab=isEnd?'해체일지':((tdRec.type||'')+' 점검일지');
   const dateLab=isEnd?'해체':'점검';
 
-  /* ① 단면도 */
-  let col1=`<div class="dia-h">① 래들 단면 (${esc(isEnd?'해체':(tdRec.type||'점검'))})</div>${diaSVG()}
+  /* 래들 단면도 (표시 순서: 우측 배치) */
+  let col1=`<div class="dia-h">④ 래들 단면 (${esc(isEnd?'해체':(tdRec.type||'점검'))})</div>${diaSVG()}
     <div class="dia-legend">
       <span><b style="color:#dc2626">■</b>S/L(슬래그라인)</span>
       <span><b style="color:#1d4ed8">■</b>M/L(메탈라인)</span>
@@ -3839,8 +3990,8 @@ function renderLadleDia(){
       <label class="dlab" style="flex:1;color:#1d4ed8">M/L ${ni(L.ml,"diaCur.lim=Object.assign(diaLimits(),{ml:+this.value})")}</label>
     </div>`;
 
-  /* ② PP-CONE + 점검자 */
-  let col2=`<div class="dia-h">② PP-CONE <span class="dsub">(${PP_SPEC}−잔존)÷구간CH</span></div>
+  /* PP-CONE + 점검자 (표시 순서: 좌측 배치) */
+  let col2=`<div class="dia-h">① PP-CONE <span class="dsub">(${PP_SPEC}−잔존)÷구간CH</span></div>
     <table class="dtbl"><colgroup><col style="width:17%"><col style="width:26%"><col style="width:12%"><col style="width:14%"><col style="width:14%"><col style="width:17%"></colgroup><thead><tr><th>구분</th><th>기간</th><th>CH</th><th>#1</th><th>#2</th><th>용손율</th></tr></thead><tbody>`;
   diaCur.segs.forEach((g,i)=>{
     const d=(+g.ch||1), r1=Math.max(0,PP_SPEC-(+g.p1||0))/d, r2=Math.max(0,PP_SPEC-(+g.p2||0))/d;
@@ -3853,7 +4004,7 @@ function renderLadleDia(){
       </tr>`;});
   col2+=`</tbody></table>
     <button class="btn sm no-print" style="margin-top:5px" onclick="diaAddSeg()">＋ 보수 구간</button>
-    <div class="dia-h" style="margin-top:10px">③ ${esc(isEnd?"해체 점검":"보수 점검")}</div>
+    <div class="dia-h" style="margin-top:10px">② ${esc(isEnd?"해체 점검":"보수 점검")}</div>
     <table class="dtbl"><colgroup><col style="width:22%"><col></colgroup><tbody>
       <tr><th>점검일</th><td><input type="date" class="dtxt" value="${esc(diaCur.insDate||diaCur.date||'')}" onchange="diaCur.insDate=this.value"></td></tr>
       <tr><th>점검자</th><td><input class="dtxt" placeholder="동국R&S 홍길동" value="${esc(diaCur.insBy||'')}" onchange="diaCur.insBy=this.value"></td></tr>
@@ -3862,8 +4013,8 @@ function renderLadleDia(){
       <tr><th>Remark</th><td><input class="dtxt" placeholder="S/L 잔존부족으로 해체" value="${esc(diaCur.remark||'')}" onchange="diaCur.remark=this.value"></td></tr>
     </tbody></table>`;
 
-  /* ③ 단수별 잔존 */
-  let col3=`<div class="dia-h">④ 단수별 잔존 <span class="dsub">용손율 = (규격−잔존)÷${ch}CH</span></div>
+  /* 단수별 잔존 (표시 순서: 가운데 배치) */
+  let col3=`<div class="dia-h">③ 단수별 잔존 <span class="dsub">용손율 = (규격−잔존)÷${ch}CH</span></div>
     <table class="dtbl"><colgroup><col style="width:11%"><col style="width:17%"><col style="width:16%"><col style="width:13%"><col style="width:16%"><col style="width:13%"><col style="width:14%"></colgroup><thead><tr><th>단</th><th>규격</th><th style="background:#eff6ff">#1</th><th style="background:#eff6ff">율</th><th style="background:#f5f3ff">#2</th><th style="background:#f5f3ff">율</th><th>최소</th></tr></thead><tbody>`;
   diaCur.courses.forEach((c,i)=>{
     const a=rr(c.spec,c.r1), b=rr(c.spec,c.r2), mn=Math.min(+c.r1||0,+c.r2||0);
@@ -3894,7 +4045,7 @@ function renderLadleDia(){
 
   document.getElementById('ladleDia').innerHTML=
     `<div id="diaPrintArea" class="dia-sheet">${head}
-       <div class="dia-grid"><div>${col1}</div><div>${col2}</div><div>${col3}</div></div>
+       <div class="dia-grid"><div>${col2}</div><div>${col3}</div><div>${col1}</div></div>
        ${photoBlock}
        ${warnBar}
        <div class="dia-foot">점검자 ${esc(diaCur.insBy||'')} &nbsp;/&nbsp; 입회 ${esc(diaCur.insWith||'')} &nbsp;/&nbsp; 점검일 ${esc(fmtYMD(diaCur.insDate||diaCur.date||''))}</div>
@@ -4723,13 +4874,23 @@ function setBoardMemo(k,v){boardMemo[k]=v;try{localStorage.setItem('dgrns_board'
 function loadBStat(){try{return JSON.parse(localStorage.getItem('dgrns_bstat')||'{}');}catch(e){return {};}}
 let bStat=loadBStat();
 function setBStat(k,v){if(v==='자동')delete bStat[k];else bStat[k]=v;try{localStorage.setItem('dgrns_bstat',JSON.stringify(bStat));}catch(e){}renderBoard();}
-const STAT_OPTS=['사용중','사용대기','해체대기','대수리중','승수리중','증수리중','콘위보수중','신점검','폐기'];
+function loadBoardDateOv(){try{return JSON.parse(localStorage.getItem('dgrns_board_dateov')||'{}');}catch(e){return {};}}
+let boardDateOv=loadBoardDateOv();
+function setBoardDateOv(k,v){if(v)boardDateOv[k]=v;else delete boardDateOv[k];try{localStorage.setItem('dgrns_board_dateov',JSON.stringify(boardDateOv));}catch(e){}renderBoard();}
+function loadBoardLifeDone(){try{return JSON.parse(localStorage.getItem('dgrns_board_lifedone')||'{}');}catch(e){return {};}}
+let boardLifeDone=loadBoardLifeDone();
+function setBoardLifeDone(k,v){if(v)boardLifeDone[k]=v;else delete boardLifeDone[k];try{localStorage.setItem('dgrns_board_lifedone',JSON.stringify(boardLifeDone));}catch(e){}}
+const STAT_OPTS=['사용중','사용대기','해체대기','신축중','SL보수중','콘보수'];
+const TD_STAT_OPTS=['사용완료','사용중','사용대기','해체대기'];
 function statColor(lab){
   if(lab==='사용중')return['#15803d','#dcfce7'];
   if(lab==='사용대기')return['#b45309','#ffedd5'];
   if(lab==='해체대기'||lab==='폐기')return['#c81e1e','#fde7e6'];
-  if(lab==='신점검')return['#1d4ed8','#dbeafe'];
-  return['#a16207','#fef4c7']; // 대수리/승수리/증수리/콘위보수 등
+  if(lab==='신축중')return['#1d4ed8','#dbeafe'];
+  if(lab==='SL보수중')return['#b91c8c','#fbe7f6'];
+  if(lab==='콘보수')return['#7c3aed','#ede9fe'];
+  if(lab==='사용완료')return['#516170','#eef1f4'];
+  return['#a16207','#fef4c7'];
 }
 // 래들 자동 현황: 일일수명(사용) 갱신 중이면 사용중, 해체/폐기는 해체대기, 그 외 사용대기
 function ladleAutoStat(last){const t=last.type;
@@ -4739,10 +4900,10 @@ function ladleAutoStat(last){const t=last.type;
   return '사용대기';}
 // 턴디쉬 자동 현황: 연주 1대·사용완료만 기록 → 기본 사용대기 (해체대기/축로중은 향후 수동 세분)
 function tundishAutoStat(){return '사용대기';}
-function statSel(key,autoLab){const cur=bStat[key]||autoLab;const [col,bg]=statColor(cur);
+function statSel(key,autoLab,opts){const list=opts||STAT_OPTS;const cur=bStat[key]||autoLab;const [col,bg]=statColor(cur);
   return `<select class="bsel" style="color:${col};background:${bg}" onchange="setBStat('${key}',this.value)">`
     +`<option value="자동"${!bStat[key]?' selected':''}>${autoLab} (자동)</option>`
-    +STAT_OPTS.map(o=>`<option${o===cur&&bStat[key]?' selected':''}>${o}</option>`).join('')+`</select>`;}
+    +list.map(o=>`<option${o===cur&&bStat[key]?' selected':''}>${o}</option>`).join('')+`</select>`;}
 function permDate(list){const p=list.filter(r=>r.type==='대수리(영구장)'||r.type==='철피신규');return p.length?p[p.length-1].date:null;}
 function boardLadle(){
   const asOf=boardCurDate();
@@ -4768,9 +4929,9 @@ function boardLadle(){
       <td>${statSel(key,ladleAutoStat(last))}</td>
       <td style="font-size:11px">${last._campStart?esc(fmtYMD(last._campStart)):'-'}</td>
       <td style="font-size:11px;color:#a16207">${pd?esc(fmtYMD(pd)):'-'}</td>
-      <td><input class="binp" value="${esc(memo)}" placeholder="현황·보수 메모" onchange="setBoardMemo('${key}',this.value)"></td></tr>`;}).join('');
+      <td><input class="binp" value="${esc(memo)}" placeholder="특이사항" onchange="setBoardMemo('${key}',this.value)"></td></tr>`;}).join('');
   return `<div class="bcol"><table class="btbl">
-    <thead><tr><th>No</th><th class="n">현재수명</th><th class="n" title="최근 콘보수 이후 사용 CH">콘 수명</th><th class="n" title="최근 S/L보수 이후 사용 CH">S/L 수명</th><th class="n">영구장누적</th><th>현황</th><th>신축일자</th><th>영구장일자</th><th>메모</th></tr></thead>
+    <thead><tr><th>No</th><th class="n">현재수명</th><th class="n" title="최근 콘보수 이후 사용 CH">콘 수명</th><th class="n" title="최근 S/L보수 이후 사용 CH">S/L 수명</th><th class="n">영구장누적</th><th>현황</th><th>신축일자</th><th>영구장일자</th><th>특이사항</th></tr></thead>
     <tbody>${rows||'<tr><td colspan="9" style="color:#98a2ad;padding:12px">-</td></tr>'}</tbody></table></div>`;
 }
 function boardTundishCol(colName,hcolor){
@@ -4779,13 +4940,16 @@ function boardTundishCol(colName,hcolor){
   const nos=Object.keys(g).sort(cmpNo);
   const rows=nos.map(no=>{const list=withCum(g[no].slice());const last=list[list.length-1];
     const pd=permDate(list);const key='T:'+no;const memo=boardMemo[key]||'';
+    const campVal=boardDateOv[key]||last._campStart||'';
+    const lifeDone=boardLifeDone[key]||'';
     return `<div class="btd-row"><span class="bno">${esc(no)}</span>
-      <span>${statSel(key,tundishAutoStat())}</span>
-      <span title="신축">${last._campStart?esc(fmtYMD(last._campStart)):'-'}</span>
+      <span>${statSel(key,tundishAutoStat(),TD_STAT_OPTS)}</span>
+      <span title="신축일자(클릭하여 입력)"><input type="date" class="binp" style="font-size:11.5px;padding:4px 2px;box-sizing:border-box;width:100%;min-width:0" value="${esc(campVal)}" onchange="setBoardDateOv('${key}',this.value)"></span>
       <span title="영구장" style="color:#a16207">${pd?esc(fmtYMD(pd)):'-'}</span>
-      <span><input class="binp" value="${esc(memo)}" placeholder="메모" onchange="setBoardMemo('${key}',this.value)"></span></div>`;}).join('');
+      <span><input class="binp" value="${esc(lifeDone)}" placeholder="수명" title="사용완료 시 사용수명(CH) 직접입력" onchange="setBoardLifeDone('${key}',this.value)"></span>
+      <span><input class="binp" value="${esc(memo)}" placeholder="특이사항" onchange="setBoardMemo('${key}',this.value)"></span></div>`;}).join('');
   return `<div class="bcol"><div class="bcol-h" style="background:${hcolor}">${colName} T/D</div>
-    <div class="btd-row btd-head"><span>No</span><span>현황</span><span>신축</span><span>영구장</span><span>메모</span></div>
+    <div class="btd-row btd-head"><span>No</span><span>현황</span><span>신축</span><span>영구장</span><span>사용완료</span><span>특이사항</span></div>
     ${rows||'<div style="color:#98a2ad;padding:12px;font-size:12px">-</div>'}</div>`;
 }
 let curBoardTab='ladle';
@@ -4959,65 +5123,94 @@ function initEafParts(){
     sel.dataset.done='1';}
 }
 /* ============ 전기로 해체 점검 보고서 (로저전극해체 / 발코니해체) ============
-   현장 점검보고서(PDF) 양식 참고: 로 구분·보수구분·수명(CH)·상세사유·잔존현황(부위별 원치수/잔존/용손율)·
-   내화물 사용량(품명·규격·단중×수량=중량, 중량×단가=금액, 품목마스터 연동시 단가 자동)을 그대로 반영.
-   ※ PDF만으로는 용손율의 정확한 산식이 확인되지 않아 우선 "자동"버튼(1-잔존/원치수)으로 제공하고 직접 수정 가능하게 함 —
-      엑셀 파일 전달 시 정확한 수식으로 교체 예정. */
+   현장 점검보고서(PDF) 2건("B로 로저전극해체 점검 보고서","A로 발코니 연와 교체 보고서") 양식을 그대로 반영:
+   - 정비대상(로저전극/발코니)에 따라 잔존현황 부위가 자동 전환 (로저전극: #1·#2·#3 / 발코니: 발코니·벽체연와)
+   - 교체 범위(EBT·EBT외주링 1~3단·전기로 벽체 좌/우/발코니/작업구) 체크 시 노란색 하이라이트 + 벽체 단면 개략도에 반영
+   - 내화물 사용량은 구분(카테고리)별로 묶어 소계·합계 자동 계산 (PDF 3페이지 표와 동일 구조)
+   - 등록된 전체 보고서를 연도별·A로/B로별로 자동 집계하는 "전기로 보수 내역" 표 제공 (PDF 하단표와 동일 형식)
+   ※ 용손율 산식은 PDF만으로 정확히 확인되지 않아 "자동"버튼(1-잔존/원치수)으로 제공, 직접 수정 가능
+   ※ 벽체 단면도는 실제 도면이 아닌 교체범위 파악용 단순 개략도입니다. */
 const EAF_TD_TYPES=['전극교체','발코니교체','대보수','주간보수'];
+const EAF_ITEM_CATS=['로저전극내화물','SMC-95','PGT-FM7C','AMUD-85P','열간보수재','램밍재','MAGRAM-95CR','MAGRAM-98','앙카허스','기타'];
 function loadEafTd(){try{const s=JSON.parse(localStorage.getItem('dgrns_eaf_teardown'));if(Array.isArray(s))return s;}catch(e){}return [];}
 function saveEafTd(){try{localStorage.setItem('dgrns_eaf_teardown',JSON.stringify(eafTdData));}catch(e){}}
 let eafTdData=loadEafTd();
-let eafTdResidual=[{part:'',orig:0,remain:0,rate:0}];
-let eafTdItems=[{code:'',name:'',spec:'',uw:0,qty:0,price:0}];
+function eafTdDefaultResidual(target){
+  return target==='발코니'?[{part:'발코니',orig:0,remain:0,rate:0},{part:'벽체연와',orig:0,remain:0,rate:0}]
+                          :[{part:'#1',orig:0,remain:0,rate:0},{part:'#2',orig:0,remain:0,rate:0},{part:'#3',orig:0,remain:0,rate:0}];
+}
+let eafTdResidual=eafTdDefaultResidual('로저전극');
+let eafTdItems=[{cat:EAF_ITEM_CATS[0],code:'',name:'',spec:'',uw:0,qty:0,price:0}];
 let eafTdPhotos=[];
+let eafTdResidualPhotos=[];
 function eafTdAddPhoto(){openPhotoPicker(id=>{eafTdPhotos.push(id);eafTdRenderPhotos();});}
 function eafTdSetPhotoCap(id,v){setPhotoCaption(id,v);}
 function eafTdRemovePhoto(id){eafTdPhotos=eafTdPhotos.filter(x=>x!==id);removePhotoBlob(id);eafTdRenderPhotos();}
 function eafTdRenderPhotos(){const box=document.getElementById('etd_photoBox');if(box)box.innerHTML=photoThumbsHtml(eafTdPhotos,'eafTdSetPhotoCap','eafTdRemovePhoto');}
+function eafTdAddResidualPhoto(){openPhotoPicker(id=>{eafTdResidualPhotos.push(id);eafTdRenderResidualPhotos();});}
+function eafTdSetResidualPhotoCap(id,v){setPhotoCaption(id,v);}
+function eafTdRemoveResidualPhoto(id){eafTdResidualPhotos=eafTdResidualPhotos.filter(x=>x!==id);removePhotoBlob(id);eafTdRenderResidualPhotos();}
+function eafTdRenderResidualPhotos(){const box=document.getElementById('etd_residualPhotoBox');if(box)box.innerHTML=photoThumbsHtml(eafTdResidualPhotos,'eafTdSetResidualPhotoCap','eafTdRemoveResidualPhoto');}
+function eafTdSyncLabels(){
+  const t=(document.getElementById('etd_target')||{}).value||'로저전극';
+  const h=document.getElementById('etd_residualHead');if(h)h.innerHTML=`잔존현황 (${esc(t)}) <span class="hint">부위별 원치수·잔존·용손율</span>`;
+  const lab=document.getElementById('etd_lifeLab');if(lab)lab.textContent=t==='발코니'?'발코니 수명(CH)':'로저전극수명(CH)';
+}
+function eafTdTargetChange(){
+  const t=document.getElementById('etd_target').value;
+  eafTdResidual=eafTdDefaultResidual(t);
+  eafTdSyncLabels();eafTdRenderResidual();
+}
+function eafTdReadZones(){
+  const g=id=>{const el=document.getElementById(id);return !!(el&&el.checked);};
+  return {ebt:g('etz_ebt'),ring1:g('etz_ring1'),ring2:g('etz_ring2'),ring3:g('etz_ring3'),
+    wallL:g('etz_wallL'),wallR:g('etz_wallR'),balcony:g('etz_balcony'),workhole:g('etz_workhole')};
+}
+function eafTdSetZoneInputs(z){z=z||{};['ebt','ring1','ring2','ring3','wallL','wallR','balcony','workhole'].forEach(k=>{const el=document.getElementById('etz_'+k);if(el)el.checked=!!z[k];});}
 function eafTdInitForm(){
   const d=document.getElementById('etd_date');if(d&&!d.value)d.value=todayStr();
   const chk=document.getElementById('etd_types');
   if(chk&&!chk.dataset.done){chk.innerHTML=EAF_TD_TYPES.map(t=>`<label style="font-weight:500;white-space:nowrap;margin-right:10px"><input type="checkbox" value="${t}"> ${t}</label>`).join('');chk.dataset.done='1';}
-  eafTdRenderResidual();eafTdRenderItems();eafTdRenderPhotos();renderEafTdList();
+  eafTdSyncLabels();eafTdRenderResidual();eafTdRenderItems();eafTdRenderPhotos();eafTdRenderResidualPhotos();renderEafTdList();renderEafTdHistory();
 }
-function eafTdAddResidualRow(){eafTdResidual.push({part:'',orig:0,remain:0,rate:0});eafTdRenderResidual();}
 function eafTdSetResidual(i,k,v){eafTdResidual[i][k]=(k==='part')?v:(+v||0);eafTdRenderResidual();}
 function eafTdAutoRate(i){const r=eafTdResidual[i];r.rate=r.orig?+((1-r.remain/r.orig).toFixed(2)):0;eafTdRenderResidual();}
-function eafTdDelResidual(i){eafTdResidual.splice(i,1);if(!eafTdResidual.length)eafTdResidual.push({part:'',orig:0,remain:0,rate:0});eafTdRenderResidual();}
 function eafTdRenderResidual(){
   const box=document.getElementById('etd_residualBody');if(!box)return;
   box.innerHTML=eafTdResidual.map((r,i)=>`<tr>
-    <td><input class="iinp" style="width:100px" value="${esc(r.part)}" placeholder="예:#1,발코니" onchange="eafTdSetResidual(${i},'part',this.value)"></td>
+    <td><input class="iinp" style="width:100px;text-align:left" value="${esc(r.part)}" onchange="eafTdSetResidual(${i},'part',this.value)"></td>
     <td class="n"><input class="iinp" type="number" style="width:70px" value="${r.orig||''}" onchange="eafTdSetResidual(${i},'orig',this.value)"></td>
-    <td class="n"><input class="iinp" type="number" style="width:70px" value="${r.remain||''}" onchange="eafTdSetResidual(${i},'remain',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:70px;background:#fef9c3" value="${r.remain||''}" onchange="eafTdSetResidual(${i},'remain',this.value)"></td>
     <td class="n"><input class="iinp" type="number" step="0.01" style="width:56px" value="${r.rate||''}" onchange="eafTdSetResidual(${i},'rate',this.value)">
       <button class="btn sm" style="font-size:9.5px;padding:0 4px" onclick="eafTdAutoRate(${i})" title="용손율 = 1-잔존/원치수 로 자동계산">자동</button></td>
-    <td><button class="btn sm danger" onclick="eafTdDelResidual(${i})">×</button></td></tr>`).join('');
+    <td></td></tr>`).join('');
 }
-function eafTdAddItemRow(){eafTdItems.push({code:'',name:'',spec:'',uw:0,qty:0,price:0});eafTdRenderItems();}
+function eafTdAddItemRow(){eafTdItems.push({cat:EAF_ITEM_CATS[0],code:'',name:'',spec:'',uw:0,qty:0,price:0});eafTdRenderItems();}
 function eafTdSetItem(i,k,v){
   const it=eafTdItems[i];
   if(k==='code'){it.code=v;const m=invM.get(v);if(m){it.name=m.n;const iv=invItem(v);it.price=iv.p;}}
-  else if(k==='name'||k==='spec')it[k]=v;
+  else if(k==='name'||k==='spec'||k==='cat')it[k]=v;
   else it[k]=+v||0;
   eafTdRenderItems();
 }
-function eafTdDelItem(i){eafTdItems.splice(i,1);if(!eafTdItems.length)eafTdItems.push({code:'',name:'',spec:'',uw:0,qty:0,price:0});eafTdRenderItems();}
+function eafTdDelItem(i){eafTdItems.splice(i,1);if(!eafTdItems.length)eafTdItems.push({cat:EAF_ITEM_CATS[0],code:'',name:'',spec:'',uw:0,qty:0,price:0});eafTdRenderItems();}
 function eafTdItemOptions(sel){
   return '<option value="">(직접입력)</option>'+INV_MASTER.filter(m=>m.g==='EAF').map(m=>`<option value="${m.c}"${m.c===sel?' selected':''}>${esc(m.n)}</option>`).join('');
 }
+function eafTdCatOptions(sel){return EAF_ITEM_CATS.map(c=>`<option${c===sel?' selected':''}>${c}</option>`).join('');}
 function eafTdRenderItems(){
   const box=document.getElementById('etd_itemBody');if(!box)return;
   let sw=0,sa=0;
   box.innerHTML=eafTdItems.map((it,i)=>{const w=(it.uw||0)*(it.qty||0);const amt=w*(it.price||0);sw+=w;sa+=amt;
     return `<tr>
-    <td><select class="iinp" style="font-size:10.5px;max-width:150px" onchange="eafTdSetItem(${i},'code',this.value)">${eafTdItemOptions(it.code)}</select></td>
-    <td><input class="iinp" style="width:110px" value="${esc(it.name)}" placeholder="품명" onchange="eafTdSetItem(${i},'name',this.value)"></td>
-    <td><input class="iinp" style="width:64px" value="${esc(it.spec||'')}" placeholder="규격" onchange="eafTdSetItem(${i},'spec',this.value)"></td>
-    <td class="n"><input class="iinp" type="number" style="width:58px" value="${it.uw||''}" onchange="eafTdSetItem(${i},'uw',this.value)"></td>
-    <td class="n"><input class="iinp" type="number" style="width:58px" value="${it.qty||''}" onchange="eafTdSetItem(${i},'qty',this.value)"></td>
+    <td><select class="iinp" style="font-size:10.5px;max-width:100px" onchange="eafTdSetItem(${i},'cat',this.value)">${eafTdCatOptions(it.cat)}</select></td>
+    <td><select class="iinp" style="font-size:10.5px;max-width:140px" onchange="eafTdSetItem(${i},'code',this.value)">${eafTdItemOptions(it.code)}</select></td>
+    <td><input class="iinp" style="width:100px" value="${esc(it.name)}" placeholder="품명" onchange="eafTdSetItem(${i},'name',this.value)"></td>
+    <td><input class="iinp" style="width:56px" value="${esc(it.spec||'')}" placeholder="규격" onchange="eafTdSetItem(${i},'spec',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:52px" value="${it.uw||''}" onchange="eafTdSetItem(${i},'uw',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:52px" value="${it.qty||''}" onchange="eafTdSetItem(${i},'qty',this.value)"></td>
     <td class="n">${pN(w)}</td>
-    <td class="n"><input class="iinp" type="number" style="width:78px" value="${it.price||''}" onchange="eafTdSetItem(${i},'price',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:70px" value="${it.price||''}" onchange="eafTdSetItem(${i},'price',this.value)"></td>
     <td class="n">${pN(amt)}</td>
     <td><button class="btn sm danger" onclick="eafTdDelItem(${i})">×</button></td></tr>`;}).join('');
   const fEl=document.getElementById('etd_sumRow');
@@ -5027,58 +5220,181 @@ function submitEafTd(){
   const ro=document.getElementById('etd_ro').value;
   const date=document.getElementById('etd_date').value;
   if(!date){toast('일자를 입력하세요');return;}
+  const target=document.getElementById('etd_target').value;
   const types=[...document.querySelectorAll('#etd_types input:checked')].map(c=>c.value);
   const lifeCh=num(document.getElementById('etd_life').value)||0;
+  const reasonCode=document.getElementById('etd_reasonCode').value;
   const reason=document.getElementById('etd_reason').value.trim();
   const note=document.getElementById('etd_note').value.trim();
-  const rec={id:uid(),ro,date,types,lifeCh,reason,note,
+  const rec={id:uid(),ro,date,target,types,lifeCh,reasonCode,reason,note,
+    zones:eafTdReadZones(),
     residual:eafTdResidual.filter(r=>r.part||r.orig||r.remain),
     items:eafTdItems.filter(it=>it.name||it.code),
-    photos:eafTdPhotos.slice(),seq:Date.now()};
+    photos:eafTdPhotos.slice(),residualPhotos:eafTdResidualPhotos.slice(),seq:Date.now()};
   eafTdData.push(rec);saveEafTd();
-  eafTdResidual=[{part:'',orig:0,remain:0,rate:0}];eafTdItems=[{code:'',name:'',spec:'',uw:0,qty:0,price:0}];eafTdPhotos=[];
+  eafTdResidual=eafTdDefaultResidual(target);eafTdItems=[{cat:EAF_ITEM_CATS[0],code:'',name:'',spec:'',uw:0,qty:0,price:0}];eafTdPhotos=[];eafTdResidualPhotos=[];
   document.getElementById('etd_life').value='';document.getElementById('etd_reason').value='';document.getElementById('etd_note').value='';
   document.querySelectorAll('#etd_types input').forEach(c=>c.checked=false);
-  eafTdRenderResidual();eafTdRenderItems();eafTdRenderPhotos();renderEafTdList();flashSave();
-  toast(`${ro}로 ${date} 해체 점검 보고서 등록`+(types.length?' · '+types.join('·'):''));
+  eafTdSetZoneInputs({});
+  eafTdRenderResidual();eafTdRenderItems();eafTdRenderPhotos();eafTdRenderResidualPhotos();renderEafTdList();renderEafTdHistory();flashSave();
+  toast(`${ro}로 ${date} ${target} 해체 점검 보고서 등록`+(types.length?' · '+types.join('·'):''));
 }
 function delEafTd(id){if(!confirm('이 보고서를 삭제할까요?'))return;
-  const r=eafTdData.find(x=>x.id===id);if(r&&r.photos)r.photos.forEach(pid=>removePhotoBlob(pid));
-  eafTdData=eafTdData.filter(r=>r.id!==id);saveEafTd();renderEafTdList();}
+  const r=eafTdData.find(x=>x.id===id);
+  if(r){(r.photos||[]).forEach(pid=>removePhotoBlob(pid));(r.residualPhotos||[]).forEach(pid=>removePhotoBlob(pid));}
+  eafTdData=eafTdData.filter(r=>r.id!==id);saveEafTd();renderEafTdList();renderEafTdHistory();}
 function eafTdItemsSummary(items){let w=0,a=0;(items||[]).forEach(it=>{const iw=(it.uw||0)*(it.qty||0);w+=iw;a+=iw*(it.price||0);});return{w,a};}
+function eafTdItemsGrouped(items){
+  const cats=[];const map={};
+  (items||[]).forEach(it=>{const c=it.cat||'기타';if(!map[c]){map[c]={items:[],w:0,a:0};cats.push(c);}
+    const w=(it.uw||0)*(it.qty||0),amt=w*(it.price||0);map[c].items.push(it);map[c].w+=w;map[c].a+=amt;});
+  return cats.map(c=>({cat:c,...map[c]}));
+}
+function eafTdItemsTableHtml(items){
+  const groups=eafTdItemsGrouped(items);
+  if(!groups.length)return '';
+  let sw=0,sa=0;
+  const body=groups.map(g=>{sw+=g.w;sa+=g.a;
+    const rows=g.items.map((it,i)=>{const w=(it.uw||0)*(it.qty||0),amt=w*(it.price||0);
+      return `<tr>${i===0?`<td rowspan="${g.items.length+1}" style="background:#eef2f6;font-weight:800;vertical-align:top">${esc(g.cat)}</td>`:''}
+        <td>${esc(it.name)}</td><td>${esc(it.spec||'')}</td><td class="n">${it.uw||''}</td><td class="n">${it.qty||''}</td>
+        <td class="n">${w?pN(w):'-'}</td><td class="n">${it.price?pN(it.price):''}</td><td class="n">${amt?pN(amt):'-'}</td></tr>`;}).join('');
+    return rows+`<tr class="eaf-sub-row"><td colspan="3">소계</td><td class="n"></td><td class="n"></td><td class="n">${pN(g.w)}</td><td class="n"></td><td class="n">${pN(g.a)}</td></tr>`;
+  }).join('');
+  return `<div class="tablewrap"><table class="bomtbl" style="min-width:600px;margin-top:6px">
+    <thead><tr><th>구분</th><th>품명</th><th>규격</th><th class="n">단중</th><th class="n">수량</th><th class="n">중량</th><th class="n">단가</th><th class="n">금액</th></tr></thead>
+    <tbody>${body}<tr class="eaf-total-row"><td colspan="5">합계</td><td class="n">${pN(sw)}</td><td class="n"></td><td class="n">${pN(sa)}</td></tr></tbody></table></div>`;
+}
+function eafTdZoneSvg(z){
+  z=z||{};
+  const on='#f59e0b',onFill='#fde68a',offFill='#f8fafc',offLine='#cbd5e1',offRing='#e2e8f0';
+  const wallLFill=z.wallL?onFill:offFill,wallLStroke=z.wallL?on:offLine;
+  const wallRFill=z.wallR?onFill:offFill,wallRStroke=z.wallR?on:offLine;
+  const balcFill=z.balcony?onFill:offFill,balcStroke=z.balcony?on:offLine;
+  const workFill=z.workhole?onFill:offFill,workStroke=z.workhole?on:offLine;
+  const r1=z.ring1?on:offRing,r2=z.ring2?on:offRing,r3=z.ring3?on:offRing;
+  return `<svg viewBox="0 0 260 170" style="width:210px;height:auto;display:block;margin:4px auto">
+    <circle cx="35" cy="85" r="18" fill="${balcFill}" stroke="${balcStroke}" stroke-width="2.5"/>
+    <text x="35" y="88" font-size="9" text-anchor="middle" fill="#334155">발코니</text>
+    <path d="M 140 25 A 60 60 0 0 0 140 145 Z" fill="${wallLFill}" stroke="${wallLStroke}" stroke-width="2.5"/>
+    <path d="M 140 25 A 60 60 0 0 1 140 145 Z" fill="${wallRFill}" stroke="${wallRStroke}" stroke-width="2.5"/>
+    <circle cx="140" cy="85" r="60" fill="none" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="196" y="70" width="26" height="30" fill="${workFill}" stroke="${workStroke}" stroke-width="2.5"/>
+    <text x="209" y="88" font-size="8" text-anchor="middle" fill="#334155">작업구</text>
+    <circle cx="140" cy="85" r="26" fill="none" stroke="${r3}" stroke-width="3"/>
+    <circle cx="140" cy="85" r="19" fill="none" stroke="${r2}" stroke-width="3"/>
+    <circle cx="140" cy="85" r="12" fill="none" stroke="${r1}" stroke-width="3"/>
+    <circle cx="140" cy="85" r="5" fill="${z.ebt?on:offLine}"/>
+    <text x="70" y="18" font-size="9" fill="#475569">벽체(좌)</text>
+    <text x="195" y="18" font-size="9" fill="#475569">벽체(우)</text>
+  </svg>`;
+}
+function eafTdZoneBadges(z){
+  z=z||{};const items=[];
+  if(z.ebt)items.push('EBT Ø200');
+  const rings=[];if(z.ring1)rings.push('1단');if(z.ring2)rings.push('2단');if(z.ring3)rings.push('3단');
+  if(rings.length)items.push('EBT외주링 '+rings.join('·'));
+  const walls=[];if(z.wallL)walls.push('벽체(좌)');if(z.wallR)walls.push('벽체(우)');if(z.balcony)walls.push('발코니');if(z.workhole)walls.push('작업구');
+  if(walls.length)items.push(walls.join('·'));
+  return items;
+}
 function eafTdCardHtml(r){
-  const c=r.ro==='A'?'#1d4ed8':'#c81e1e';const {w,a}=eafTdItemsSummary(r.items);
-  return `<div class="fcard" style="border-left:4px solid ${c};margin-bottom:9px">
-    <div style="padding:11px 14px">
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;flex-wrap:wrap">
+  const c=r.ro==='A'?'#1d4ed8':'#c81e1e';
+  const target=r.target||'로저전극';
+  const lifeLab=target==='발코니'?'발코니 수명':'로저전극수명';
+  const zoneBadges=eafTdZoneBadges(r.zones);
+  return `<div class="fcard" style="border-left:4px solid ${c};margin-bottom:14px">
+    <div style="padding:12px 16px">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap">
         <span class="fc-tag" style="background:${c}">${esc(r.ro)}로</span>
+        <span class="fc-tag" style="background:#0f766e">${esc(target)}</span>
         ${(r.types||[]).map(t=>`<span class="fc-tag" style="background:#64748b">${esc(t)}</span>`).join('')}
         <span style="font-size:11px;color:var(--muted)">${esc(r.date)}</span>
-        ${r.lifeCh?`<span style="font-size:11px;color:var(--muted)">${r.lifeCh}CH</span>`:''}
+        ${r.lifeCh?`<span style="font-size:12px;font-weight:700;color:#334155">${lifeLab} ${iN(r.lifeCh)}CH</span>`:''}
         <span class="spacer"></span>
         <button class="btn sm danger" onclick="delEafTd('${r.id}')">×</button>
       </div>
-      ${r.reason?`<div style="font-size:12px;color:#475569;margin-bottom:4px">📝 ${esc(r.reason)}</div>`:''}
-      ${(r.residual&&r.residual.length)?`<div style="font-size:11.5px;color:#334155;margin-bottom:4px">잔존: `+r.residual.map(x=>`${esc(x.part)} 원치수${x.orig}/잔존${x.remain}${x.rate?`(용손율${x.rate})`:''}`).join(' · ')+`</div>`:''}
-      ${(r.items&&r.items.length)?`<div style="font-size:11.5px;color:#334155">내화물 사용량: 중량 ${pN(w)}kg · 금액 ${wON(a)}원</div>`:''}
-      ${(r.photos&&r.photos.length)?`<div style="margin-top:6px">`+r.photos.map(id=>`<span style="display:inline-block;margin:2px 6px 2px 0;text-align:center">
+      ${r.reason?`<div style="font-size:12px;color:#475569;margin-bottom:6px">📝 ${r.reasonCode?`<b>[${esc(r.reasonCode)}]</b> `:''}${esc(r.reason)}</div>`:''}
+      ${zoneBadges.length?`<div style="font-size:11px;margin-bottom:8px">교체범위: `+zoneBadges.map(b=>`<span style="display:inline-block;background:#fef4c7;color:#a16207;border-radius:5px;padding:1px 7px;margin-right:4px;font-weight:700">${esc(b)}</span>`).join('')+`</div>`:''}
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:4px">
+        <div style="flex:1;min-width:220px">
+          ${(r.residual&&r.residual.length)?`<div class="tablewrap"><table class="bomtbl" style="min-width:0"><thead><tr><th>구분</th>${r.residual.map(x=>`<th class="n">${esc(x.part)}</th>`).join('')}</tr></thead>
+            <tbody>
+              <tr><td>원치수</td>${r.residual.map(x=>`<td class="n">${x.orig||''}</td>`).join('')}</tr>
+              <tr style="background:#fef9c3"><td>잔존</td>${r.residual.map(x=>`<td class="n"><b>${x.remain||''}</b></td>`).join('')}</tr>
+              <tr><td>용손율</td>${r.residual.map(x=>`<td class="n">${x.rate||''}</td>`).join('')}</tr>
+            </tbody></table></div>`:''}
+          ${(r.residualPhotos&&r.residualPhotos.length)?`<div style="margin-top:6px">`+r.residualPhotos.map(id=>`<span style="display:inline-block;margin:2px 6px 2px 0;text-align:center">
+            <img src="${photoUrl(id)}" style="width:100px;height:100px;object-fit:cover;border-radius:6px;border:1px solid #e5e9ee" title="${esc(photoCaption(id))}">
+            ${photoCaption(id)?`<div style="font-size:10px;color:var(--muted);max-width:100px">${esc(photoCaption(id))}</div>`:''}</span>`).join('')+`</div>`:''}
+        </div>
+        <div style="width:230px;text-align:center;flex-shrink:0">
+          <div style="font-size:10.5px;color:var(--muted);font-weight:700;margin-bottom:2px">전기로 벽체 교체 범위 (개략도)</div>
+          ${eafTdZoneSvg(r.zones)}
+        </div>
+      </div>
+      ${(r.items&&r.items.length)?eafTdItemsTableHtml(r.items):''}
+      ${(r.photos&&r.photos.length)?`<div style="margin-top:8px"><div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:4px">점검사진</div>`+r.photos.map(id=>`<span style="display:inline-block;margin:2px 6px 2px 0;text-align:center">
           <img src="${photoUrl(id)}" style="width:90px;height:90px;object-fit:cover;border-radius:6px;border:1px solid #e5e9ee" title="${esc(photoCaption(id))}">
           ${photoCaption(id)?`<div style="font-size:10px;color:var(--muted);max-width:90px">${esc(photoCaption(id))}</div>`:''}</span>`).join('')+`</div>`:''}
-      ${r.note?`<div style="font-size:11px;color:var(--muted);margin-top:3px">${esc(r.note)}</div>`:''}
+      ${r.note?`<div style="font-size:11px;color:var(--muted);margin-top:6px">${esc(r.note)}</div>`:''}
     </div></div>`;
 }
 function renderEafTdList(){
   const box=document.getElementById('etd_list');if(!box)return;
   const rf=(document.getElementById('etd_filterRo')||{}).value||'';
-  const rows=eafTdData.filter(r=>!rf||r.ro===rf).sort((a,b)=>b.date.localeCompare(a.date)||(b.seq||0)-(a.seq||0));
+  const tf=(document.getElementById('etd_filterTarget')||{}).value||'';
+  const rows=eafTdData.filter(r=>!rf||r.ro===rf).filter(r=>!tf||r.target===tf).sort((a,b)=>b.date.localeCompare(a.date)||(b.seq||0)-(a.seq||0));
   box.innerHTML=rows.map(eafTdCardHtml).join('')||'<div class="empty">등록된 해체 점검 보고서가 없습니다.</div>';
   const cnt=document.getElementById('etd_count');if(cnt)cnt.textContent=rows.length+'건';
 }
 function downloadEafTd(){
-  let t='<table><tr><th>로</th><th>일자</th><th>구분</th><th>수명(CH)</th><th>상세사유</th><th>잔존현황</th><th>중량합계(kg)</th><th>금액합계(원)</th><th>비고</th></tr>';
+  let t='<table><tr><th>로</th><th>정비대상</th><th>일자</th><th>구분</th><th>수명(CH)</th><th>사유코드</th><th>상세사유</th><th>교체범위</th><th>잔존현황</th><th>중량합계(kg)</th><th>금액합계(원)</th><th>비고</th></tr>';
   eafTdData.slice().sort((a,b)=>b.date.localeCompare(a.date)).forEach(r=>{const {w,a:amt}=eafTdItemsSummary(r.items);
-    t+=`<tr><td>${esc(r.ro)}</td><td>${esc(r.date)}</td><td>${esc((r.types||[]).join('·'))}</td><td>${r.lifeCh||''}</td><td>${esc(r.reason||'')}</td><td>${esc((r.residual||[]).map(x=>x.part+' '+x.orig+'/'+x.remain).join(', '))}</td><td>${w}</td><td>${amt}</td><td>${esc(r.note||'')}</td></tr>`;});
+    t+=`<tr><td>${esc(r.ro)}</td><td>${esc(r.target||'')}</td><td>${esc(r.date)}</td><td>${esc((r.types||[]).join('·'))}</td><td>${r.lifeCh||''}</td><td>${esc(r.reasonCode||'')}</td><td>${esc(r.reason||'')}</td><td>${esc(eafTdZoneBadges(r.zones).join(', '))}</td><td>${esc((r.residual||[]).map(x=>x.part+' '+x.orig+'/'+x.remain).join(', '))}</td><td>${w}</td><td>${amt}</td><td>${esc(r.note||'')}</td></tr>`;});
   t+='</table>';downloadXls('전기로_해체점검보고서',t);
+}
+/* ---- 연도별 전기로 보수 내역 (A로/B로 자동 집계 — PDF 하단표와 동일 형식) ---- */
+function eafTdYearlyHistory(){
+  const byYear={};
+  eafTdData.forEach(r=>{
+    const key=r.date.slice(2,4)+'년';
+    if(!byYear[key])byYear[key]={A:[],B:[]};
+    const dd=r.date.slice(2).replace(/-/g,'.');
+    const entry={sortKey:r.date,life:r.lifeCh?iN(r.lifeCh)+'ch('+dd+')':dd,content:r.target||'',reason:r.reasonCode||r.reason||''};
+    (byYear[key][r.ro]=byYear[key][r.ro]||[]).push(entry);
+  });
+  const years=Object.keys(byYear).sort().reverse();
+  return years.map(y=>({year:y,A:byYear[y].A.slice().sort((a,b)=>a.sortKey.localeCompare(b.sortKey)),B:byYear[y].B.slice().sort((a,b)=>a.sortKey.localeCompare(b.sortKey))}));
+}
+function renderEafTdHistory(){
+  const box=document.getElementById('etd_historyBox');if(!box)return;
+  const yrs=eafTdYearlyHistory();
+  if(!yrs.length){box.innerHTML='<div class="empty">등록된 보고서가 없습니다.</div>';return;}
+  box.innerHTML=yrs.map(y=>{
+    const maxLen=Math.max(y.A.length,y.B.length,1);
+    let rows='';
+    for(let i=0;i<maxLen;i++){const a=y.A[i],b=y.B[i];
+      rows+=`<tr><td>${a?esc(a.life):''}</td><td>${a?esc(a.content):''}</td><td>${a?esc(a.reason):''}</td><td>${b?esc(b.life):''}</td><td>${b?esc(b.content):''}</td><td>${b?esc(b.reason):''}</td></tr>`;}
+    return `<div class="subhead" style="margin-top:8px">${esc(y.year)} 전기로 보수 내역</div>
+      <div class="tablewrap"><table class="bomtbl" style="min-width:560px">
+        <thead><tr><th colspan="3" style="text-align:center">A로 보수 현황</th><th colspan="3" style="text-align:center">B로 보수 현황</th></tr>
+        <tr><th>수명(일자)</th><th>보수 내용</th><th>사유</th><th>수명(일자)</th><th>보수 내용</th><th>사유</th></tr></thead>
+        <tbody>${rows}</tbody></table></div>`;
+  }).join('');
+}
+function downloadEafTdHistory(){
+  const yrs=eafTdYearlyHistory();
+  if(!yrs.length){toast('등록된 보고서가 없습니다');return;}
+  let t='';
+  yrs.forEach(y=>{
+    t+=`<table><tr><th colspan="3">${esc(y.year)} A로 보수 현황</th><th colspan="3">${esc(y.year)} B로 보수 현황</th></tr><tr><th>수명(일자)</th><th>보수내용</th><th>사유</th><th>수명(일자)</th><th>보수내용</th><th>사유</th></tr>`;
+    const maxLen=Math.max(y.A.length,y.B.length,1);
+    for(let i=0;i<maxLen;i++){const a=y.A[i],b=y.B[i];
+      t+=`<tr><td>${a?esc(a.life):''}</td><td>${a?esc(a.content):''}</td><td>${a?esc(a.reason):''}</td><td>${b?esc(b.life):''}</td><td>${b?esc(b.content):''}</td><td>${b?esc(b.reason):''}</td></tr>`;}
+    t+='</table><br>';
+  });
+  downloadXls('전기로_연도별보수내역',t);
 }
 /* 부위 카드 클릭 → 해당 부위 조회 */
 function eafPickPart(part,ro){
@@ -5151,8 +5467,49 @@ function downloadEaf(){
 const INV_MASTER=[{"g":"CC","c":"U12100002","n":"C52용내화물,cap BLOCK-C52","u":"EA","p":47174.0,"cl":"신품"},{"g":"CC","c":"U12100003","n":"C52용내화물,GASKET-C52","u":"EA","p":17437.0,"cl":"신품"},{"g":"CC","c":"U12100004","n":"C52용내화물,IMPACT PAD","u":"EA","p":305903.0,"cl":"신품"},{"g":"CC","c":"U12100006","n":"C52용내화물,MIDDLE PLATE-C52","u":"EA","p":105637.0,"cl":"신품"},{"g":"CC","c":"U12100008","n":"C52용내화물,MPNT-C52","u":"EA","p":264027.0,"cl":"신품"},{"g":"CC","c":"U12100012","n":"CNC용내화물,RAMMING MATERIAL-CNC","u":"KG","p":1589.0,"cl":"신품"},{"g":"CC","c":"U12100014","n":"캐스터블,CA-150S","u":"KG","p":1144.0,"cl":"신품"},{"g":"CC","c":"U12100016","n":"캐스터블,CA-165SYD","u":"KG","p":1174.0,"cl":"신품"},{"g":"CC","c":"U12110021","n":"TD댐브릭,T/D DAM BRICK","u":"KG","p":1858.0,"cl":"신품"},{"g":"CC","c":"U12110036","n":"점토질브릭,STD","u":"KG","p":375.0,"cl":"신품"},{"g":"CC","c":"U12120008","n":"C52용내화물,SES BL용,VESUVIS,무예열,DCM-B02-081","u":"EA","p":213640.0,"cl":"신품"},{"g":"CC","c":"U12120009","n":"C52용내화물,SES BL용,VESUVIUS,장연주용","u":"EA","p":254176.0,"cl":"신품"},{"g":"CC","c":"U12120018","n":"MUD재,B25","u":"KG","p":2148.0,"cl":"신품"},{"g":"CC","c":"U12120019","n":"ONQC블랭크노즐,BN-LN-60","u":"EA","p":25088.0,"cl":"신품"},{"g":"CC","c":"U12120021","n":"ONQC상부노즐,23.0/ONQC-UN-60","u":"EA","p":37228.0,"cl":"신품"},{"g":"CC","c":"U12120022","n":"ONQC웰블록,28/WB-ONQC-LN-60","u":"EA","p":38892.0,"cl":"신품"},{"g":"","c":"","n":"ONQC하부노즐,18.0/LN-60","u":"EA","p":36985.0,"cl":"?"},{"g":"CC","c":"U12120030","n":"ONQC하부노즐,19.0/LN-60","u":"EA","p":36985.0,"cl":"신품"},{"g":"CC","c":"U12120031","n":"ONQC하부노즐,19.5/LN-60","u":"EA","p":36985.0,"cl":"신품"},{"g":"CC","c":"U12120032","n":"ONQC하부노즐,20.0/LN-60","u":"EA","p":36985.0,"cl":"신품"},{"g":"CC","c":"U12120033","n":"ONQC하부노즐,20.5LN-60","u":"EA","p":36985.0,"cl":"신품"},{"g":"CC","c":"U12120034","n":"ONQC하부노즐,21.0/LN-60","u":"EA","p":36985.0,"cl":"신품"},{"g":"CC","c":"U12120071","n":"TD건닝재,TUNGUN-2(5)","u":"KG","p":1092.0,"cl":"신품"},{"g":"CC","c":"U12120075","n":"TD플레이트,MGO-C","u":"EA","p":28094.0,"cl":"신품"},{"g":"CC","c":"U12120076","n":"C-52 BEAM BLANK(Z) SES 내화물","u":"EA","p":307733.0,"cl":"신품"},{"g":"CC","c":"U12120077","n":"C-52 MIDDLE PALTE(Z)","u":"EA","p":158783.0,"cl":"신품"},{"g":"CC","c":"U12120078","n":"C52 MTNP(Z)","u":"EA","p":324114.0,"cl":"신품"},{"g":"CC","c":"U12120081","n":"램밍재,RM37S","u":"KG","p":1391.0,"cl":"신품"},{"g":"CC","c":"U12120091","n":"몰탈,MAL","u":"KG","p":1110.0,"cl":"신품"},{"g":"CC","c":"U12120105","n":"스타팅튜브캡,Starting Tube Cover,동국알앤에스,연주Star","u":"EA","p":44793.0,"cl":"신품"},{"g":"CC","c":"U12120123","n":"유입재캐스터블,TC-2","u":"KG","p":1109.0,"cl":"신품"},{"g":"CC","c":"U12120138","n":"탕수연와 A,T3 500","u":"KG","p":1957.0,"cl":"신품"},{"g":"CC","c":"U12120139","n":"탕수연와 B, T3 90T(대)","u":"KG","p":2330.0,"cl":"신품"},{"g":"CC","c":"U12120168","n":"롱노즐,DCM-B02-078,00,VESVIUS,삽입부 형상변경 개선품","u":"EA","p":260062.0,"cl":"신품"},{"g":"CC","c":"U12120201","n":"TD 건닝재(원진)","u":"KG","p":1092.0,"cl":"신품"},{"g":"CC","c":"U12120206","n":"롱노즐;SHROUND NOZZLE;오성스틸;140Ton(철근재용)","u":"EA","p":184570.0,"cl":"신품"},{"g":"CC","c":"U12120216","n":"턴디쉬 댐블럭, DCM-CO1-342(SIZE 축소품)","u":"EA","p":293997.0,"cl":"신품"},{"g":"EAF","c":"U12110007","n":"EBT튜브브릭,ETB-180","u":"EA","p":365007.0,"cl":"신품"},{"g":"EAF","c":"U12110020","n":"MGO브릭,SMC-95","u":"KG","p":1597.0,"cl":"신품"},{"g":"EAF","c":"U12110028","n":"로저전극납배출브릭,DC-17","u":"EA","p":101653.0,"cl":"신품"},{"g":"EAF","c":"U12110029","n":"로저전극납배출브릭,DC-18","u":"EA","p":110790.0,"cl":"신품"},{"g":"EAF","c":"U12110030","n":"로저전극납배출브릭,DC-19","u":"EA","p":125639.0,"cl":"신품"},{"g":"EAF","c":"U12110031","n":"로저전극납배출브릭,DC-20","u":"EA","p":125639.0,"cl":"신품"},{"g":"EAF","c":"U12110032","n":"로저전극슬리브브릭,DC-15","u":"EA","p":3289613.0,"cl":"신품"},{"g":"EAF","c":"U12110033","n":"로저전극슬리브브릭,DC-16","u":"EA","p":1992565.0,"cl":"신품"},{"g":"EAF","c":"U12110045","n":"MGO-C브릭,PGT-FMH1","u":"KG","p":2289.0,"cl":"신품"},{"g":"EAF","c":"U12120014","n":"EBT터미널블록,ETM-180","u":"EA","p":642753.0,"cl":"신품"},{"g":"EAF","c":"U12120089","n":"루프슬리브,EAF용 ROOF SLEEVE","u":"KG","p":3409.0,"cl":"신품"},{"g":"EAF","c":"U12120107","n":"스프레이재,SPRAY재","u":"KG","p":635.0,"cl":"신품"},{"g":"EAF","c":"U12120112","n":"앙카허스,DC25","u":"KG","p":1275.0,"cl":"신품"},{"g":"EAF","c":"U12120173","n":"스탐프재;MC-STAMP재","u":"KG","p":832.0,"cl":"신품"},{"g":"EAF","c":"U12120188","n":"스프레이재, 원진","u":"KG","p":635.0,"cl":"신품"},{"g":"EAF","c":"U12120190","n":"스프레이재, KR","u":"KG","p":635.0,"cl":"신품"},{"g":"EAF","c":"U12120217","n":"마그네시아 로상재(MAGRAM-98)","u":"KG","p":2776.0,"cl":"신품"},{"g":"EAF","c":"U12120219","n":"올리빈샌드(EBT충진재)","u":"KG","p":95.0,"cl":"신품"},{"g":"EAF","c":"U12120235","n":"마그-크롬 스탐프재-MAGRAM-CR;B25","u":"KG","p":1855.0,"cl":"신품"},{"g":"EAF","c":"U12120256","n":"스프레이재;조선내화;전기로 스프레이재;","u":"KG","p":635.0,"cl":"신품"},{"g":"LF","c":"U12100015","n":"캐스터블,CA-160","u":"KG","p":687.0,"cl":"신품"},{"g":"LF","c":"U12100030","n":"캐스타블;KR;CT-180","u":"KG","p":1435.0,"cl":"신품"},{"g":"LF","c":"U12100031","n":"캐스타블;원진;RM-180","u":"KG","p":1528.0,"cl":"신품"},{"g":"LF","c":"U12100033","n":"캐스터블,CA-180MH","u":"KG","p":1528.0,"cl":"신품"},{"g":"LF","c":"U12110001","n":"AMC브릭,AMC BRICK","u":"KG","p":1931.0,"cl":"신품"},{"g":"LF","c":"U12110002","n":"AMC브릭,AMC-BS","u":"KG","p":1584.0,"cl":"신품"},{"g":"LF","c":"U12110003","n":"AMC브릭,AMC-FB","u":"KG","p":1247.0,"cl":"신품"},{"g":"LF","c":"U12110010","n":"LD MGO-C브릭,PGT-BT","u":"KG","p":2033.0,"cl":"신품"},{"g":"LF","c":"U12110023","n":"고알루미나브릭,HA-85","u":"KG","p":1601.0,"cl":"신품"},{"g":"LF","c":"U12110034","n":"알루미나브릭,H-3(1/2STD)","u":"KG","p":700.0,"cl":"신품"},{"g":"LF","c":"U12110043","n":"MAC브릭;MAC-W","u":"KG","p":2033.0,"cl":"신품"},{"g":"LF","c":"U12110049","n":"KR 바닥","u":"KG","p":1814.0,"cl":"신품"},{"g":"LF","c":"U12110050","n":"KR SL","u":"KG","p":1910.0,"cl":"신품"},{"g":"LF","c":"U12110054","n":"원진;SL","u":"KG","p":2033.0,"cl":"신품"},{"g":"LF","c":"U12110055","n":"원진;ML","u":"KG","p":2033.0,"cl":"신품"},{"g":"LF","c":"U12110056","n":"원진;바닥","u":"KG","p":1931.0,"cl":"신품"},{"g":"LF","c":"U12110068","n":"KR ML","u":"KG","p":1910.0,"cl":"신품"},{"g":"LF","c":"U12110105","n":"원진래들 후렌지","u":"KG","p":1247.0,"cl":"신품"},{"g":"LF","c":"U12110106","n":"인디케이트연와","u":"KG","p":3352.0,"cl":"신품"},{"g":"LF","c":"U12120011","n":"EASY-200,JOINT SHEET, 조선내화","u":"EA","p":4962.0,"cl":"신품"},{"g":"LF","c":"U12120017","n":"LF루프슬리브,PCB-SV140","u":"KG","p":3423.0,"cl":"신품"},{"g":"LF","c":"U12120036","n":"S/N상부노즐,EASY200-UPPER NOZZLE,조선내화","u":"EA","p":62110.0,"cl":"신품"},{"g":"LF","c":"U12120038","n":"S/N상부플레이트,EASY200-UPPER PLATE,조선내화","u":"EA","p":115682.0,"cl":"신품"},{"g":"LF","c":"U12120043","n":"S/N하부노즐,EASY200-LOWER NOZZLE,조선내화","u":"EA","p":63027.0,"cl":"신품"},{"g":"LF","c":"U12120046","n":"S/N하부플레이트,EASY200-LOWER PLATE,조선내화","u":"EA","p":115682.0,"cl":"신품"},{"g":"LF","c":"U12120053","n":"SLOT플러그,D370H","u":"EA","p":627075.0,"cl":"신품"},{"g":"LF","c":"U12120068","n":"T/D댐블럭,WB-140","u":"ST","p":613973.0,"cl":"신품"},{"g":"LF","c":"U12120096","n":"몰탈,SK-38","u":"KG","p":2732.0,"cl":"신품"},{"g":"LF","c":"U12120143","n":"포러스플러그,DK520-3S","u":"EA","p":997650.0,"cl":"신품"},{"g":"LF","c":"U12120234","n":"단열보드","u":"EA","p":4730.0,"cl":"신품"},{"g":"CC","c":"U12120099","n":"C-52 LOWER PLATE(GASKET 일체형)","u":"EA","p":155217.0,"cl":"재고품"},{"g":"CC","c":"U12100027","n":"C52 스타팅 튜브 350MM X 40T;S-Tube 350","u":"EA","p":103321.0,"cl":"재고품"},{"g":"CC","c":"U12100028","n":"C52 스타팅 튜브 400MM X 40T;S-Tube 400","u":"EA","p":105982.0,"cl":"재고품"},{"g":"CC","c":"U12100036","n":"C52 스타팅 튜브 420MM X 40T;S-TUBE 420","u":"EA","p":107209.0,"cl":"재고품"},{"g":"CC","c":"U12120257","n":"턴디쉬 임팩트 패드;IMPACT PAD;동국알앤에스;TD-IP-1","u":"EA","p":586320.0,"cl":"재고품"},{"g":"CC","c":"U12120255","n":"ONQC하부노즐,18.0/LN-60","u":"EA","p":2776.0,"cl":"?"},{"g":"CC","c":"U12120248","n":"스타팅튜브;동국알앤에스;S-TUBE;626","u":"","p":0,"cl":""},{"g":"CC","c":"N12130066","n":"TD커버홀블록,NA,동국알앤에스,OD430xID230xH150mm","u":"EA","p":1650.0,"cl":""}];
 const INV_M09={"U12100002":[105.0,0.0,105.0],"U12100003":[107.0,0.0,107.0],"U12100004":[10.0,0.0,10.0],"U12100006":[35.0,40.0,35.0],"U12100008":[40.0,40.0,40.0],"U12100012":[2100.0,10065.0,2100.0],"U12100014":[5000.0,0.0,5000.0],"U12100016":[500.0,0.0,500.0],"U12110021":[836.16,0.0,836.16],"U12110036":[584.3,0.0,584.3],"U12120008":[13.0,0.0,13.0],"U12120009":[69.0,0.0,69.0],"U12120018":[1504.0,0.0,1504.0],"U12120019":[126.0,0.0,126.0],"U12120021":[231.0,0.0,231.0],"U12120022":[182.0,0.0,182.0],"":[0.0,0.0,0.0],"U12120030":[277.0,0.0,277.0],"U12120031":[152.0,0.0,152.0],"U12120032":[188.0,0.0,188.0],"U12120033":[128.0,0.0,128.0],"U12120034":[152.0,0.0,152.0],"U12120071":[9000.0,18150.0,9000.0],"U12120075":[422.0,0.0,422.0],"U12120076":[45.0,42.0,45.0],"U12120077":[70.0,0.0,70.0],"U12120078":[53.0,0.0,53.0],"U12120081":[500.0,2030.0,500.0],"U12120091":[625.0,0.0,625.0],"U12120105":[11.0,0.0,11.0],"U12120123":[11000.0,0.0,11000.0],"U12120138":[168.0,0.0,168.0],"U12120139":[528.4,0.0,528.4],"U12120168":[42.0,40.0,42.0],"U12120201":[0.0,0.0,0.0],"U12120206":[26.0,0.0,26.0],"U12120216":[6.0,12.0,6.0],"U12110007":[24.0,12.0,24.0],"U12110020":[16610.8,0.0,16610.8],"U12110028":[0.0,0,0.0],"U12110029":[0.0,0,0.0],"U12110030":[0.0,0,0.0],"U12110031":[0.0,0,0.0],"U12110032":[0.0,0,0.0],"U12110033":[0.0,0,0.0],"U12110045":[10342.86,0.0,10342.86],"U12120014":[4.0,2.0,4.0],"U12120089":[865.0,0.0,865.0],"U12120107":[32000.0,155308.0,32000.0],"U12120112":[3700.0,37790.0,3700.0],"U12120173":[0,0.0,0],"U12120188":[10000.0,0.0,10000.0],"U12120190":[0.0,0.0,0.0],"U12120217":[1000.0,4020.0,1000.0],"U12120219":[24000.0,27219.0,24000.0],"U12120235":[900.0,0.0,900.0],"U12120256":[0.0,0.0,0.0],"U12100015":[10625.0,3575.0,10625.0],"U12100030":[0.0,0.0,0.0],"U12100031":[1000.0,0.0,1000.0],"U12100033":[14000.0,7020.0,14000.0],"U12110001":[15459.76,15060.0,15459.76],"U12110002":[6558.72,0.0,6558.72],"U12110003":[6986.69,6360.0,6986.69],"U12110010":[20861.26,31745.0,20861.26],"U12110023":[11818.17,0.0,11818.17],"U12110034":[4689.0,0.0,4689.0],"U12110043":[8961.18,35090.0,8961.18],"U12110049":[0.0,0.0,0.0],"U12110050":[0.0,0.0,0.0],"U12110054":[0.0,0.0,0.0],"U12110055":[0.0,0.0,0.0],"U12110056":[0.0,0.0,0.0],"U12110068":[0.0,0.0,0.0],"U12110105":[0.0,0.0,0.0],"U12110106":[893.1,0.0,893.1],"U12120011":[535.0,0.0,535.0],"U12120017":[825.0,0.0,825.0],"U12120036":[65.0,0.0,65.0],"U12120038":[384.0,0.0,384.0],"U12120043":[348.0,0.0,348.0],"U12120046":[252.0,0.0,252.0],"U12120053":[0.0,0.0,0.0],"U12120068":[14.0,0.0,14.0],"U12120096":[350.0,1025.0,350.0],"U12120143":[8.0,8.0,8.0],"U12120234":[1500.0,0.0,1500.0],"U12120099":[53.0,40.0,53.0],"U12100027":[28.0,0.0,28.0],"U12100028":[28.0,0.0,28.0],"U12100036":[14.0,0.0,14.0],"U12120257":[1.0,0.0,1.0],"U12120255":[0.0,0.0,0.0],"U12120248":[0,0,0],"N12130066":[0.0,0.0,0.0]};
 const INV_PROD09=116900;
+// ---- 원단위 품목마스터: 사용자 추가·복사 품목 + 설비/품명 수정사항 복원(새로고침 시에도 유지) ----
+(function hydrateInvMaster(){
+  let extra=[];try{extra=JSON.parse(localStorage.getItem('dgrns_inv_useritems')||'[]');}catch(e){}
+  extra.forEach(it=>{if(!INV_MASTER.some(m=>m.c===it.c))INV_MASTER.push(it);});
+  let ov={};try{ov=JSON.parse(localStorage.getItem('dgrns_invmaster')||'{}');}catch(e){}
+  Object.keys(ov).forEach(code=>{const o=ov[code];const m=INV_MASTER.find(x=>x.c===code);
+    if(m){if(o.g!=null)m.g=o.g;if(o.n!=null)m.n=o.n;}});
+})();
 /* ============ 내화물 원단위 (재고·원단위) ============ */
 const invM=new Map(INV_MASTER.map(x=>[x.c,x]));
+function loadInvUserItems(){try{return JSON.parse(localStorage.getItem('dgrns_inv_useritems')||'[]');}catch(e){return[];}}
+let invUserItems=loadInvUserItems();
+function saveInvUserItems(){try{localStorage.setItem('dgrns_inv_useritems',JSON.stringify(invUserItems));}catch(e){}}
+function invIsUser(code){return invUserItems.some(x=>x.c===code);}
+function setInvMasterField(code,field,val){
+  const m=invM.get(code);if(!m)return;
+  m[field]=val;
+  if(invIsUser(code)){saveInvUserItems();}
+  else{invMOv[code]=Object.assign(invMOv[code]||{},{[field]:val});saveInvMOv();}
+  renderInvMaster();
+}
+function addInvItem(){
+  const code='EX'+Date.now().toString(36).toUpperCase();
+  const it={g:'공통',c:code,n:'신규 품목',u:'',p:0,cl:''};
+  INV_MASTER.push(it);invM.set(code,it);invUserItems.push(it);saveInvUserItems();
+  renderInvMaster();toast('새 품목이 추가되었습니다 · 설비·품명·단위·단가를 입력하세요');
+}
+function copyInvItem(code){
+  const src=invItem(code);const base=invM.get(code)||{};
+  const newCode='EX'+Date.now().toString(36).toUpperCase();
+  const it={g:src.g,c:newCode,n:(src.n||'')+' (복사)',u:src.u,p:src.p,cl:base.cl||''};
+  INV_MASTER.push(it);invM.set(newCode,it);invUserItems.push(it);saveInvUserItems();
+  renderInvMaster();toast('품목이 복사되었습니다');
+}
+function delInvUserItem(code){
+  if(!invIsUser(code)){toast('기본 품목은 삭제할 수 없습니다.');return;}
+  if(!confirm('이 품목을 삭제할까요?'))return;
+  const idx=INV_MASTER.findIndex(x=>x.c===code);if(idx>=0)INV_MASTER.splice(idx,1);
+  invM.delete(code);
+  invUserItems=invUserItems.filter(x=>x.c!==code);saveInvUserItems();
+  delete invMOv[code];saveInvMOv();
+  renderInvMaster();
+}
 const INV_GRP_ORDER=['EAF','L/D','LF','CC'];
 function invMasterOv(){try{return JSON.parse(localStorage.getItem('dgrns_invmaster')||'{}');}catch(e){return{};}}
 let invMOv=invMasterOv();
@@ -5329,12 +5686,13 @@ function renderInvMaster(){
     const priceCell=linked
       ?`<input type="number" class="iinp" value="${it.p}" disabled style="width:76px;background:#f4f6f8;color:var(--muted)" title="내화물 기본정보(${esc(it.linkedProd?it.linkedProd.name:'')}) 연동 · 단가는 그쪽에서 수정하세요">`
       :`<input type="number" class="iinp" value="${it.p}" onchange="invMOv['${m.c}']=Object.assign(invMOv['${m.c}']||{},{p:+this.value});saveInvMOv();renderInvMonth()">`;
-    return `<tr><td style="font-size:11px;color:var(--muted)">${esc(m.g)}</td><td style="font-size:10.5px">${esc(m.c)}</td>
-      <td>${esc(m.n)}</td>
+    return `<tr><td style="font-size:11px;color:var(--muted)"><input class="iinp" style="width:56px;text-align:center;font-size:11px" value="${esc(m.g)}" onchange="setInvMasterField('${m.c}','g',this.value)"></td><td style="font-size:10.5px">${esc(m.c)}</td>
+      <td><input class="iinp" style="min-width:170px" value="${esc(m.n)}" onchange="setInvMasterField('${m.c}','n',this.value)"></td>
       <td><input class="iinp" style="width:52px;text-align:center" value="${esc(it.u)}" onchange="invMOv['${m.c}']=Object.assign(invMOv['${m.c}']||{},{u:this.value});saveInvMOv();renderInvMonth()"></td>
       <td class="n">${priceCell}</td>
       <td style="font-size:11px">${esc(m.cl||'')}</td>
-      <td><select class="iinp" style="font-size:10.5px;max-width:160px" onchange="setInvLink('${m.c}',this.value)" title="내화물 기본정보(품목마스터)의 제품과 연동하면 단가가 자동으로 따라옵니다">${invProdOptions(linked)}</select></td></tr>`;}).join('');
+      <td><select class="iinp" style="font-size:10.5px;max-width:160px" onchange="setInvLink('${m.c}',this.value)" title="내화물 기본정보(품목마스터)의 제품과 연동하면 단가가 자동으로 따라옵니다">${invProdOptions(linked)}</select></td>
+      <td><div class="acts"><button class="btn sm" onclick="copyInvItem('${m.c}')" title="이 품목을 복사해 새 품목 만들기">복사</button>${invIsUser(m.c)?`<button class="btn sm danger" onclick="delInvUserItem('${m.c}')">삭제</button>`:''}</div></td></tr>`;}).join('');
 }
 function downloadInv(){
   const ym=document.getElementById('inv_ym').value;const prod=getProd(ym)||0;
@@ -5371,7 +5729,7 @@ function fieldTargetColor(t){return /구매/.test(t)&&!/노재|STS|혼선차/.te
 function loadFieldIssue(){try{return JSON.parse(localStorage.getItem('dgrns_fieldissue')||'{}');}catch(e){return{};}}
 let fieldIssueSt=loadFieldIssue();
 function setFieldIssue(id,k,v){fieldIssueSt[id]=Object.assign(fieldIssueSt[id]||{},{[k]:v});try{localStorage.setItem('dgrns_fieldissue',JSON.stringify(fieldIssueSt));}catch(e){}if(k==='status')renderFieldIssue();}
-let fieldSub='hist';
+let fieldSub='company';
 function fieldTab(sp){fieldSub=sp;
   document.querySelectorAll('#fieldSubtabs .subtab').forEach(b=>b.classList.toggle('active',b.dataset.sp===sp));
   document.querySelectorAll('#v-fieldwork .subpanel').forEach(p=>p.classList.remove('active'));
@@ -5388,24 +5746,36 @@ function fieldCompanies(){
 function loadFieldContacts(){try{const s=JSON.parse(localStorage.getItem('dgrns_field_contacts'));if(s&&typeof s==='object')return s;}catch(e){}return {};}
 function saveFieldContacts(){try{localStorage.setItem('dgrns_field_contacts',JSON.stringify(fieldContacts));}catch(e){}}
 let fieldContacts=loadFieldContacts();
+function loadFieldCompanyLog(){try{const s=JSON.parse(localStorage.getItem('dgrns_field_companylog'));if(s&&typeof s==='object')return s;}catch(e){}return {};}
+function saveFieldCompanyLog(){try{localStorage.setItem('dgrns_field_companylog',JSON.stringify(fieldCompanyLog));}catch(e){}}
+let fieldCompanyLog=loadFieldCompanyLog();
+function logFieldCompany(company,text){
+  const list=fieldCompanyLog[company]=fieldCompanyLog[company]||[];
+  list.push({date:todayStr(),text});
+  saveFieldCompanyLog();
+}
 let curFieldCompany='';
 function addFieldContact(company){
   const name=prompt(company+' 담당자 이름을 입력하세요');if(!name||!name.trim())return;
   const rank=prompt(company+' "'+name.trim()+'" 님의 직급을 입력하세요 (예: 과장)','')||'';
   const list=fieldContacts[company]=fieldContacts[company]||[];
   list.push({id:'c'+Date.now(),name:name.trim(),rank:rank.trim(),history:[]});
-  saveFieldContacts();renderFieldCompanyDetail(company);toast(name.trim()+' 담당자가 추가되었습니다');
+  saveFieldContacts();logFieldCompany(company,'담당자 추가: '+name.trim()+(rank.trim()?' ('+rank.trim()+')':''));
+  renderFieldCompanyDetail(company);toast(name.trim()+' 담당자가 추가되었습니다');
 }
 function editFieldContactRank(company,cid){
   const list=fieldContacts[company]||[];const c=list.find(x=>x.id===cid);if(!c)return;
   const nr=prompt(c.name+' 님의 새 직급을 입력하세요',c.rank||'');if(nr==null)return;
   const nrt=nr.trim();
-  if(nrt&&nrt!==c.rank){c.history=(c.history||[]);c.history.push({rank:c.rank||'(직급 미상)',changedAt:todayStr()});c.rank=nrt;}
+  if(nrt&&nrt!==c.rank){c.history=(c.history||[]);c.history.push({rank:c.rank||'(직급 미상)',changedAt:todayStr()});
+    logFieldCompany(company,c.name+' 직급 변경: '+(c.rank||'(직급 미상)')+' → '+nrt);c.rank=nrt;}
   saveFieldContacts();renderFieldCompanyDetail(company);toast(c.name+' 직급이 갱신되었습니다');
 }
 function removeFieldContact(company,cid){
   if(!confirm('이 담당자를 삭제할까요?'))return;
-  fieldContacts[company]=(fieldContacts[company]||[]).filter(x=>x.id!==cid);
+  const list=fieldContacts[company]||[];const c=list.find(x=>x.id===cid);
+  fieldContacts[company]=list.filter(x=>x.id!==cid);
+  if(c)logFieldCompany(company,'담당자 삭제: '+c.name+(c.rank?' ('+c.rank+')':''));
   saveFieldContacts();renderFieldCompanyDetail(company);
 }
 function fieldContactHistoryHtml(c){
@@ -5453,6 +5823,12 @@ function renderFieldCompanyDetail(company){
         </div>
       </div>
       <div style="margin-top:14px">
+        <div style="font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px">📜 담당자 변경이력</div>
+        <div style="font-size:11.5px;color:#555;line-height:1.7;background:#fafbfc;border:1px solid #eef1f4;border-radius:8px;padding:8px 12px;max-height:140px;overflow:auto">
+          ${(fieldCompanyLog[company]||[]).slice().reverse().map(h=>`<div>${esc(h.date)} · ${esc(h.text)}</div>`).join('')||'변경이력이 없습니다.'}
+        </div>
+      </div>
+      <div style="margin-top:14px">
         <div style="font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px">🗂️ ${filt?esc(filt)+' 님과의 미팅 이력 ('+shownRows.length+'건)':'전체 보고서 ('+shownRows.length+'건)'}
           ${filt?`<button class="btn sm" style="margin-left:8px" onclick="clearContactFilter('${esc(company).replace(/'/g,"\\'")}')">전체 보기</button>`:''}
         </div>
@@ -5468,11 +5844,12 @@ function initField(){
   const ysel=document.getElementById('f_year');
   if(ysel.options.length<=1)ysel.innerHTML='<option value="">전체 연도</option>'+ys.map(y=>`<option>${y}</option>`).join('');
   renderFieldCards();renderFieldHist();
+  if(fieldSub==='company')renderFieldCompanies();else if(fieldSub==='issue')renderFieldIssue();
 }
 function renderFieldCards(){
   const buy=FIELD_SEED.filter(r=>fieldCats(r).includes('구매')).length;
   const furn=FIELD_SEED.filter(r=>fieldCats(r).includes('노재')).length;
-  const issues=fieldAllIssues();const openN=issues.filter(i=>(fieldIssueSt[i.id]||{}).status!=='done').length;
+  const issues=fieldAllIssues();const openN=issues.filter(i=>fieldIssueStatus(i)!=='done').length;
   document.getElementById('fieldCards').innerHTML=
     card('총 외근보고',FIELD_SEED.length,'건')+card('구매',buy,'건')+card('노재',furn,'건')+card('추출 이슈',issues.length,'건')+card('진행중 이슈',openN,'건');
 }
@@ -5521,18 +5898,31 @@ function renderFieldHist(){
   html+=fieldGroupHtml('🔧 노재 — 기타',EQUIP_COLOR['RH']||'#555',etc);
   document.getElementById('fieldHist').innerHTML=html||`<div class="empty">보고서가 없습니다.</div>`;
 }
+/* 이슈 자동판정: 문구 자체에 해결·완료를 뜻하는 표현이 있으면 기본값을 '완료'로,
+   요청·예정 등 후속조치가 필요함을 뜻하는 표현이 있으면 '진행중'으로 분류한다.
+   (사용자가 체크박스로 직접 덮어쓰면 그 값이 항상 우선한다) */
+const FIELD_EXCLUDE_RE=/^[-→▸·]*\.?\s*(기준\s*)?수명\s*[:：]/; // 순수 스펙·수치 나열 라인은 이슈에서 제외
+const FIELD_PENDING_KW=['요청','예정','검토','미정','미확정','지연','확인 필요','협의 필요','제출 예정','발주 검토'];
+const FIELD_RESOLVED_KW=['완료','양호','이상없음','문제 없음','문제없음','특이사항 없음','흔적 없음','크랙 없음','해결','없음 양호','無'];
+function fieldIssueDefStatus(text){
+  if(FIELD_PENDING_KW.some(k=>text.includes(k)))return 'open';
+  if(FIELD_RESOLVED_KW.some(k=>text.includes(k)))return 'done';
+  return 'open';
+}
+function fieldIssueStatus(i){const ov=fieldIssueSt[i.id];return (ov&&ov.status)?ov.status:i.defStatus;}
 function fieldAllIssues(){
   const out=[];
   FIELD_SEED.forEach(r=>{const lines=(r.co||'').split('\n');
     lines.forEach((ln,i)=>{const t=ln.trim();if(t.length<4)return;
-      if(FIELD_KW.some(k=>t.includes(k))){out.push({id:r.d+'#'+i,date:r.d,target:r.t,cust:r.cu,text:t});}});});
+      if(FIELD_EXCLUDE_RE.test(t))return;
+      if(FIELD_KW.some(k=>t.includes(k))){out.push({id:r.d+'#'+i,date:r.d,target:r.t,cust:r.cu,text:t,defStatus:fieldIssueDefStatus(t)});}});});
   return out;
 }
 function renderFieldIssue(){
   const sf=document.getElementById('fi_status').value;
   let issues=fieldAllIssues();
-  if(sf==='open')issues=issues.filter(i=>(fieldIssueSt[i.id]||{}).status!=='done');
-  else if(sf==='done')issues=issues.filter(i=>(fieldIssueSt[i.id]||{}).status==='done');
+  if(sf==='open')issues=issues.filter(i=>fieldIssueStatus(i)!=='done');
+  else if(sf==='done')issues=issues.filter(i=>fieldIssueStatus(i)==='done');
   // group by report
   const byRep={};issues.forEach(i=>{(byRep[i.date+'|'+i.target]=byRep[i.date+'|'+i.target]||[]).push(i);});
   const keys=Object.keys(byRep).sort().reverse();
@@ -5540,12 +5930,12 @@ function renderFieldIssue(){
     return `<div class="fcard open" style="border-left:4px solid ${c}">
       <div class="fc-h" style="cursor:default"><span class="fc-date">${esc(d)}</span><span class="fc-tag" style="background:${c}">${esc(t)}</span></div>
       <div class="fc-body" style="display:block">
-        ${byRep[k].map(i=>{const st=fieldIssueSt[i.id]||{};const done=st.status==='done';
+        ${byRep[k].map(i=>{const st=fieldIssueSt[i.id]||{};const done=fieldIssueStatus(i)==='done';const auto=!st.status;
           return `<div class="iss-row ${done?'iss-done':''}">
             <div style="display:flex;gap:8px;align-items:flex-start">
               <input type="checkbox" ${done?'checked':''} onchange="setFieldIssue('${i.id}','status',this.checked?'done':'open')" style="margin-top:3px">
               <div style="flex:1;min-width:0">
-                <div class="iss-txt">${esc(i.text)}</div>
+                <div class="iss-txt">${esc(i.text)}${auto?`<span style="font-size:10px;color:${done?'#15803d':'#a16207'};background:${done?'#dcfce7':'#fef4c7'};border-radius:5px;padding:1px 6px;margin-left:6px;font-weight:700">${done?'자동판정: 해결':'자동판정: 진행중'}</span>`:''}</div>
                 <input class="binp" style="width:100%;margin-top:4px" placeholder="후속조치·메모" value="${esc(st.memo||'')}" onchange="setFieldIssue('${i.id}','memo',this.value)">
               </div></div></div>`;}).join('')}
       </div></div>`;}).join('')||`<div class="empty">이슈가 없습니다.</div>`;
@@ -5733,29 +6123,53 @@ let poscoContractStore=loadPoscoContract();
 function poscoContractCell(item){
   const c=poscoContractStore[item];
   if(!c||!c.vendor)return '<span style="color:#d3d9df">미지정</span>';
-  return `<b>${esc(c.vendor)}</b><br><span style="font-size:10.5px;color:var(--muted)">${esc(c.period||'-')}</span>`;
+  const nextLine=(c.next&&c.next.vendor)?`<br><span style="font-size:10px;color:#b45309">▸예정 ${esc(c.next.vendor)} · ${esc(c.next.period||'-')}</span>`:'';
+  return `<b>${esc(c.vendor)}</b><br><span style="font-size:10.5px;color:var(--muted)">${esc(c.period||'-')}</span>${nextLine}`;
 }
+let __pcpItem=null;
 function editPoscoContract(item){
-  const cur=poscoContractStore[item]||{vendor:'',period:'',history:[]};
-  const vendor=prompt(item+' 현재 계약업체를 입력하세요 (예: 동국R&S)',cur.vendor||'');
-  if(vendor==null)return;
-  const period=prompt(item+' 계약기간을 입력하세요 (예: 27.03월)',cur.period||'');
-  if(period==null)return;
-  const nv=vendor.trim(),np=period.trim();
+  __pcpItem=item;
+  const cur=poscoContractStore[item]||{vendor:'',period:'',next:null,history:[]};
+  document.getElementById('pcp_item').textContent='품명: '+item;
+  document.getElementById('pcp_vendor').value=cur.vendor||'';
+  document.getElementById('pcp_period').value=cur.period||'';
+  document.getElementById('pcp_nvendor').value=(cur.next&&cur.next.vendor)||'';
+  document.getElementById('pcp_nperiod').value=(cur.next&&cur.next.period)||'';
+  const hist=(cur.history||[]).slice().reverse();
+  document.getElementById('pcp_hist').innerHTML=hist.length
+    ?hist.map(h=>`<div style="padding:6px 10px;border-bottom:1px solid #f0f2f4"><b>${esc(h.vendor)}</b> · ${esc(h.period||'-')} <span style="color:var(--muted);font-size:10.5px">(${esc(h.changedAt||'')}까지)</span></div>`).join('')
+    :'<div style="padding:10px;color:#98a2ad">과거 이력이 없습니다</div>';
+  document.getElementById('poscoContractPanel').classList.remove('hidden');
+}
+function closePoscoContract(){document.getElementById('poscoContractPanel').classList.add('hidden');__pcpItem=null;}
+function savePoscoContractModal(){
+  if(!__pcpItem)return;
+  const item=__pcpItem;
+  const cur=poscoContractStore[item]||{vendor:'',period:'',next:null,history:[]};
+  const nv=(document.getElementById('pcp_vendor').value||'').trim();
+  const np=(document.getElementById('pcp_period').value||'').trim();
+  const nnv=(document.getElementById('pcp_nvendor').value||'').trim();
+  const nnp=(document.getElementById('pcp_nperiod').value||'').trim();
   const hist=(cur.history||[]).slice();
   if(cur.vendor&&(cur.vendor!==nv||cur.period!==np)){
     hist.push({vendor:cur.vendor,period:cur.period,changedAt:todayStr()});
   }
-  poscoContractStore[item]={vendor:nv,period:np,history:hist};
-  savePoscoContract();renderPosco();toast(item+' 계약정보가 저장되었습니다');
+  poscoContractStore[item]={vendor:nv,period:np,next:(nnv||nnp)?{vendor:nnv,period:nnp}:null,history:hist};
+  savePoscoContract();closePoscoContract();renderPosco();toast(item+' 계약정보가 저장되었습니다');
 }
-function showPoscoHistory(item){
-  const c=poscoContractStore[item];const hist=(c&&c.history)||[];
-  if(!hist.length){toast('이전 업체 변경 이력이 없습니다');return;}
-  const lines=hist.map(h=>`${h.period||'-'} : ${h.vendor}`);
-  if(c&&c.vendor)lines.push(`${c.period||'-'} : ${c.vendor} (현재)`);
-  alert(item+' 업체 변경 이력\n\n'+lines.join('\n'));
-}
+function showPoscoHistory(item){editPoscoContract(item);}
+/* 포항제철소·광양제철소 구분 (미지정 = 공통 취급) */
+function loadPoscoSite(){try{return JSON.parse(localStorage.getItem('dgrns_posco_site')||'{}');}catch(e){return{};}}
+let poscoSiteOv=loadPoscoSite();
+function savePoscoSite(){try{localStorage.setItem('dgrns_posco_site',JSON.stringify(poscoSiteOv));}catch(e){}}
+function poscoSite(item){return poscoSiteOv[item]||'공통';}
+function setPoscoSite(item,v){if(!v||v==='공통')delete poscoSiteOv[item];else poscoSiteOv[item]=v;savePoscoSite();renderPosco();}
+const POSCO_SITE_OPTS=['공통','포항제철소','광양제철소'];
+function poscoSiteSel(item){const cur=poscoSite(item);
+  const col=cur==='포항제철소'?'#1d4ed8':cur==='광양제철소'?'#b45309':'#64748b';
+  const bg=cur==='포항제철소'?'#dbeafe':cur==='광양제철소'?'#ffedd5':'#eef2f6';
+  return `<select class="bsel" style="color:${col};background:${bg};font-size:11px" onchange="setPoscoSite('${esc(item)}',this.value)">`
+    +POSCO_SITE_OPTS.map(o=>`<option${o===cur?' selected':''}>${o}</option>`).join('')+`</select>`;}
 function poscoTab(sp){poscoSub=sp;
   document.querySelectorAll('#poscoSubtabs .subtab').forEach(b=>b.classList.toggle('active',b.dataset.sp===sp));
   document.querySelectorAll('#v-posco .subpanel').forEach(p=>p.classList.remove('active'));
@@ -5766,9 +6180,11 @@ function initPosco(){renderPosco();}
 function poscoRows(){
   const q=(document.getElementById('p_search').value||'').toLowerCase();
   const f=document.getElementById('p_dk').value;
+  const sf=(document.getElementById('p_site')||{}).value||'';
   return POSCO_SEED
     .filter(r=>!q||(r.item||'').toLowerCase().includes(q)||(r.baseVendor||'').toLowerCase().includes(q))
     .filter(r=>{if(!f)return true;if(f==='win')return r.dkWin>0;return r.dkRank===f;})
+    .filter(r=>!sf||poscoSite(r.item)===sf)
     .sort((a,b)=>(b.amount||0)-(a.amount||0));
 }
 const pN=n=>(n==null?'-':Math.round(n).toLocaleString());
@@ -5830,17 +6246,18 @@ function renderPosco(){
   renderPvendMgr();
   // 결과표: 동국R&S 입찰가능 품목을 상단 그룹으로, 나머지는 하단 그룹으로 표시
   const {canBid,cannotBid}=poscoSplit(rows);
-  const COLN=12;
+  const COLN=13;
   const rowHtml=r=>`<tr${r.dkWin>0?' style="background:#f0fdf4"':''}>
-      <td><b>${esc(r.item)}</b></td><td>${vendorPlainTags(r)}</td><td>${vendorRankTags(r)}</td><td style="font-size:11.5px">${esc(r.baseVendor||'-')}</td>
+      <td style="white-space:nowrap"><b>${esc(r.item)}</b></td><td>${poscoSiteSel(r.item)}</td><td>${vendorPlainTags(r)}</td><td>${vendorRankTags(r)}</td><td style="font-size:11.5px">${esc(r.baseVendor||'-')}</td>
       <td class="n">${pN(r.basePrice)}</td><td class="n">${pN(r.winPrice)}</td>
       <td class="n">${pN(r.qty)}</td><td class="n">${pN(r.amount)}</td>
       <td>${r.alloc?`<span class="tag t-vendor" style="font-size:10.5px">${esc(r.alloc)}</span>`:'-'}</td>
       <td>${dkBadge(r)}</td><td class="n">${r.dkWin>0?'<b>'+pN(r.dkWin)+'</b>':'-'}</td>
       <td style="cursor:pointer" onclick="editPoscoContract('${esc(r.item)}')" title="클릭해서 현재 계약업체·계약기간 입력/수정">${poscoContractCell(r.item)} <span style="font-size:10px;color:var(--accent)">✎</span>
         ${((poscoContractStore[r.item]||{}).history||[]).length?`<br><button class="btn sm" style="font-size:10px;padding:1px 6px;margin-top:3px" onclick="event.stopPropagation();showPoscoHistory('${esc(r.item)}')">이력보기</button>`:''}</td></tr>`;
+  document.getElementById('p_bidLabel').innerHTML=canBid.length?`🏷️ 동국R&amp;S 입찰가능 품목 <b>(${canBid.length}건)</b>`:'';
   let body='';
-  if(canBid.length)body+=`<tr><td colspan="${COLN}" style="background:#eef6ff;font-weight:800;color:#1d4ed8;padding:7px 10px;font-size:12px">🏷️ 동국R&amp;S 입찰가능 품목 (${canBid.length}건)</td></tr>`+canBid.map(rowHtml).join('');
+  body+=canBid.map(rowHtml).join('');
   if(cannotBid.length)body+=`<tr><td colspan="${COLN}" style="background:#f4f5f7;font-weight:700;color:#64748b;padding:7px 10px;font-size:12px">기타 품목 (${cannotBid.length}건)</td></tr>`+cannotBid.map(rowHtml).join('');
   if(!rows.length)body=`<tr><td colspan="${COLN}"><div class="empty">해당 조건의 품목이 없습니다.</div></td></tr>`;
   document.getElementById('poscoBody').innerHTML=body;
@@ -5875,9 +6292,9 @@ function renderPoscoRank(all){
 }
 function downloadPosco(){
   const rows=poscoRows();
-  let t=`<table><tr><th>품명</th><th>기존업체</th><th>기존단가</th><th>낙찰가</th><th>물량</th><th>금액</th><th>배분율</th><th>동국순위</th><th>동국낙찰금액</th><th>계약업체</th><th>계약기간</th>`+PVEND.map(v=>`<th>${v}</th>`).join('')+`</tr>`;
+  let t=`<table><tr><th>품명</th><th>제철소</th><th>기존업체</th><th>기존단가</th><th>낙찰가</th><th>물량</th><th>금액</th><th>배분율</th><th>동국순위</th><th>동국낙찰금액</th><th>계약업체</th><th>계약기간</th>`+PVEND.map(v=>`<th>${v}</th>`).join('')+`</tr>`;
   rows.forEach(r=>{const vm=r.vmap||{};const ct=poscoContractStore[r.item]||{};
-    t+=`<tr><td>${esc(r.item)}</td><td>${esc(r.baseVendor||'')}</td><td>${r.basePrice??''}</td><td>${r.winPrice??''}</td><td>${r.qty??''}</td><td>${r.amount??''}</td><td>${esc(r.alloc||'')}</td><td>${r.dkWin>0?'낙찰':esc(r.dkRank)}</td><td>${r.dkWin||''}</td><td>${esc(ct.vendor||'')}</td><td>${esc(ct.period||'')}</td>`+PVEND.map(v=>`<td>${esc(vm[v]||'')}</td>`).join('')+`</tr>`;});
+    t+=`<tr><td>${esc(r.item)}</td><td>${esc(poscoSite(r.item))}</td><td>${esc(r.baseVendor||'')}</td><td>${r.basePrice??''}</td><td>${r.winPrice??''}</td><td>${r.qty??''}</td><td>${r.amount??''}</td><td>${esc(r.alloc||'')}</td><td>${r.dkWin>0?'낙찰':esc(r.dkRank)}</td><td>${r.dkWin||''}</td><td>${esc(ct.vendor||'')}</td><td>${esc(ct.period||'')}</td>`+PVEND.map(v=>`<td>${esc(vm[v]||'')}</td>`).join('')+`</tr>`;});
   t+=`</table>`;downloadXls('포스코_범용B_입찰통합',t);
 }
 
@@ -7357,7 +7774,7 @@ function renderLeave(){
   const b=document.getElementById('leaveBody');
   if(!rows.length){b.innerHTML='<tr><td colspan="10"><div class="empty">휴가원이 없습니다.</div></td></tr>';return;}
   b.innerHTML=rows.map(r=>`<tr>
-    <td style="white-space:nowrap">${esc(r.at||'')}</td><td><b>${esc(r.name)}</b></td><td>${esc(r.dept||'')}</td>
+    <td style="white-space:nowrap">${esc(r.at||'')}</td><td style="white-space:nowrap"><b>${esc(r.name)}</b></td><td>${esc(r.dept||'')}</td>
     <td style="white-space:nowrap">${esc(r.type)}<div style="margin-top:2px">${leaveKindTag(r.type)}</div></td>
     <td style="white-space:nowrap">${esc(r.start)}${r.end&&r.end!==r.start?' ~ '+esc(r.end):''}</td>
     <td class="n">${r.days}</td><td style="font-size:11.5px">${r.subName?esc(r.subName):'<span style="color:#c5ccd3">-</span>'}</td><td style="font-size:11.5px">${esc(r.reason||'')}</td>
@@ -7483,7 +7900,7 @@ function renderOt(){
   const b=document.getElementById('otBody');
   if(!rows.length){b.innerHTML='<tr><td colspan="11"><div class="empty">잔업신청이 없습니다.</div></td></tr>';return;}
   b.innerHTML=rows.map(r=>`<tr>
-    <td style="white-space:nowrap">${esc(r.at||'')}</td><td><b>${esc(r.name)}</b></td><td>${esc(r.dept||'')}</td>
+    <td style="white-space:nowrap">${esc(r.at||'')}</td><td style="white-space:nowrap"><b>${esc(r.name)}</b></td><td>${esc(r.dept||'')}</td>
     <td style="white-space:nowrap">${esc(r.date)}</td><td style="white-space:nowrap">${esc(r.st)}~${esc(r.et)}</td>
     <td class="n">${r.gross||r.hours}</td><td class="n" style="color:var(--muted)">${r.rest||0}</td><td class="n"><b>${r.hours}</b></td>
     <td style="font-size:11.5px">${r.type==='holiday'?'<span style="background:#fef3c7;padding:2px 6px;border-radius:3px;font-weight:600;color:#92400e">휴일근로</span>':'<span style="background:#dbeafe;padding:2px 6px;border-radius:3px;font-weight:600;color:#1e40af">일반 잔업</span>'}</td>
@@ -7888,7 +8305,7 @@ function renderEmp(){
   const y=todayStr().slice(0,4);
   b.innerHTML=rows.map(r=>{const g=annualGrant(r,y),st=leaveStat(r.id,y),yg=yearLeaveGrant(r);
     return `<tr${r.active===0?' style="opacity:.5"':''}>
-    <td style="white-space:nowrap"><b>${esc(r.name)}</b></td>
+    <td style="white-space:nowrap"><b>${esc(r.name)}</b> <button class="btn sm" style="padding:1px 5px;font-size:10.5px" onclick="editEmp('${r.id}')" title="정보 수정(휴가갯수 등)">⚙️</button><button class="btn sm" style="padding:1px 5px;font-size:10.5px" onclick="setEmpPw('${r.id}')" title="개인 비밀번호 설정/수정">🔑</button></td>
     <td style="white-space:nowrap">${empQuickSel(r,'dept',DEPTS)}</td>
     <td style="white-space:nowrap">${empQuickSel(r,'rank',RANKS)}${r.pos?`<div style="font-size:10px;color:var(--muted)">${esc(r.pos)}</div>`:''}</td>
     <td><span class="tag" style="background:${r.part?'#dbeafe':'#eef2f6'};color:${r.part?'#1d4ed8':'#334155'}">${esc(ROLE_LABEL[empPart(r)]||'')}</span>${r.part?'':'<div style="font-size:10px;color:var(--muted)">자동</div>'}</td>
@@ -7896,8 +8313,8 @@ function renderEmp(){
     <td style="white-space:nowrap">${empQuickSel(r,'team',teamsOf(r.dept),'반없음')} ${empQuickSel(r,'wtype',WTYPES)}
       <div style="font-size:10.5px;color:var(--muted);white-space:nowrap">${r.tel?esc(r.tel):esc(WORKTIME[r.wtype]||'')}</div></td>
     <td style="white-space:nowrap">${esc(r.hire||'')}</td>
-    <td class="n"><b>${g-st.used-st.pend}</b> / ${g}</td>
-    <td class="n">${(yg-st.yUsed-st.yPend)} / ${yg}</td>
+    <td class="n" style="white-space:nowrap"><b>${g-st.used-st.pend}</b> / ${g}</td>
+    <td class="n" style="white-space:nowrap">${(yg-st.yUsed-st.yPend)} / ${yg}</td>
     <td style="white-space:nowrap">${r.sign?`<img class="signthumb" src="${r.sign}">`:'<span style="font-size:11px;color:var(--muted)">미등록</span>'}</td>
     <td style="white-space:nowrap">${r.pwh?'<span class="tag" style="background:#dcfce7;color:#15803d;font-size:10.5px">설정됨</span>':'<span style="font-size:11px;color:var(--muted)">미설정</span>'}</td>
     <td><div class="acts"><button class="btn sm" onclick="setEmpPw('${r.id}')" title="파트 로그인용 개인 비밀번호">🔑</button>
