@@ -156,11 +156,13 @@
   @media(max-width:900px){.boardwrap3{grid-template-columns:1fr}}
   .bcol{min-width:0}
   .boardwrap3>.bcol{min-width:0;overflow:hidden}
-  /* 작업현황판 기본 셀(래들/턴디쉬) 크기 확대 — 툴/구조는 동일, 가독성만 개선 */
-  .btd-row{display:grid;grid-template-columns:34px 116px 70px 70px minmax(0,1fr);gap:8px;align-items:center;padding:9px 12px;border-bottom:1px solid #eef1f4;font-size:13.5px}
+  /* 작업현황판 턴디쉬 셀 크기 확대(2차) — 툴/구조는 동일, 가독성만 개선 */
+  .btd-row{display:grid;grid-template-columns:42px 138px 86px 86px minmax(0,1fr);gap:10px;align-items:center;padding:12px 14px;border-bottom:1px solid #eef1f4;font-size:15.5px}
   .btd-row>*{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-  .btd-head{background:#f4f6f8;font-weight:700;color:#516170;font-size:12.5px}
-  .btd-row .bno{font-size:15px;font-weight:800}
+  .btd-head{background:#f4f6f8;font-weight:700;color:#516170;font-size:13.5px;padding:10px 14px}
+  .btd-row .bno{font-size:17px;font-weight:800}
+  .btd-row .bsel{font-size:14.5px;padding:6px 8px}
+  .btd-row .binp{font-size:15px;padding:6px 8px}
   .prodstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
   @media(max-width:800px){.prodstrip{grid-template-columns:1fr}}
   .prodbox{border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:linear-gradient(135deg,#1e3a5f,#2b5580);color:#fff}
@@ -170,7 +172,7 @@
   .prodbox .pb-v{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
   .prodbox .pb-v small{font-size:12px;font-weight:600;opacity:.8}
   .bcol{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-  .bcol-h{padding:12px 16px;font-weight:800;font-size:15.5px;color:#fff}
+  .bcol-h{padding:16px 20px;font-weight:800;font-size:18px;color:#fff}
   .btbl{width:100%;border-collapse:collapse;font-size:14.5px}
   .btbl th{background:#f4f6f8;padding:9px 10px;font-weight:700;color:#516170;border-bottom:1px solid var(--line);text-align:left}
   .btbl td{padding:10px 10px;border-bottom:1px solid #eef1f4;vertical-align:middle}
@@ -940,7 +942,7 @@
       <button class="btn danger del-rec" onclick="delSnap()" title="현재 조회중인 확정분기 삭제">확정 삭제</button>
     </div>
     <div class="tablewrap"><table class="bomtbl">
-      <thead><tr><th style="width:30px" title="표시된 전체 선택"><input type="checkbox" id="pm_all" onchange="toggleAllShown(this.checked)"></th><th style="width:60px">설비</th><th style="width:66px">구분</th><th style="width:190px">제품명</th><th style="width:150px">배합</th><th style="width:170px">규격</th><th class="n" style="width:64px">단중</th><th style="width:78px">단가유형</th><th class="n" style="width:84px">단가(원)</th><th class="n" style="width:92px">변동</th><th style="width:60px">등록</th><th style="width:44px">사용</th><th class="n" style="width:44px">물량</th><th style="width:34px"></th></tr></thead>
+      <thead><tr><th style="width:30px" title="표시된 전체 선택"><input type="checkbox" id="pm_all" onchange="toggleAllShown(this.checked)"></th><th style="width:60px">설비</th><th style="width:66px">구분</th><th style="width:160px">당사 제품명</th><th style="width:140px">고객사 제품명</th><th style="width:150px">배합</th><th style="width:170px">규격</th><th class="n" style="width:64px">단중</th><th style="width:78px">단가유형</th><th class="n" style="width:84px">단가(원)</th><th class="n" style="width:92px">변동</th><th style="width:60px">등록</th><th style="width:44px">사용</th><th class="n" style="width:44px">물량</th><th style="width:34px"></th></tr></thead>
       <tbody id="prodBody"></tbody>
     </table></div>
     <div style="font-size:11.5px;color:var(--accent);margin-top:8px">※ 래들·턴디쉬·전기로 모든 내화물 제품을 여기서 한 번에 등록·관리합니다. 단중·단가·배합을 고치면 모든 축조물량표와 원가계산에 자동 반영됩니다. 수정 후 <b>💾 저장</b>을 눌러주세요.</div>
@@ -1482,7 +1484,7 @@ service cloud.firestore {
     <!-- 턴디쉬 패널 -->
     <div id="boardTundishPanel" class="board-panel hidden" style="padding:16px;display:none">
       <div style="font-size:16px;font-weight:700;margin-bottom:16px">턴디쉬 (Tundish) · 150각 / BL / BB</div>
-      <div id="boardTundish" style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"></div>
+      <div id="boardTundish" style="display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(420px,1fr))"></div>
     </div>
   </section>
 
@@ -1492,28 +1494,38 @@ service cloud.firestore {
     <div class="subtabs" id="eafSubtabs">
       <button class="subtab active" data-sp="life" onclick="eafTab('life')">🔥 전기로 수명관리</button>
       <button class="subtab" data-sp="cost" onclick="eafTab('cost')">💰 전기로 원가관리</button>
+      <button class="subtab" data-sp="teardown" onclick="eafTab('teardown')">🧱 해체 점검 보고서</button>
     </div>
     <div class="subpanel active" id="esp-life">
     <div class="cards" id="eafCards"></div>
     <div class="formbar">
       <h3>＋ 전기로 일일 조업 등록</h3>
-      <div class="frow">
-        <div class="field w-date"><label>일자</label><input type="date" id="e_date"></div>
-        <div class="field w-no"><label>로</label>
-          <select id="e_ro"><option value="A">A로</option><option value="B">B로</option></select></div>
-        <div class="field w-ch"><label>일일 조업 CH</label><input type="number" id="e_ch" placeholder="예:15"></div>
-        <div class="field w-ch"><label>일일 생산량(TON)</label><input type="number" id="e_ton" placeholder="예:4464"></div>
+      <div class="field w-date"><label>일자</label><input type="date" id="e_date"></div>
+      <!-- A로 전용 입력행: 로 선택 없이 항상 A로 고정 (오입력 방지) -->
+      <div class="frow" style="border-left:4px solid #1d4ed8;padding-left:10px;margin-top:10px;background:#f5f9ff;border-radius:0 8px 8px 0">
+        <div class="field w-no" style="display:flex;align-items:flex-end;padding-bottom:8px"><b style="color:#1d4ed8;font-size:15px">🔵 A로</b></div>
+        <div class="field w-ch"><label>일일 조업 CH</label><input type="number" id="eA_ch" placeholder="예:15"></div>
+        <div class="field w-ch"><label>일일 생산량(TON)</label><input type="number" id="eA_ton" placeholder="예:4464"></div>
         <div class="field grow"><label>교체 (주간보수 시 해당 부위 누적 초기화)</label>
-          <div id="e_partChk" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-height:34px;font-size:12.5px"></div>
+          <div id="eA_partChk" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-height:34px;font-size:12.5px"></div>
         </div>
-        <div class="field w-ch"><label>교체 후 CH</label><input type="number" id="e_post" placeholder="예:7"></div>
-        <div class="field"><label>비고</label><input type="text" id="e_note" placeholder="주간보수 등"></div>
-        <div class="field"><label>&nbsp;</label><div style="display:flex;gap:6px">
-          <button class="btn primary" id="e_submit" onclick="submitEaf()">등록</button>
-          <button class="btn hidden" id="e_cancel" onclick="resetEafForm()">취소</button>
-        </div></div>
+        <div class="field w-ch"><label>교체 후 CH</label><input type="number" id="eA_post" placeholder="예:7"></div>
+        <div class="field"><label>비고</label><input type="text" id="eA_note" placeholder="주간보수 등"></div>
+        <div class="field"><label>&nbsp;</label><button class="btn primary" onclick="submitEaf('A')">A로 등록</button></div>
       </div>
-      <div style="font-size:11.5px;color:var(--accent);margin-top:8px">※ 매일 A·B로별 조업 CH를 입력하면 <b>EBT · 발코니 · 로저전극 · 천정 S/V · 작업구 · EBT Sand 투입구</b> 6개 부위의 누적수명이 자동 계산됩니다. 교체 체크 시 해당 부위 누적이 그 날부터 초기화되며, 수명 카드를 클릭하면 부위별 교체 이력을 조회할 수 있습니다.</div>
+      <!-- B로 전용 입력행: 로 선택 없이 항상 B로 고정 (오입력 방지) -->
+      <div class="frow" style="border-left:4px solid #c81e1e;padding-left:10px;margin-top:8px;background:#fff5f5;border-radius:0 8px 8px 0">
+        <div class="field w-no" style="display:flex;align-items:flex-end;padding-bottom:8px"><b style="color:#c81e1e;font-size:15px">🔴 B로</b></div>
+        <div class="field w-ch"><label>일일 조업 CH</label><input type="number" id="eB_ch" placeholder="예:15"></div>
+        <div class="field w-ch"><label>일일 생산량(TON)</label><input type="number" id="eB_ton" placeholder="예:4464"></div>
+        <div class="field grow"><label>교체 (주간보수 시 해당 부위 누적 초기화)</label>
+          <div id="eB_partChk" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-height:34px;font-size:12.5px"></div>
+        </div>
+        <div class="field w-ch"><label>교체 후 CH</label><input type="number" id="eB_post" placeholder="예:7"></div>
+        <div class="field"><label>비고</label><input type="text" id="eB_note" placeholder="주간보수 등"></div>
+        <div class="field"><label>&nbsp;</label><button class="btn primary" onclick="submitEaf('B')">B로 등록</button></div>
+      </div>
+      <div style="font-size:11.5px;color:var(--accent);margin-top:8px">※ A로·B로 입력칸이 각각 고정되어 있어 로를 잘못 선택해 등록하는 오류를 방지합니다. 매일 A·B로별 조업 CH를 입력하면 <b>EBT · 발코니 · 로저전극 · 천정 S/V · 작업구 · EBT Sand 투입구</b> 6개 부위의 누적수명이 자동 계산됩니다. 교체 체크 시 해당 부위 누적이 그 날부터 초기화되며, 수명 카드를 클릭하면 부위별 교체 이력을 조회할 수 있습니다.</div>
     </div>
     <div class="subhead">A/B로 현재 수명 <span class="hint">누적 조업 CH 기준 · 부위를 클릭하면 그 부위만 조회합니다</span></div>
     <div id="eafStatus" class="eafgrid"></div>
@@ -1546,10 +1558,48 @@ service cloud.firestore {
       <div class="subhead">유형별 기준원가 <span class="hint">물량표 유형별 · 기준CH·중량·금액·CH당원가</span></div>
       <div class="tablewrap"><table class="bomtbl"><thead><tr><th>유형</th><th>구분</th><th class="n">기준CH</th><th class="n">중량(kg)</th><th class="n">금액(원)</th><th class="n">CH당원가(원)</th></tr></thead><tbody id="cost_eaf_std"></tbody></table></div>
     </div><!-- /esp-cost -->
+    <div class="subpanel" id="esp-teardown">
+      <div class="formbar">
+        <h3>＋ 로저전극해체 · 발코니해체 점검 보고서 등록</h3>
+        <div class="frow">
+          <div class="field w-no"><label>로</label><select id="etd_ro"><option value="A">A로</option><option value="B">B로</option></select></div>
+          <div class="field w-date"><label>보수일자</label><input type="date" id="etd_date"></div>
+          <div class="field grow"><label>보수구분</label><div id="etd_types" style="display:flex;flex-wrap:wrap;align-items:center;min-height:34px;font-size:12.5px"></div></div>
+          <div class="field w-ch"><label>수명(CH)</label><input type="number" id="etd_life" placeholder="예:1455"></div>
+        </div>
+        <div class="frow">
+          <div class="field grow"><label>상세사유</label><input type="text" id="etd_reason" placeholder="예: 바닥 부상으로 인한 교체"></div>
+        </div>
+        <div class="subhead" style="margin-top:10px">잔존현황 <span class="hint">부위별 원치수·잔존·용손율</span> <button class="btn sm" onclick="eafTdAddResidualRow()">＋ 부위 추가</button></div>
+        <div class="tablewrap"><table class="bomtbl" style="min-width:420px">
+          <thead><tr><th>부위</th><th class="n">원치수</th><th class="n">잔존</th><th class="n">용손율</th><th style="width:34px"></th></tr></thead>
+          <tbody id="etd_residualBody"></tbody>
+        </table></div>
+        <div class="subhead" style="margin-top:10px">내화물 사용량 <span class="hint">품목마스터 연동 시 단가 자동 · 중량=단중×수량 · 금액=중량×단가</span> <button class="btn sm" onclick="eafTdAddItemRow()">＋ 품목 추가</button></div>
+        <div class="tablewrap"><table class="bomtbl" style="min-width:680px">
+          <thead><tr><th>품목마스터 연동</th><th>품명</th><th>규격</th><th class="n">단중</th><th class="n">수량</th><th class="n">중량</th><th class="n">단가</th><th class="n">금액</th><th style="width:34px"></th></tr></thead>
+          <tbody id="etd_itemBody"></tbody>
+        </table></div>
+        <div style="font-size:12px;font-weight:700;color:var(--accent);margin-top:6px;text-align:right" id="etd_sumRow"></div>
+        <div class="subhead" style="margin-top:10px">현장 사진 <span class="hint">잔존현황·해체 전후 등 필요한 부분만 잘라서 첨부</span> <button class="btn sm" onclick="eafTdAddPhoto()">📷 사진 추가</button></div>
+        <div id="etd_photoBox"></div>
+        <div class="frow" style="margin-top:8px">
+          <div class="field grow"><label>비고</label><input type="text" id="etd_note" placeholder="점검 특이사항 등"></div>
+          <div class="field"><label>&nbsp;</label><button class="btn primary" onclick="submitEafTd()">등록</button></div>
+        </div>
+      </div>
+      <div class="toolrow">
+        <select class="selbox" id="etd_filterRo" onchange="renderEafTdList()"><option value="">전체 로</option><option value="A">A로</option><option value="B">B로</option></select>
+        <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="etd_count"></span>
+        <button class="btn" onclick="downloadEafTd()">📥 엑셀</button>
+      </div>
+      <div id="etd_list"></div>
+    </div><!-- /esp-teardown -->
   </section>
   <section id="v-fieldwork" class="hidden">
     <div class="subtabs" id="fieldSubtabs">
       <button class="subtab active" data-sp="hist" onclick="fieldTab('hist')">🗂️ 외근 히스토리</button>
+      <button class="subtab" data-sp="company" onclick="fieldTab('company')">🏢 업체별</button>
       <button class="subtab" data-sp="issue" onclick="fieldTab('issue')">⚠️ 이슈 · 후속사항</button>
     </div>
     <div class="cards" id="fieldCards"></div>
@@ -1562,6 +1612,13 @@ service cloud.firestore {
         <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="f_count"></span>
       </div>
       <div id="fieldHist"></div>
+    </div>
+    <div class="subpanel" id="fsp-company">
+      <div id="fieldCompanyRoot">
+        <div class="toolrow"><span style="font-size:11.5px;color:var(--muted)">업체 폴더를 클릭하면 해당 업체의 담당자·미팅 이력을 볼 수 있습니다</span></div>
+        <div id="fieldCompanyList" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px"></div>
+        <div id="fieldCompanyDetail" style="margin-top:16px"></div>
+      </div>
     </div>
     <div class="subpanel" id="fsp-issue">
       <div class="toolrow">
@@ -1634,10 +1691,10 @@ service cloud.firestore {
       <div class="toolrow">
         <input class="search" id="invm_search" placeholder="품명·코드 검색" oninput="renderInvMaster()">
         <button class="btn" onclick="downloadInvMaster()">📥 엑셀</button>
-        <span class="spacer"></span><span style="font-size:11.5px;color:var(--muted)">단가·단위는 여기서 수정하면 전 기간 원단위에 반영</span>
+        <span class="spacer"></span><span style="font-size:11.5px;color:var(--muted)">단가·단위는 여기서 수정하면 전 기간 원단위에 반영 · 내화물 기본정보와 연동시 단가 자동 동기화</span>
       </div>
-      <div class="tablewrap"><table class="bomtbl" style="min-width:720px">
-        <thead><tr><th>설비</th><th>코드</th><th>품명</th><th>단위</th><th class="n">단가(원)</th><th>분류</th></tr></thead>
+      <div class="tablewrap"><table class="bomtbl" style="min-width:880px">
+        <thead><tr><th>설비</th><th>코드</th><th>품명</th><th>단위</th><th class="n">단가(원)</th><th>분류</th><th style="min-width:170px">내화물 기본정보 연동</th></tr></thead>
         <tbody id="invMasterBody"></tbody>
       </table></div>
     </div>
@@ -1669,6 +1726,13 @@ service cloud.firestore {
       <span class="spacer"></span><span style="font-size:11.5px;color:var(--muted)" id="nw_updated"></span>
     </div>
     <div style="font-size:11.5px;color:var(--accent);margin:2px 2px 12px">※ 매일 아침 자동 검색(국내 제철·제강사, 경쟁 내화물사, 내화물 기술·시장)으로 이 목록이 갱신됩니다.</div>
+    <div class="toolrow" style="align-items:center">
+      <span style="font-size:12px;font-weight:700;color:var(--muted)">🏢 업체별 뉴스 관리</span>
+      <span id="nw_companyMgr" style="display:flex;flex-wrap:wrap;align-items:center"></span>
+      <input class="search" id="nw_newCompany" placeholder="새 업체명" style="width:120px" onkeydown="if(event.key==='Enter')addNewsCompany()">
+      <button class="btn sm" onclick="addNewsCompany()">＋ 추가</button>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin:0 2px 10px">업체를 클릭하면 그 업체 뉴스만 볼 수 있습니다 (다시 클릭하면 전체 보기)</div>
     <div id="nw_stale" class="warnbar" hidden></div>
     <div id="newsList"></div>
   </section>
@@ -1690,12 +1754,18 @@ service cloud.firestore {
       <button class="btn" onclick="downloadPosco()">📥 엑셀</button>
       <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="p_count"></span>
     </div>
+    <div class="toolrow" style="align-items:center">
+      <span style="font-size:12px;font-weight:700;color:var(--muted)">🏷️ 입찰가능업체 관리</span>
+      <span id="p_vendorMgr" style="display:flex;flex-wrap:wrap;align-items:center"></span>
+      <input class="search" id="p_newVendor" placeholder="새 업체명" style="width:120px" onkeydown="if(event.key==='Enter')addPvend()">
+      <button class="btn sm" onclick="addPvend()">＋ 추가</button>
+    </div>
     <div class="subpanel active" id="psp-result">
-      <div class="tablewrap"><table class="bomtbl" style="min-width:980px">
-        <thead><tr><th>품명</th><th style="min-width:160px">입찰가능업체</th><th>기존업체</th><th class="n">기존단가</th><th class="n">낙찰가</th><th class="n">물량(kg)</th><th class="n">금액(원)</th><th>배분율</th><th>동국 순위</th><th class="n">동국 낙찰금액</th></tr></thead>
+      <div class="tablewrap"><table class="bomtbl" style="min-width:1180px">
+        <thead><tr><th>품명</th><th style="min-width:140px">입찰가능업체</th><th style="min-width:120px">입찰 순위업체</th><th>기존업체</th><th class="n">기존단가</th><th class="n">낙찰가</th><th class="n">물량(kg)</th><th class="n">금액(원)</th><th>배분율</th><th>동국 순위</th><th class="n">동국 낙찰금액</th><th style="min-width:110px">계약업체·계약기간</th></tr></thead>
         <tbody id="poscoBody"></tbody>
       </table></div>
-      <div style="font-size:11.5px;color:var(--accent);margin-top:8px">※ 25·26년 범용B 입찰을 통합(중복 품목은 최신 회차 기준). 27년 통합 입찰 준비용 마스터 품목 리스트입니다.</div>
+      <div style="font-size:11.5px;color:var(--accent);margin-top:8px">※ 25·26년 범용B 입찰을 통합(중복 품목은 최신 회차 기준). 27년 통합 입찰 준비용 마스터 품목 리스트입니다. '계약업체·계약기간' 칸을 클릭하면 현재 계약업체와 계약기간(예: 27.03월)을 입력할 수 있고, 이전 값이 있으면 자동으로 이력에 남아 나중에 업체가 바뀐 시점을 비교할 수 있습니다.</div>
     </div>
     <div class="subpanel" id="psp-matrix">
       <div class="subhead">업체별 입찰가능 품목 매트릭스 <span class="hint">O = 입찰대상 · 숫자 = 낙찰순위</span></div>
@@ -1773,6 +1843,25 @@ service cloud.firestore {
   </div>
 </div>
 <div class="toast" id="toast"></div>
+
+<!-- 사진 첨부(크롭) 공용 오버레이 — EAF 해체 점검·래들 해체 모식도 등에서 공용으로 사용 -->
+<input type="file" id="photoFileInput" accept="image/*" style="display:none" onchange="onPhotoFileChosen(this)">
+<div id="photoCropPanel" class="hidden" style="position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:9999;display:flex;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:12px;padding:18px;max-width:min(94vw,620px);box-shadow:0 10px 40px rgba(0,0,0,.3)">
+    <div style="font-weight:800;font-size:14.5px;margin-bottom:8px">📷 사진에서 필요한 부분만 드래그로 선택 후 잘라내기</div>
+    <div style="font-size:11.5px;color:var(--muted);margin-bottom:10px">드래그하지 않고 바로 [전체 사용]을 누르면 원본 그대로 첨부됩니다.</div>
+    <div id="photoCropStage" style="position:relative;display:inline-block;max-width:560px;max-height:60vh;overflow:hidden;cursor:crosshair;border:1px solid #e5e9ee;border-radius:8px"
+         onmousedown="photoCropMouseDown(event)" onmousemove="photoCropMouseMove(event)" onmouseup="photoCropMouseUp(event)">
+      <img id="photoCropImg" style="max-width:560px;max-height:60vh;display:block;user-select:none;pointer-events:none">
+      <div id="photoCropSelBox" style="display:none;position:absolute;border:2px dashed #1d4ed8;background:rgba(29,78,216,.15);pointer-events:none"></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end">
+      <button class="btn" onclick="photoCropCancel()">취소</button>
+      <button class="btn" onclick="photoCropApply(true)">전체 사용</button>
+      <button class="btn primary" onclick="photoCropApply(false)">선택 영역 자르기</button>
+    </div>
+  </div>
+</div>
 
 <!-- 견적서 문서 오버레이 -->
 <div class="qdoc-overlay" id="qdocOverlay">
@@ -1951,7 +2040,7 @@ service cloud.firestore {
 // PWA 기능 비활성화 (모바일 캐시 문제 해결)
 // function setupPWA(){...} 제거됨 - 항상 최신 파일 사용
 /* ============ 저장소 (IndexedDB) ============ */
-const DB_NAME='dgrns_life_mgmt', DB_VER=9;
+const DB_NAME='dgrns_life_mgmt', DB_VER=10;
 let db=null, ladleData=[], tundishData=[], scheduleData=[], bomData=[], eafData=[], invData=[], invInData=[];
 let editId={ladle:null,tundish:null};
 const RESET_CAMP=['신축','대수리(영구장)','철피신규'];
@@ -1971,7 +2060,8 @@ function openDB(){return new Promise((res,rej)=>{const rq=indexedDB.open(DB_NAME
     if(!d.objectStoreNames.contains('emp'))d.createObjectStore('emp',{keyPath:'id'});
     if(!d.objectStoreNames.contains('leave'))d.createObjectStore('leave',{keyPath:'id'});
     if(!d.objectStoreNames.contains('ot'))d.createObjectStore('ot',{keyPath:'id'});
-    if(!d.objectStoreNames.contains('handover'))d.createObjectStore('handover',{keyPath:'id'});};
+    if(!d.objectStoreNames.contains('handover'))d.createObjectStore('handover',{keyPath:'id'});
+    if(!d.objectStoreNames.contains('photos'))d.createObjectStore('photos',{keyPath:'id'});};
   rq.onsuccess=e=>res(e.target.result);rq.onerror=e=>rej(e.target.error);});}
 function txAll(s){return new Promise((res,rej)=>{const r=db.transaction(s,'readonly').objectStore(s).getAll();
   r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error);});}
@@ -1986,6 +2076,80 @@ function clearStore(s){return new Promise((res,rej)=>{const r=db.transaction(s,'
 function flashSave(){const t=document.getElementById('saveTxt'),d=document.getElementById('saveDot');
   t.textContent='저장 중…';d.style.background='#c2410c';
   setTimeout(()=>{t.textContent='자동 저장됨';d.style.background='var(--ok)';},400);}
+
+/* ============ 사진 첨부(크롭) 공용 모듈 ============
+   원본 base64는 IndexedDB 'photos' 스토어에 저장(localStorage 용량 부담 방지),
+   레코드(해체 점검 보고서·해체 모식도 등)에는 photo id만 저장.
+   드래그로 필요한 부분만 선택해 잘라서 저장 가능 (선택 없으면 원본 그대로 사용). */
+let photoCache=new Map();
+async function initPhotoCache(){try{const all=await txAll('photos');all.forEach(p=>photoCache.set(p.id,p));}catch(e){}}
+async function savePhotoBlob(dataUrl,caption){const id=uid();const rec={id,dataUrl,caption:caption||''};await putRec('photos',rec);photoCache.set(id,rec);return id;}
+async function removePhotoBlob(id){if(!id)return;photoCache.delete(id);try{await delRec('photos',id);}catch(e){}}
+function photoUrl(id){const p=photoCache.get(id);return p?p.dataUrl:'';}
+function photoCaption(id){const p=photoCache.get(id);return p?(p.caption||''):'';}
+async function setPhotoCaption(id,cap){const p=photoCache.get(id);if(!p)return;p.caption=cap;try{await putRec('photos',p);}catch(e){}}
+let __photoPickerCb=null,__photoCropNatural={w:0,h:0},__photoSel=null;
+function openPhotoPicker(onAdded){__photoPickerCb=onAdded;document.getElementById('photoFileInput').click();}
+function onPhotoFileChosen(input){
+  const f=input.files&&input.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=e=>{
+    const img=document.getElementById('photoCropImg');
+    img.onload=()=>{__photoCropNatural={w:img.naturalWidth,h:img.naturalHeight};
+      __photoSel=null;document.getElementById('photoCropSelBox').style.display='none';
+      document.getElementById('photoCropPanel').classList.remove('hidden');};
+    img.src=e.target.result;
+  };
+  rd.readAsDataURL(f);input.value='';
+}
+function photoCropMouseDown(e){
+  const r=document.getElementById('photoCropStage').getBoundingClientRect();
+  __photoSel={x0:e.clientX-r.left,y0:e.clientY-r.top,x:e.clientX-r.left,y:e.clientY-r.top};
+  document.getElementById('photoCropSelBox').style.display='block';__photoUpdateSel();
+}
+function photoCropMouseMove(e){
+  if(!__photoSel)return;const r=document.getElementById('photoCropStage').getBoundingClientRect();
+  __photoSel.x=Math.max(0,Math.min(r.width,e.clientX-r.left));__photoSel.y=Math.max(0,Math.min(r.height,e.clientY-r.top));
+  __photoUpdateSel();
+}
+function photoCropMouseUp(e){}
+function __photoUpdateSel(){
+  if(!__photoSel)return;const b=document.getElementById('photoCropSelBox');
+  const x=Math.min(__photoSel.x0,__photoSel.x),y=Math.min(__photoSel.y0,__photoSel.y);
+  const w=Math.abs(__photoSel.x-__photoSel.x0),h=Math.abs(__photoSel.y-__photoSel.y0);
+  b.style.left=x+'px';b.style.top=y+'px';b.style.width=w+'px';b.style.height=h+'px';
+}
+function photoCropCancel(){document.getElementById('photoCropPanel').classList.add('hidden');__photoPickerCb=null;__photoSel=null;}
+async function photoCropApply(useFull){
+  const img=document.getElementById('photoCropImg');
+  const dispW=img.clientWidth,dispH=img.clientHeight;
+  const scaleX=__photoCropNatural.w/dispW,scaleY=__photoCropNatural.h/dispH;
+  let sx=0,sy=0,sw=__photoCropNatural.w,sh=__photoCropNatural.h;
+  if(!useFull&&__photoSel){
+    const x=Math.min(__photoSel.x0,__photoSel.x),y=Math.min(__photoSel.y0,__photoSel.y);
+    const w=Math.abs(__photoSel.x-__photoSel.x0),h=Math.abs(__photoSel.y-__photoSel.y0);
+    if(w>8&&h>8){sx=x*scaleX;sy=y*scaleY;sw=w*scaleX;sh=h*scaleY;}
+  }
+  const maxDim=1000;let outW=sw,outH=sh;
+  if(outW>maxDim||outH>maxDim){const sc=Math.min(maxDim/outW,maxDim/outH);outW=Math.round(outW*sc);outH=Math.round(outH*sc);}
+  const cv=document.createElement('canvas');cv.width=Math.max(1,Math.round(outW));cv.height=Math.max(1,Math.round(outH));
+  cv.getContext('2d').drawImage(img,sx,sy,sw,sh,0,0,cv.width,cv.height);
+  const dataUrl=cv.toDataURL('image/jpeg',0.85);
+  const id=await savePhotoBlob(dataUrl,'');
+  document.getElementById('photoCropPanel').classList.add('hidden');__photoSel=null;
+  const cb=__photoPickerCb;__photoPickerCb=null;
+  if(cb)cb(id);
+}
+/* 여러 장(가변 개수) 썸네일 그리드 — 캡션 변경/삭제 콜백 함수명을 문자열로 전달 */
+function photoThumbsHtml(ids,onCapChangeFn,onRemoveFn,size){
+  size=size||88;
+  return (ids||[]).map(id=>`<div style="display:inline-block;margin:4px 8px 6px 0;text-align:center;vertical-align:top">
+    <div style="position:relative;width:${size}px;height:${size}px;border:1px solid #e5e9ee;border-radius:6px;overflow:hidden">
+      <img src="${photoUrl(id)}" style="width:100%;height:100%;object-fit:cover">
+      <button class="btn sm danger" style="position:absolute;top:2px;right:2px;font-size:9px;padding:0 4px" onclick="${onRemoveFn}('${id}')">×</button>
+    </div>
+    <input class="iinp" style="width:${size}px;font-size:10px;margin-top:3px;text-align:center" placeholder="설명" value="${esc(photoCaption(id))}" onchange="${onCapChangeFn}('${id}',this.value)"></div>`).join('');
+}
 
 /* ============ 유틸 ============ */
 const todayStr=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
@@ -3005,7 +3169,8 @@ function eafTab(sp){if(isField()&&sp!=='life')sp='life';eafSub=sp;
   document.querySelectorAll('#eafSubtabs .subtab').forEach(b=>b.classList.toggle('active',b.dataset.sp===sp));
   document.querySelectorAll('#v-eaf .subpanel').forEach(p=>p.classList.remove('active'));
   document.getElementById('esp-'+sp).classList.add('active');
-  if(sp==='cost')renderEquipCost('eaf');}
+  if(sp==='cost')renderEquipCost('eaf');
+  else if(sp==='teardown')eafTdInitForm();}
 /* ---- 설비별 원가관리(래들과 동일 방식: 부위별 상세 + 유형별 기준원가) ---- */
 const EQUIP_BU_ORDER=['영구장','바닥','슬래그라인','메탈라인','벽체','후렌지','콘','PP-CONE','로저전극','로상재','기타'];
 function renderEquipCost(equip){
@@ -3089,7 +3254,8 @@ function renderProdMaster(){
      <td style="text-align:center"><input type="checkbox" ${sel?'checked':''} onchange="toggleProdSel('${p.id}',this.checked)"></td>
      <td>${catSel(i,p.cat)}</td>
      <td>${gubunSel(i,prodGubun(p))}</td>
-     <td><input value="${esc(p.name||'')}" style="width:100%;min-width:180px" oninput="editProd(${i},'name',this.value)"></td>
+     <td><input value="${esc(p.name||'')}" style="width:100%;min-width:150px" oninput="editProd(${i},'name',this.value)"></td>
+     <td><input value="${esc(p.custName||'')}" style="width:100%;min-width:130px" placeholder="고객사 품명" oninput="editProd(${i},'custName',this.value)"></td>
      <td><input value="${esc(p.mix||'')}" style="width:100%;min-width:140px" placeholder="배합·재질" oninput="editProd(${i},'mix',this.value)"></td>
      <td><input value="${esc(p.spec||'')}" style="width:100%;min-width:160px" oninput="editProd(${i},'spec',this.value)"></td>
      <td class="n"><input type="number" value="${p.uw||''}" style="width:64px;text-align:right" oninput="editProd(${i},'uw',this.value)"></td>
@@ -3101,7 +3267,7 @@ function renderProdMaster(){
      <td style="text-align:center"><input type="checkbox" ${prodUse(p)?'checked':''} title="사용여부" onchange="editProd(${i},'use',this.checked?1:0);renderProdMaster()"></td>
      <td class="n">${prodUseCount(p.id)}</td>
      <td><button class="btn sm danger del-rec" onclick="delProd('${p.id}')">×</button></td></tr>`;}).join('')
-    ||`<tr><td colspan="14"><div class="empty">제품이 없습니다.</div></td></tr>`;
+    ||`<tr><td colspan="15"><div class="empty">제품이 없습니다.</div></td></tr>`;
   const allEl=document.getElementById('pm_all');
   if(allEl)allEl.checked=rows.length>0&&rows.every(({p})=>prodSel.has(p.id));
   updateBulkBtn();
@@ -3154,9 +3320,9 @@ function saveProdMaster(){prodData.forEach(p=>{delete p._new;});saveProd();prodD
   flashSave();toast('제품 마스터 저장 · 물량표·원가에 반영됩니다');refreshBomIfOpen();
 }
 function downloadProd(){
-  let t=`<table><tr><th>설비</th><th>구분</th><th>제품명</th><th>품목종류</th><th>배합</th><th>규격</th><th>단중(kg)</th><th>단가(원)</th><th>사용여부</th><th>사용물량표</th></tr>`;
+  let t=`<table><tr><th>설비</th><th>구분</th><th>당사 제품명</th><th>고객사 제품명</th><th>품목종류</th><th>배합</th><th>규격</th><th>단중(kg)</th><th>단가(원)</th><th>사용여부</th><th>사용물량표</th></tr>`;
   prodData.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||'','en')||(a.spec||'').localeCompare(b.spec||'','en'))
-    .forEach(p=>{t+=`<tr><td>${esc(p.cat||'공통')}</td><td>${esc(prodGubun(p))}</td><td>${esc(p.name)}</td><td>${esc(p.kind||'')}</td><td>${esc(p.mix||'')}</td><td>${esc(p.spec)}</td><td>${p.uw||''}</td><td>${p.price||''}</td><td>${prodUse(p)?'사용':'미사용'}</td><td>${prodUseCount(p.id)}</td></tr>`;});
+    .forEach(p=>{t+=`<tr><td>${esc(p.cat||'공통')}</td><td>${esc(prodGubun(p))}</td><td>${esc(p.name)}</td><td>${esc(p.custName||'')}</td><td>${esc(p.kind||'')}</td><td>${esc(p.mix||'')}</td><td>${esc(p.spec)}</td><td>${p.uw||''}</td><td>${p.price||''}</td><td>${prodUse(p)?'사용':'미사용'}</td><td>${prodUseCount(p.id)}</td></tr>`;});
   t+=`</table>`;downloadXls('내화물_제품마스터',t);
 }
 /* ---- 분기 단가 CSV 양식 내보내기 / 일괄 가져오기 ---- */
@@ -3630,8 +3796,27 @@ function diaSVG(){
   g+=`<text x="${(XL+XR)/2}" y="${TOP+bodyH*0.5}" font-size="11" text-anchor="middle" fill="#dbe3ec">용 강 부</text>`;
   return `<svg viewBox="0 0 ${W} ${hh}" style="width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px">${g}</svg>`;
 }
+const DIA_PHOTO_LABEL=['좌측 (#1 PP측)','우측 (#2 PP측)'];
+function diaPhotoSlotHtml(i){
+  const id=(diaCur.photos||[])[i];
+  const lab=`<div style="font-size:11.5px;font-weight:800;color:${i===0?'#1d4ed8':'#c81e1e'};margin-bottom:3px">${esc(DIA_PHOTO_LABEL[i]||('사진 '+(i+1)))}</div>`;
+  if(id){
+    return `<div style="width:170px">${lab}
+      <div style="position:relative;width:170px;height:130px;border:1px solid #e5e9ee;border-radius:6px;overflow:hidden">
+        <img src="${photoUrl(id)}" style="width:100%;height:100%;object-fit:cover">
+        <button class="btn sm danger no-print" style="position:absolute;top:2px;right:2px;font-size:9px;padding:0 4px" onclick="diaRemovePhoto(${i})">×</button>
+      </div>
+      <input class="dtxt" style="width:170px;margin-top:4px;font-size:10.5px;text-align:center" placeholder="설명(예:해체 중)" value="${esc(photoCaption(id))}" onchange="setPhotoCaption('${id}',this.value)"></div>`;
+  }
+  return `<div style="width:170px">${lab}<div class="no-print" style="width:170px;height:130px;border:2px dashed #cbd5e1;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:12px;text-align:center" onclick="openPhotoPicker(id=>diaSetPhoto(${i},id))">📷<br>${esc(DIA_PHOTO_LABEL[i]||('사진 '+(i+1)))} 촬영/추가</div></div>`;
+}
+function diaSetPhoto(i,id){diaCur.photos=diaCur.photos||[null,null];
+  const old=diaCur.photos[i];diaCur.photos[i]=id;if(old)removePhotoBlob(old);
+  renderLadleDia();}
+function diaRemovePhoto(i){diaCur.photos=diaCur.photos||[null,null];const id=diaCur.photos[i];if(id)removePhotoBlob(id);diaCur.photos[i]=null;renderLadleDia();}
 function renderLadleDia(){
   if(!diaCur){loadDiaRecord();return;}
+  if(!diaCur.photos)diaCur.photos=[null,null];
   const ch=+document.getElementById('l_diaCH').value||0;diaCur.ch=ch;
   const dv=ch||1, L=diaLimits();
   const ni=(v,on)=>`<input type="number" value="${v}" class="dnum" onchange="${on};renderLadleDia()">`;
@@ -3704,10 +3889,13 @@ function renderLadleDia(){
       <div class="dt-r">${esc(diaCur.no||'')} · ${esc(diaCur.ev)} · 총사용수명 <b>${ch}</b> CH · ${dateLab} ${esc(fmtYMD(diaCur.date||''))}</div>
     </div>`;
   const warnBar=warn.length?`<div class="dia-warn">⚠ 기준잔존 미달 : ${esc(warn.join(', '))}</div>`:'';
+  const photoBlock=`<div class="dia-h" style="margin-top:8px">⑤ 현장 사진</div>
+    <div style="display:flex;gap:10px">${diaPhotoSlotHtml(0)}${diaPhotoSlotHtml(1)}</div>`;
 
   document.getElementById('ladleDia').innerHTML=
     `<div id="diaPrintArea" class="dia-sheet">${head}
        <div class="dia-grid"><div>${col1}</div><div>${col2}</div><div>${col3}</div></div>
+       ${photoBlock}
        ${warnBar}
        <div class="dia-foot">점검자 ${esc(diaCur.insBy||'')} &nbsp;/&nbsp; 입회 ${esc(diaCur.insWith||'')} &nbsp;/&nbsp; 점검일 ${esc(fmtYMD(diaCur.insDate||diaCur.date||''))}</div>
      </div>`;
@@ -3736,8 +3924,10 @@ function saveDia(){
 }
 function delDia(){
   const no=document.getElementById('l_diaNo').value, date=document.getElementById('l_diaTd').value;
-  if(!diaStore[diaKey(no,date)]){toast('저장된 모식도가 없습니다');return;}
+  const rec=diaStore[diaKey(no,date)];
+  if(!rec){toast('저장된 모식도가 없습니다');return;}
   if(!confirm(no+' '+fmtYMD(date)+' 모식도를 삭제할까요?'))return;
+  (rec.photos||[]).forEach(pid=>{if(pid)removePhotoBlob(pid);});
   delete diaStore[diaKey(no,date)];saveDiaStore(diaStore);initDiaTeardowns();toast('삭제되었습니다');
 }
 // 현재 화면에 표시된 해체 모식도 상태를 그대로 엑셀로 내보내기
@@ -3920,7 +4110,7 @@ function editTundish(id){const r=tundishData.find(x=>x.id===id);if(!r)return;edi
   document.getElementById('tFormTitle').textContent='✎ 턴디쉬 기록 수정';document.querySelector('.main').scrollTo({top:0,behavior:'smooth'});}
 async function removeTundish(id){if(!canDelete()){alert('삭제는 관리자만 가능합니다.');return;}if(!confirm('이 기록을 삭제할까요?'))return;
   await delRec('tundish',id);tundishData=tundishData.filter(x=>x.id!==id);flashSave();toast('삭제되었습니다');refreshTundish();}
-function refreshTundish(){annotate();syncNoOptions();renderTundish();renderTundishSummary();renderTundishCards();}
+function refreshTundish(){annotate();syncNoOptions();renderTundish();renderTundishSummary();renderTundishCards();if(curView==='board')renderBoard();}
 
 function renderTundish(){
   const q=document.getElementById('t_search').value.trim().toLowerCase();
@@ -4732,32 +4922,163 @@ function renderEafLog(){
   if(!rows.length)body=`<tr><td colspan="${cols.length+7}"><div class="empty">해당하는 조업 기록이 없습니다.</div></td></tr>`;
   document.getElementById('eafLogBody').innerHTML=body;
 }
-async function submitEaf(){
+async function submitEaf(ro){
+  // ro='A'|'B' 고정 입력행에서 호출 — 로를 별도로 선택하지 않으므로 오입력 여지가 없음
   const date=document.getElementById('e_date').value;
   if(!date){toast('일자를 입력하세요');return;}
-  const rec={id:uid(),date,ro:document.getElementById('e_ro').value,
-    ch:num(document.getElementById('e_ch').value)||0,ton:num(document.getElementById('e_ton').value)||((num(document.getElementById('e_ch').value)||0)*TON_PER_CH),
-    post:num(document.getElementById('e_post').value)||0,
-    note:document.getElementById('e_note').value.trim(),seq:Date.now()};
-  EAF_PARTS.forEach(p=>{const el=document.getElementById('e_'+p);rec[p]=!!(el&&el.checked);});
+  const pre='e'+ro+'_';
+  const ch=num(document.getElementById(pre+'ch').value)||0;
+  const rec={id:uid(),date,ro,
+    ch,ton:num(document.getElementById(pre+'ton').value)||(ch*TON_PER_CH),
+    post:num(document.getElementById(pre+'post').value)||0,
+    note:document.getElementById(pre+'note').value.trim(),seq:Date.now()};
+  EAF_PARTS.forEach(p=>{const el=document.getElementById(pre+p);rec[p]=!!(el&&el.checked);});
   await putRec('eaf',rec);eafData.push(rec);flashSave();
   const rp=EAF_PARTS.filter(p=>rec[p]).map(p=>EAF_PART_LABEL[p]).join('·');
-  toast(`${rec.ro}로 ${date} 조업 등록${rp?' · '+rp+' 교체':''}`);resetEafForm();renderEaf();if(curView==='board')renderBoard();
+  toast(`${rec.ro}로 ${date} 조업 등록${rp?' · '+rp+' 교체':''}`);resetEafForm(ro);renderEaf();if(curView==='board')renderBoard();
 }
-function resetEafForm(){['e_ch','e_ton','e_post','e_note'].forEach(id=>document.getElementById(id).value='');
-  EAF_PARTS.forEach(p=>{const el=document.getElementById('e_'+p);if(el)el.checked=false;});}
-/* 부위 체크박스 · 조회 셀렉트 초기화 */
+function resetEafForm(ro){
+  const ros=ro?[ro]:['A','B'];
+  ros.forEach(r=>{const pre='e'+r+'_';
+    ['ch','ton','post','note'].forEach(id=>{const el=document.getElementById(pre+id);if(el)el.value='';});
+    EAF_PARTS.forEach(p=>{const el=document.getElementById(pre+p);if(el)el.checked=false;});});
+}
+/* 부위 체크박스 · 조회 셀렉트 초기화 (A로·B로 각각 고정 입력행) */
 function initEafParts(){
-  const box=document.getElementById('e_partChk');
-  if(box&&!box.dataset.done){
-    box.innerHTML=EAF_PARTS.map(p=>`<label style="font-weight:500;white-space:nowrap">
-      <input type="checkbox" id="e_${p}"> <span style="color:${EAF_PART_COLOR[p]};font-weight:700">${EAF_PART_LABEL[p]}</span></label>`).join('');
-    box.dataset.done='1';}
+  ['A','B'].forEach(ro=>{
+    const box=document.getElementById('e'+ro+'_partChk');
+    if(box&&!box.dataset.done){
+      box.innerHTML=EAF_PARTS.map(p=>`<label style="font-weight:500;white-space:nowrap">
+        <input type="checkbox" id="e${ro}_${p}"> <span style="color:${EAF_PART_COLOR[p]};font-weight:700">${EAF_PART_LABEL[p]}</span></label>`).join('');
+      box.dataset.done='1';}
+  });
   const sel=document.getElementById('e_filterPart');
   if(sel&&!sel.dataset.done){
     sel.innerHTML='<option value="">전체 부위</option>'
       +EAF_PARTS.map(p=>`<option value="${p}">${EAF_PART_LABEL[p]}</option>`).join('');
     sel.dataset.done='1';}
+}
+/* ============ 전기로 해체 점검 보고서 (로저전극해체 / 발코니해체) ============
+   현장 점검보고서(PDF) 양식 참고: 로 구분·보수구분·수명(CH)·상세사유·잔존현황(부위별 원치수/잔존/용손율)·
+   내화물 사용량(품명·규격·단중×수량=중량, 중량×단가=금액, 품목마스터 연동시 단가 자동)을 그대로 반영.
+   ※ PDF만으로는 용손율의 정확한 산식이 확인되지 않아 우선 "자동"버튼(1-잔존/원치수)으로 제공하고 직접 수정 가능하게 함 —
+      엑셀 파일 전달 시 정확한 수식으로 교체 예정. */
+const EAF_TD_TYPES=['전극교체','발코니교체','대보수','주간보수'];
+function loadEafTd(){try{const s=JSON.parse(localStorage.getItem('dgrns_eaf_teardown'));if(Array.isArray(s))return s;}catch(e){}return [];}
+function saveEafTd(){try{localStorage.setItem('dgrns_eaf_teardown',JSON.stringify(eafTdData));}catch(e){}}
+let eafTdData=loadEafTd();
+let eafTdResidual=[{part:'',orig:0,remain:0,rate:0}];
+let eafTdItems=[{code:'',name:'',spec:'',uw:0,qty:0,price:0}];
+let eafTdPhotos=[];
+function eafTdAddPhoto(){openPhotoPicker(id=>{eafTdPhotos.push(id);eafTdRenderPhotos();});}
+function eafTdSetPhotoCap(id,v){setPhotoCaption(id,v);}
+function eafTdRemovePhoto(id){eafTdPhotos=eafTdPhotos.filter(x=>x!==id);removePhotoBlob(id);eafTdRenderPhotos();}
+function eafTdRenderPhotos(){const box=document.getElementById('etd_photoBox');if(box)box.innerHTML=photoThumbsHtml(eafTdPhotos,'eafTdSetPhotoCap','eafTdRemovePhoto');}
+function eafTdInitForm(){
+  const d=document.getElementById('etd_date');if(d&&!d.value)d.value=todayStr();
+  const chk=document.getElementById('etd_types');
+  if(chk&&!chk.dataset.done){chk.innerHTML=EAF_TD_TYPES.map(t=>`<label style="font-weight:500;white-space:nowrap;margin-right:10px"><input type="checkbox" value="${t}"> ${t}</label>`).join('');chk.dataset.done='1';}
+  eafTdRenderResidual();eafTdRenderItems();eafTdRenderPhotos();renderEafTdList();
+}
+function eafTdAddResidualRow(){eafTdResidual.push({part:'',orig:0,remain:0,rate:0});eafTdRenderResidual();}
+function eafTdSetResidual(i,k,v){eafTdResidual[i][k]=(k==='part')?v:(+v||0);eafTdRenderResidual();}
+function eafTdAutoRate(i){const r=eafTdResidual[i];r.rate=r.orig?+((1-r.remain/r.orig).toFixed(2)):0;eafTdRenderResidual();}
+function eafTdDelResidual(i){eafTdResidual.splice(i,1);if(!eafTdResidual.length)eafTdResidual.push({part:'',orig:0,remain:0,rate:0});eafTdRenderResidual();}
+function eafTdRenderResidual(){
+  const box=document.getElementById('etd_residualBody');if(!box)return;
+  box.innerHTML=eafTdResidual.map((r,i)=>`<tr>
+    <td><input class="iinp" style="width:100px" value="${esc(r.part)}" placeholder="예:#1,발코니" onchange="eafTdSetResidual(${i},'part',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:70px" value="${r.orig||''}" onchange="eafTdSetResidual(${i},'orig',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:70px" value="${r.remain||''}" onchange="eafTdSetResidual(${i},'remain',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" step="0.01" style="width:56px" value="${r.rate||''}" onchange="eafTdSetResidual(${i},'rate',this.value)">
+      <button class="btn sm" style="font-size:9.5px;padding:0 4px" onclick="eafTdAutoRate(${i})" title="용손율 = 1-잔존/원치수 로 자동계산">자동</button></td>
+    <td><button class="btn sm danger" onclick="eafTdDelResidual(${i})">×</button></td></tr>`).join('');
+}
+function eafTdAddItemRow(){eafTdItems.push({code:'',name:'',spec:'',uw:0,qty:0,price:0});eafTdRenderItems();}
+function eafTdSetItem(i,k,v){
+  const it=eafTdItems[i];
+  if(k==='code'){it.code=v;const m=invM.get(v);if(m){it.name=m.n;const iv=invItem(v);it.price=iv.p;}}
+  else if(k==='name'||k==='spec')it[k]=v;
+  else it[k]=+v||0;
+  eafTdRenderItems();
+}
+function eafTdDelItem(i){eafTdItems.splice(i,1);if(!eafTdItems.length)eafTdItems.push({code:'',name:'',spec:'',uw:0,qty:0,price:0});eafTdRenderItems();}
+function eafTdItemOptions(sel){
+  return '<option value="">(직접입력)</option>'+INV_MASTER.filter(m=>m.g==='EAF').map(m=>`<option value="${m.c}"${m.c===sel?' selected':''}>${esc(m.n)}</option>`).join('');
+}
+function eafTdRenderItems(){
+  const box=document.getElementById('etd_itemBody');if(!box)return;
+  let sw=0,sa=0;
+  box.innerHTML=eafTdItems.map((it,i)=>{const w=(it.uw||0)*(it.qty||0);const amt=w*(it.price||0);sw+=w;sa+=amt;
+    return `<tr>
+    <td><select class="iinp" style="font-size:10.5px;max-width:150px" onchange="eafTdSetItem(${i},'code',this.value)">${eafTdItemOptions(it.code)}</select></td>
+    <td><input class="iinp" style="width:110px" value="${esc(it.name)}" placeholder="품명" onchange="eafTdSetItem(${i},'name',this.value)"></td>
+    <td><input class="iinp" style="width:64px" value="${esc(it.spec||'')}" placeholder="규격" onchange="eafTdSetItem(${i},'spec',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:58px" value="${it.uw||''}" onchange="eafTdSetItem(${i},'uw',this.value)"></td>
+    <td class="n"><input class="iinp" type="number" style="width:58px" value="${it.qty||''}" onchange="eafTdSetItem(${i},'qty',this.value)"></td>
+    <td class="n">${pN(w)}</td>
+    <td class="n"><input class="iinp" type="number" style="width:78px" value="${it.price||''}" onchange="eafTdSetItem(${i},'price',this.value)"></td>
+    <td class="n">${pN(amt)}</td>
+    <td><button class="btn sm danger" onclick="eafTdDelItem(${i})">×</button></td></tr>`;}).join('');
+  const fEl=document.getElementById('etd_sumRow');
+  if(fEl)fEl.textContent=`중량합계 ${pN(sw)}kg · 금액합계 ${wON(sa)}원`;
+}
+function submitEafTd(){
+  const ro=document.getElementById('etd_ro').value;
+  const date=document.getElementById('etd_date').value;
+  if(!date){toast('일자를 입력하세요');return;}
+  const types=[...document.querySelectorAll('#etd_types input:checked')].map(c=>c.value);
+  const lifeCh=num(document.getElementById('etd_life').value)||0;
+  const reason=document.getElementById('etd_reason').value.trim();
+  const note=document.getElementById('etd_note').value.trim();
+  const rec={id:uid(),ro,date,types,lifeCh,reason,note,
+    residual:eafTdResidual.filter(r=>r.part||r.orig||r.remain),
+    items:eafTdItems.filter(it=>it.name||it.code),
+    photos:eafTdPhotos.slice(),seq:Date.now()};
+  eafTdData.push(rec);saveEafTd();
+  eafTdResidual=[{part:'',orig:0,remain:0,rate:0}];eafTdItems=[{code:'',name:'',spec:'',uw:0,qty:0,price:0}];eafTdPhotos=[];
+  document.getElementById('etd_life').value='';document.getElementById('etd_reason').value='';document.getElementById('etd_note').value='';
+  document.querySelectorAll('#etd_types input').forEach(c=>c.checked=false);
+  eafTdRenderResidual();eafTdRenderItems();eafTdRenderPhotos();renderEafTdList();flashSave();
+  toast(`${ro}로 ${date} 해체 점검 보고서 등록`+(types.length?' · '+types.join('·'):''));
+}
+function delEafTd(id){if(!confirm('이 보고서를 삭제할까요?'))return;
+  const r=eafTdData.find(x=>x.id===id);if(r&&r.photos)r.photos.forEach(pid=>removePhotoBlob(pid));
+  eafTdData=eafTdData.filter(r=>r.id!==id);saveEafTd();renderEafTdList();}
+function eafTdItemsSummary(items){let w=0,a=0;(items||[]).forEach(it=>{const iw=(it.uw||0)*(it.qty||0);w+=iw;a+=iw*(it.price||0);});return{w,a};}
+function eafTdCardHtml(r){
+  const c=r.ro==='A'?'#1d4ed8':'#c81e1e';const {w,a}=eafTdItemsSummary(r.items);
+  return `<div class="fcard" style="border-left:4px solid ${c};margin-bottom:9px">
+    <div style="padding:11px 14px">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;flex-wrap:wrap">
+        <span class="fc-tag" style="background:${c}">${esc(r.ro)}로</span>
+        ${(r.types||[]).map(t=>`<span class="fc-tag" style="background:#64748b">${esc(t)}</span>`).join('')}
+        <span style="font-size:11px;color:var(--muted)">${esc(r.date)}</span>
+        ${r.lifeCh?`<span style="font-size:11px;color:var(--muted)">${r.lifeCh}CH</span>`:''}
+        <span class="spacer"></span>
+        <button class="btn sm danger" onclick="delEafTd('${r.id}')">×</button>
+      </div>
+      ${r.reason?`<div style="font-size:12px;color:#475569;margin-bottom:4px">📝 ${esc(r.reason)}</div>`:''}
+      ${(r.residual&&r.residual.length)?`<div style="font-size:11.5px;color:#334155;margin-bottom:4px">잔존: `+r.residual.map(x=>`${esc(x.part)} 원치수${x.orig}/잔존${x.remain}${x.rate?`(용손율${x.rate})`:''}`).join(' · ')+`</div>`:''}
+      ${(r.items&&r.items.length)?`<div style="font-size:11.5px;color:#334155">내화물 사용량: 중량 ${pN(w)}kg · 금액 ${wON(a)}원</div>`:''}
+      ${(r.photos&&r.photos.length)?`<div style="margin-top:6px">`+r.photos.map(id=>`<span style="display:inline-block;margin:2px 6px 2px 0;text-align:center">
+          <img src="${photoUrl(id)}" style="width:90px;height:90px;object-fit:cover;border-radius:6px;border:1px solid #e5e9ee" title="${esc(photoCaption(id))}">
+          ${photoCaption(id)?`<div style="font-size:10px;color:var(--muted);max-width:90px">${esc(photoCaption(id))}</div>`:''}</span>`).join('')+`</div>`:''}
+      ${r.note?`<div style="font-size:11px;color:var(--muted);margin-top:3px">${esc(r.note)}</div>`:''}
+    </div></div>`;
+}
+function renderEafTdList(){
+  const box=document.getElementById('etd_list');if(!box)return;
+  const rf=(document.getElementById('etd_filterRo')||{}).value||'';
+  const rows=eafTdData.filter(r=>!rf||r.ro===rf).sort((a,b)=>b.date.localeCompare(a.date)||(b.seq||0)-(a.seq||0));
+  box.innerHTML=rows.map(eafTdCardHtml).join('')||'<div class="empty">등록된 해체 점검 보고서가 없습니다.</div>';
+  const cnt=document.getElementById('etd_count');if(cnt)cnt.textContent=rows.length+'건';
+}
+function downloadEafTd(){
+  let t='<table><tr><th>로</th><th>일자</th><th>구분</th><th>수명(CH)</th><th>상세사유</th><th>잔존현황</th><th>중량합계(kg)</th><th>금액합계(원)</th><th>비고</th></tr>';
+  eafTdData.slice().sort((a,b)=>b.date.localeCompare(a.date)).forEach(r=>{const {w,a:amt}=eafTdItemsSummary(r.items);
+    t+=`<tr><td>${esc(r.ro)}</td><td>${esc(r.date)}</td><td>${esc((r.types||[]).join('·'))}</td><td>${r.lifeCh||''}</td><td>${esc(r.reason||'')}</td><td>${esc((r.residual||[]).map(x=>x.part+' '+x.orig+'/'+x.remain).join(', '))}</td><td>${w}</td><td>${amt}</td><td>${esc(r.note||'')}</td></tr>`;});
+  t+='</table>';downloadXls('전기로_해체점검보고서',t);
 }
 /* 부위 카드 클릭 → 해당 부위 조회 */
 function eafPickPart(part,ro){
@@ -4837,7 +5158,14 @@ function invMasterOv(){try{return JSON.parse(localStorage.getItem('dgrns_invmast
 let invMOv=invMasterOv();
 function saveInvMOv(){try{localStorage.setItem('dgrns_invmaster',JSON.stringify(invMOv));}catch(e){}}
 function invItem(code){const m=invM.get(code)||{c:code,n:code,u:'',p:0,g:'',cl:''};const o=invMOv[code]||{};
-  return {c:code,n:m.n,g:m.g,cl:m.cl,u:o.u!=null?o.u:m.u,p:o.p!=null?o.p:m.p};}
+  const lp=o.linkedProdId?prodById(o.linkedProdId):null;
+  const p=lp?(+lp.price||0):(o.p!=null?o.p:m.p);
+  return {c:code,n:m.n,g:m.g,cl:m.cl,u:o.u!=null?o.u:m.u,p,linkedProdId:o.linkedProdId||'',linkedProd:lp};}
+function invProdOptions(selId){
+  return '<option value="">(연동 안함)</option>'+prodData.slice()
+    .sort((a,b)=>(a.name||'').localeCompare(b.name||'','en')||(a.spec||'').localeCompare(b.spec||'','en'))
+    .map(p=>`<option value="${p.id}"${p.id===selId?' selected':''}>${esc(p.name)}${p.spec?' · '+esc(p.spec):''}</option>`).join('');}
+function setInvLink(code,pid){invMOv[code]=Object.assign(invMOv[code]||{},{linkedProdId:pid});saveInvMOv();renderInvMaster();renderInvMonth();}
 function invProdMap(){try{return JSON.parse(localStorage.getItem('dgrns_invprod')||'{}');}catch(e){return{};}}
 let invProd=invProdMap();
 function getProd(ym){if(invProd[ym]!=null)return invProd[ym];if(ym==='2026-09')return INV_PROD09;return 0;}
@@ -4997,12 +5325,16 @@ function renderInvCompare(){
 function renderInvMaster(){
   const q=(document.getElementById('invm_search').value||'').toLowerCase();
   const items=INV_MASTER.filter(m=>!q||(m.n||'').toLowerCase().includes(q)||(m.c||'').toLowerCase().includes(q));
-  document.getElementById('invMasterBody').innerHTML=items.map(m=>{const it=invItem(m.c);
+  document.getElementById('invMasterBody').innerHTML=items.map(m=>{const it=invItem(m.c);const linked=it.linkedProdId;
+    const priceCell=linked
+      ?`<input type="number" class="iinp" value="${it.p}" disabled style="width:76px;background:#f4f6f8;color:var(--muted)" title="내화물 기본정보(${esc(it.linkedProd?it.linkedProd.name:'')}) 연동 · 단가는 그쪽에서 수정하세요">`
+      :`<input type="number" class="iinp" value="${it.p}" onchange="invMOv['${m.c}']=Object.assign(invMOv['${m.c}']||{},{p:+this.value});saveInvMOv();renderInvMonth()">`;
     return `<tr><td style="font-size:11px;color:var(--muted)">${esc(m.g)}</td><td style="font-size:10.5px">${esc(m.c)}</td>
       <td>${esc(m.n)}</td>
       <td><input class="iinp" style="width:52px;text-align:center" value="${esc(it.u)}" onchange="invMOv['${m.c}']=Object.assign(invMOv['${m.c}']||{},{u:this.value});saveInvMOv();renderInvMonth()"></td>
-      <td class="n"><input type="number" class="iinp" value="${it.p}" onchange="invMOv['${m.c}']=Object.assign(invMOv['${m.c}']||{},{p:+this.value});saveInvMOv();renderInvMonth()"></td>
-      <td style="font-size:11px">${esc(m.cl||'')}</td></tr>`;}).join('');
+      <td class="n">${priceCell}</td>
+      <td style="font-size:11px">${esc(m.cl||'')}</td>
+      <td><select class="iinp" style="font-size:10.5px;max-width:160px" onchange="setInvLink('${m.c}',this.value)" title="내화물 기본정보(품목마스터)의 제품과 연동하면 단가가 자동으로 따라옵니다">${invProdOptions(linked)}</select></td></tr>`;}).join('');
 }
 function downloadInv(){
   const ym=document.getElementById('inv_ym').value;const prod=getProd(ym)||0;
@@ -5044,7 +5376,89 @@ function fieldTab(sp){fieldSub=sp;
   document.querySelectorAll('#fieldSubtabs .subtab').forEach(b=>b.classList.toggle('active',b.dataset.sp===sp));
   document.querySelectorAll('#v-fieldwork .subpanel').forEach(p=>p.classList.remove('active'));
   document.getElementById('fsp-'+sp).classList.add('active');
-  if(sp==='hist')renderFieldHist();else renderFieldIssue();
+  if(sp==='hist')renderFieldHist();else if(sp==='company')renderFieldCompanies();else renderFieldIssue();
+}
+/* ============ 외근업무 - 업체별 폴더 (담당자·미팅 히스토리) ============ */
+function fieldCompanyName(cu){return (cu||'기타').split('(')[0].trim()||'기타';}
+function fieldCompanies(){
+  const map={};
+  FIELD_SEED.forEach(r=>{const nm=fieldCompanyName(r.cu);(map[nm]=map[nm]||[]).push(r);});
+  return Object.keys(map).sort((a,b)=>map[b].length-map[a].length).map(nm=>({name:nm,rows:map[nm]}));
+}
+function loadFieldContacts(){try{const s=JSON.parse(localStorage.getItem('dgrns_field_contacts'));if(s&&typeof s==='object')return s;}catch(e){}return {};}
+function saveFieldContacts(){try{localStorage.setItem('dgrns_field_contacts',JSON.stringify(fieldContacts));}catch(e){}}
+let fieldContacts=loadFieldContacts();
+let curFieldCompany='';
+function addFieldContact(company){
+  const name=prompt(company+' 담당자 이름을 입력하세요');if(!name||!name.trim())return;
+  const rank=prompt(company+' "'+name.trim()+'" 님의 직급을 입력하세요 (예: 과장)','')||'';
+  const list=fieldContacts[company]=fieldContacts[company]||[];
+  list.push({id:'c'+Date.now(),name:name.trim(),rank:rank.trim(),history:[]});
+  saveFieldContacts();renderFieldCompanyDetail(company);toast(name.trim()+' 담당자가 추가되었습니다');
+}
+function editFieldContactRank(company,cid){
+  const list=fieldContacts[company]||[];const c=list.find(x=>x.id===cid);if(!c)return;
+  const nr=prompt(c.name+' 님의 새 직급을 입력하세요',c.rank||'');if(nr==null)return;
+  const nrt=nr.trim();
+  if(nrt&&nrt!==c.rank){c.history=(c.history||[]);c.history.push({rank:c.rank||'(직급 미상)',changedAt:todayStr()});c.rank=nrt;}
+  saveFieldContacts();renderFieldCompanyDetail(company);toast(c.name+' 직급이 갱신되었습니다');
+}
+function removeFieldContact(company,cid){
+  if(!confirm('이 담당자를 삭제할까요?'))return;
+  fieldContacts[company]=(fieldContacts[company]||[]).filter(x=>x.id!==cid);
+  saveFieldContacts();renderFieldCompanyDetail(company);
+}
+function fieldContactHistoryHtml(c){
+  if(!c.history||!c.history.length)return '';
+  return '<div style="font-size:10.5px;color:var(--muted);margin-top:2px">이력: '+c.history.map(h=>esc(h.rank)+'('+esc(h.changedAt)+')').join(' → ')+' → <b>'+esc(c.rank||'-')+'</b>(현재)</div>';
+}
+function fieldContactMeetings(company,name){
+  return FIELD_SEED.filter(r=>fieldCompanyName(r.cu)===company&&((r.iv||'').includes(name)||(r.tv||'').includes(name)||(r.mn||'').includes(name)))
+    .sort((a,b)=>b.d.localeCompare(a.d));
+}
+function showContactMeetings(company,cid){
+  const list=fieldContacts[company]||[];const c=list.find(x=>x.id===cid);if(!c)return;
+  window.__fcFilterContact=c.name;renderFieldCompanyDetail(company);
+}
+function clearContactFilter(company){window.__fcFilterContact='';renderFieldCompanyDetail(company);}
+function openFieldCompany(company){curFieldCompany=company;window.__fcFilterContact='';renderFieldCompanies();renderFieldCompanyDetail(company);}
+function renderFieldCompanies(){
+  const cos=fieldCompanies();
+  document.getElementById('fieldCompanyList').innerHTML=cos.map(c=>`
+    <div onclick="openFieldCompany('${esc(c.name).replace(/'/g,"\\'")}')" style="cursor:pointer;min-width:180px;flex:1 1 180px;max-width:240px;border:2px solid ${c.name===curFieldCompany?'#1d4ed8':'#e5e9ee'};border-radius:12px;padding:14px 16px;background:${c.name===curFieldCompany?'#eff6ff':'#fff'}">
+      <div style="font-size:22px">📁</div>
+      <div style="font-weight:800;font-size:14.5px;margin-top:4px">${esc(c.name)}</div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:2px">보고서 ${c.rows.length}건 · 담당자 ${(fieldContacts[c.name]||[]).length}명</div>
+    </div>`).join('')||'<div class="empty">외근 보고서가 없습니다.</div>';
+  if(!curFieldCompany)document.getElementById('fieldCompanyDetail').innerHTML='';
+}
+function renderFieldCompanyDetail(company){
+  const rows=FIELD_SEED.filter(r=>fieldCompanyName(r.cu)===company).sort((a,b)=>b.d.localeCompare(a.d));
+  const contacts=fieldContacts[company]||[];
+  const filt=window.__fcFilterContact||'';
+  const shownRows=filt?fieldContactMeetings(company,filt):rows;
+  document.getElementById('fieldCompanyDetail').innerHTML=`
+    <div style="border-top:2px solid #1d4ed8;padding-top:14px">
+      <div style="font-size:17px;font-weight:800;color:#1d4ed8">📁 ${esc(company)}</div>
+      <div style="margin-top:10px">
+        <div style="font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px">👤 담당자</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          ${contacts.map(c=>`<div style="border:1px solid #e5e9ee;border-radius:8px;padding:6px 10px;font-size:12.5px;background:${filt===c.name?'#fef2f2':'#fafbfc'}">
+              <span style="cursor:pointer;font-weight:700" onclick="showContactMeetings('${esc(company).replace(/'/g,"\\'")}','${c.id}')" title="이 담당자와의 미팅 내역 보기">${esc(c.name)} ${esc(c.rank||'')}</span>
+              <button class="btn sm" style="font-size:10px;padding:0 5px;margin-left:4px" onclick="editFieldContactRank('${esc(company).replace(/'/g,"\\'")}','${c.id}')">✎</button>
+              <button class="btn sm danger" style="font-size:10px;padding:0 5px" onclick="removeFieldContact('${esc(company).replace(/'/g,"\\'")}','${c.id}')">×</button>
+              ${fieldContactHistoryHtml(c)}
+            </div>`).join('')}
+          <button class="btn sm" onclick="addFieldContact('${esc(company).replace(/'/g,"\\'")}')">＋ 담당자 추가</button>
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <div style="font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px">🗂️ ${filt?esc(filt)+' 님과의 미팅 이력 ('+shownRows.length+'건)':'전체 보고서 ('+shownRows.length+'건)'}
+          ${filt?`<button class="btn sm" style="margin-left:8px" onclick="clearContactFilter('${esc(company).replace(/'/g,"\\'")}')">전체 보기</button>`:''}
+        </div>
+        ${shownRows.map(fieldCardHtml).join('')||'<div class="empty">해당 보고서가 없습니다.</div>'}
+      </div>
+    </div>`;
 }
 function initField(){
   const eqs=[...new Set(FIELD_SEED.flatMap(fieldEquips))];
@@ -5200,6 +5614,41 @@ const NEWS_SEED=[{date:"2026-09-16",cat:"제철/제강",title:"포스코 노조,
   {date:"2026-04-23",cat:"내화물 기술·시장",title:"포스코그룹, 친환경 철강 시대 차세대 내화물 기술 소개",why:"수소환원·전기로 전환에 따른 내화물 기술 트렌드 — 제안·개발 방향 참고",url:"https://newsroom.posco.com/kr/%EC%B9%9C%ED%99%98%EA%B2%BD-%EC%B2%A0%EA%B0%95-%EC%8B%9C%EB%8C%80%EB%A5%BC-%EC%97%B4%EC%96%B4%EA%B0%80%EB%8A%94-%EC%B0%A8%EC%84%B8%EB%8C%80-%EB%82%B4%ED%99%94%EB%AC%BC-%EA%B8%B0%EC%88%A0/"}
 ];
 const NEWS_CAT_COLOR={'제철/제강':'#1d4ed8','경쟁사':'#c81e1e','내화물 기술·시장':'#15803d'};
+/* 업체별 뉴스 태깅 — 업체가 추가될 때마다 (제철,제강)/(내화물) 등 분류를 붙여 관리, 뉴스 본문에 업체명이 있으면 자동 매칭 */
+const NEWS_COMPANY_DEFAULT=[{name:'포스코',tags:['제철','제강']},{name:'동국제강',tags:['제철','제강']},{name:'현대제철',tags:['제철','제강']},{name:'조선내화',tags:['내화물']},{name:'동국R&S',tags:['내화물']},{name:'포스코퓨처엠',tags:['내화물']}];
+function loadNewsCompanies(){try{const s=JSON.parse(localStorage.getItem('dgrns_news_companies'));if(Array.isArray(s)&&s.length)return s;}catch(e){}return NEWS_COMPANY_DEFAULT.slice();}
+function saveNewsCompanies(){try{localStorage.setItem('dgrns_news_companies',JSON.stringify(NEWS_COMPANIES));}catch(e){}}
+let NEWS_COMPANIES=loadNewsCompanies();
+function newsCompanyLabel(c){return c.name+(c.tags&&c.tags.length?'('+c.tags.join(',')+')':'');}
+function newsMatchCompanies(n){const s=(n.title||'')+' '+(n.why||'');return NEWS_COMPANIES.filter(c=>s.includes(c.name));}
+function addNewsCompany(){
+  const el=document.getElementById('nw_newCompany');const name=(el.value||'').trim();if(!name){toast('업체명을 입력하세요');return;}
+  if(NEWS_COMPANIES.some(c=>c.name===name)){toast('이미 등록된 업체입니다');return;}
+  const tagsIn=prompt(name+' 분류를 입력하세요 (쉼표로 구분, 예: 제철,제강 또는 내화물)','내화물')||'';
+  const tags=tagsIn.split(',').map(t=>t.trim()).filter(Boolean);
+  NEWS_COMPANIES.push({name,tags});saveNewsCompanies();el.value='';renderNewsCompanyMgr();renderNews();toast(name+' 업체가 추가되었습니다');
+}
+function editNewsCompanyTags(name){
+  const c=NEWS_COMPANIES.find(x=>x.name===name);if(!c)return;
+  const tagsIn=prompt(name+' 분류를 입력하세요 (쉼표로 구분)',(c.tags||[]).join(','));if(tagsIn==null)return;
+  c.tags=tagsIn.split(',').map(t=>t.trim()).filter(Boolean);saveNewsCompanies();renderNewsCompanyMgr();renderNews();
+}
+function removeNewsCompany(name){
+  if(!confirm(name+' 업체를 삭제할까요?'))return;
+  NEWS_COMPANIES=NEWS_COMPANIES.filter(c=>c.name!==name);saveNewsCompanies();
+  if(window.__newsCompanyFilter===name)window.__newsCompanyFilter='';
+  renderNewsCompanyMgr();renderNews();
+}
+function filterNewsCompany(name){window.__newsCompanyFilter=(window.__newsCompanyFilter===name?'':name);renderNewsCompanyMgr();renderNews();}
+function renderNewsCompanyMgr(){
+  const box=document.getElementById('nw_companyMgr');if(!box)return;
+  const filt=window.__newsCompanyFilter||'';
+  box.innerHTML=NEWS_COMPANIES.map(c=>`<span style="display:inline-flex;align-items:center;gap:4px;border:1px solid ${filt===c.name?'#1d4ed8':'#e5e9ee'};background:${filt===c.name?'#eff6ff':'#fafbfc'};border-radius:8px;padding:3px 8px;margin:2px;font-size:11.5px">
+    <span style="cursor:pointer;font-weight:700" onclick="filterNewsCompany('${esc(c.name).replace(/'/g,"\\'")}')" title="클릭하면 이 업체 뉴스만 봅니다">${esc(newsCompanyLabel(c))}</span>
+    <button class="btn sm" style="font-size:9.5px;padding:0 4px" onclick="editNewsCompanyTags('${esc(c.name).replace(/'/g,"\\'")}')">✎</button>
+    <button class="btn sm danger" style="font-size:9.5px;padding:0 4px" onclick="removeNewsCompany('${esc(c.name).replace(/'/g,"\\'")}')">×</button>
+  </span>`).join('');
+}
 function initNews(){
   const cats=[...new Set(NEWS_SEED.map(n=>n.cat))];
   const sel=document.getElementById('nw_cat');
@@ -5214,18 +5663,21 @@ function initNews(){
       st.textContent=`⚠️ ${days}일째 자동 업데이트가 되지 않았습니다. (마지막 갱신 ${NEWS_UPDATED}) — 아침 자동 검색은 PC가 켜져 있고 Claude 데스크톱 앱이 실행 중일 때 동작합니다. 계속 갱신되지 않으면 담당자에게 자동 작업 재시작을 요청하세요.`;
     }else st.hidden=true;
   }
-  renderNews();
+  renderNewsCompanyMgr();renderNews();
 }
 function renderNews(){
   const q=(document.getElementById('nw_search').value||'').toLowerCase();
   const cf=document.getElementById('nw_cat').value;
-  let rows=NEWS_SEED.filter(n=>!cf||n.cat===cf).filter(n=>!q||(n.title+n.why+n.cat).toLowerCase().includes(q));
+  const compFilt=window.__newsCompanyFilter||'';
+  let rows=NEWS_SEED.filter(n=>!cf||n.cat===cf).filter(n=>!q||(n.title+n.why+n.cat).toLowerCase().includes(q))
+    .filter(n=>!compFilt||newsMatchCompanies(n).some(c=>c.name===compFilt));
   rows=rows.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-  document.getElementById('newsList').innerHTML=rows.map(n=>{const c=NEWS_CAT_COLOR[n.cat]||'#64748b';
+  document.getElementById('newsList').innerHTML=rows.map(n=>{const c=NEWS_CAT_COLOR[n.cat]||'#64748b';const comps=newsMatchCompanies(n);
     return `<div class="fcard" style="border-left:4px solid ${c};margin-bottom:9px">
       <div style="padding:11px 14px">
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;flex-wrap:wrap">
           <span class="fc-tag" style="background:${c}">${esc(n.cat)}</span>
+          ${comps.map(cc=>`<span class="fc-tag" style="background:#0f766e">${esc(newsCompanyLabel(cc))}</span>`).join('')}
           <span style="font-size:11px;color:var(--muted)">${esc(n.date||'')}</span>
         </div>
         <div style="font-weight:700;font-size:13.5px;margin-bottom:3px">${n.url?`<a href="${esc(n.url)}" target="_blank" rel="noopener" style="color:var(--ink);text-decoration:none">${esc(n.title)} ↗</a>`:esc(n.title)}</div>
@@ -5235,8 +5687,75 @@ function renderNews(){
 
 /* ============ 포스코 입찰 (범용B 통합) ============ */
 let poscoSub='result';
-const PVEND=['동국','KR','포항세라믹','원진','조선','포스코퓨처엠','민텍'];
-const PVEND_COLOR={'동국':'#1d4ed8','KR':'#15803d','포항세라믹':'#b45309','원진':'#7c3aed','조선':'#0891b2','포스코퓨처엠':'#c81e1e','민텍':'#64748b'};
+// 기본업체 목록/색상 — 업체 변경(추가·이름변경·삭제) 가능하도록 localStorage로 관리
+const PVEND_DEFAULT=['동국','KR','포항세라믹','원진','조선','포스코퓨처엠','민텍'];
+const PVEND_COLOR_DEFAULT={'동국':'#1d4ed8','KR':'#15803d','포항세라믹':'#b45309','원진':'#7c3aed','조선':'#0891b2','포스코퓨처엠':'#c81e1e','민텍':'#64748b'};
+const PVEND_PALETTE=['#1d4ed8','#15803d','#b45309','#7c3aed','#0891b2','#c81e1e','#64748b','#a16207','#0f766e','#be185d','#4338ca','#65a30d'];
+function loadPvend(){try{const s=JSON.parse(localStorage.getItem('dgrns_posco_vendors'));if(Array.isArray(s)&&s.length)return s;}catch(e){}return PVEND_DEFAULT.slice();}
+function savePvend(){try{localStorage.setItem('dgrns_posco_vendors',JSON.stringify(PVEND));}catch(e){}}
+let PVEND=loadPvend();
+function loadPvendColor(){try{const s=JSON.parse(localStorage.getItem('dgrns_posco_vendor_colors'));if(s&&typeof s==='object')return Object.assign({},PVEND_COLOR_DEFAULT,s);}catch(e){}return Object.assign({},PVEND_COLOR_DEFAULT);}
+function savePvendColor(){try{localStorage.setItem('dgrns_posco_vendor_colors',JSON.stringify(PVEND_COLOR));}catch(e){}}
+let PVEND_COLOR=loadPvendColor();
+function pvendColorFor(name){if(PVEND_COLOR[name])return PVEND_COLOR[name];const c=PVEND_PALETTE[Object.keys(PVEND_COLOR).length%PVEND_PALETTE.length];PVEND_COLOR[name]=c;savePvendColor();return c;}
+function addPvend(){
+  const el=document.getElementById('p_newVendor');const name=(el.value||'').trim();
+  if(!name){toast('업체명을 입력하세요');return;}
+  if(PVEND.includes(name)){toast('이미 등록된 업체입니다');return;}
+  PVEND.push(name);pvendColorFor(name);savePvend();el.value='';renderPosco();toast(name+' 업체가 추가되었습니다');
+}
+function renamePvend(oldName){
+  const name=prompt('새 업체명을 입력하세요',oldName);
+  if(name==null)return;const nn=name.trim();if(!nn||nn===oldName)return;
+  PVEND=PVEND.map(v=>v===oldName?nn:v);
+  if(PVEND_COLOR[oldName]){PVEND_COLOR[nn]=PVEND_COLOR[oldName];delete PVEND_COLOR[oldName];savePvendColor();}
+  // 기존 입찰 데이터·계약정보의 업체명도 함께 변경(이력 유지)
+  POSCO_SEED.forEach(r=>{if(r.vmap&&r.vmap[oldName]!==undefined){r.vmap[nn]=r.vmap[oldName];delete r.vmap[oldName];}});
+  Object.values(poscoContractStore).forEach(c=>{if(c.vendor===oldName)c.vendor=nn;(c.history||[]).forEach(h=>{if(h.vendor===oldName)h.vendor=nn;});});
+  savePvend();savePoscoContract();renderPosco();toast(oldName+' → '+nn+'(으)로 변경되었습니다');
+}
+function removePvend(name){
+  if(!confirm(name+' 업체를 목록에서 제거할까요?\n(기존 입찰 데이터·계약이력은 그대로 남습니다)'))return;
+  PVEND=PVEND.filter(v=>v!==name);savePvend();renderPosco();toast(name+' 업체가 제거되었습니다');
+}
+function renderPvendMgr(){
+  const box=document.getElementById('p_vendorMgr');if(!box)return;
+  box.innerHTML=PVEND.map(v=>`<span class="tag" style="font-size:11px;color:#fff;background:${pvendColorFor(v)};padding:3px 4px 3px 9px;display:inline-flex;align-items:center;gap:5px;margin:2px">
+    ${esc(v==='동국'?'동국R&S':v)}
+    <button onclick="renamePvend('${esc(v)}')" title="이름 변경" style="background:rgba(255,255,255,.25);border:none;color:#fff;border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px">✎</button>
+    <button onclick="removePvend('${esc(v)}')" title="삭제" style="background:rgba(255,255,255,.25);border:none;color:#fff;border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px">×</button>
+  </span>`).join('');
+}
+/* 계약기간/현재 계약업체 — 내화물 기본정보처럼 "27.03월" 형식으로 명시, 변경 시 이전 계약을 이력에 보관해 비교 가능 */
+function loadPoscoContract(){try{return JSON.parse(localStorage.getItem('dgrns_posco_contract')||'{}');}catch(e){return{};}}
+function savePoscoContract(){try{localStorage.setItem('dgrns_posco_contract',JSON.stringify(poscoContractStore));}catch(e){}}
+let poscoContractStore=loadPoscoContract();
+function poscoContractCell(item){
+  const c=poscoContractStore[item];
+  if(!c||!c.vendor)return '<span style="color:#d3d9df">미지정</span>';
+  return `<b>${esc(c.vendor)}</b><br><span style="font-size:10.5px;color:var(--muted)">${esc(c.period||'-')}</span>`;
+}
+function editPoscoContract(item){
+  const cur=poscoContractStore[item]||{vendor:'',period:'',history:[]};
+  const vendor=prompt(item+' 현재 계약업체를 입력하세요 (예: 동국R&S)',cur.vendor||'');
+  if(vendor==null)return;
+  const period=prompt(item+' 계약기간을 입력하세요 (예: 27.03월)',cur.period||'');
+  if(period==null)return;
+  const nv=vendor.trim(),np=period.trim();
+  const hist=(cur.history||[]).slice();
+  if(cur.vendor&&(cur.vendor!==nv||cur.period!==np)){
+    hist.push({vendor:cur.vendor,period:cur.period,changedAt:todayStr()});
+  }
+  poscoContractStore[item]={vendor:nv,period:np,history:hist};
+  savePoscoContract();renderPosco();toast(item+' 계약정보가 저장되었습니다');
+}
+function showPoscoHistory(item){
+  const c=poscoContractStore[item];const hist=(c&&c.history)||[];
+  if(!hist.length){toast('이전 업체 변경 이력이 없습니다');return;}
+  const lines=hist.map(h=>`${h.period||'-'} : ${h.vendor}`);
+  if(c&&c.vendor)lines.push(`${c.period||'-'} : ${c.vendor} (현재)`);
+  alert(item+' 업체 변경 이력\n\n'+lines.join('\n'));
+}
 function poscoTab(sp){poscoSub=sp;
   document.querySelectorAll('#poscoSubtabs .subtab').forEach(b=>b.classList.toggle('active',b.dataset.sp===sp));
   document.querySelectorAll('#v-posco .subpanel').forEach(p=>p.classList.remove('active'));
@@ -5276,6 +5795,25 @@ function vendorTags(r){
     return `<span class="tag" style="font-size:10px;color:#fff;background:${c};margin:1px 2px 1px 0;display:inline-block${v==='동국'?';font-weight:800':''}">${esc(lab)}${rk&&rk!=='O'?' '+esc(rk):''}</span>`;
   }).join('');
 }
+/* 입찰가능업체(참여사 전체, 순위 무관)를 순위업체와 분리해서 보여주기 위한 두 헬퍼 */
+function vendorPlainTags(r){
+  const vm=r.vmap||{};const keys=Object.keys(vm);
+  if(!keys.length)return '<span style="color:#d3d9df">-</span>';
+  return keys.map(v=>{
+    const c=PVEND_COLOR[v]||'#64748b';const lab=v==='동국'?'동국R&S':v;
+    return `<span class="tag" style="font-size:10px;color:#fff;background:${c};margin:1px 2px 1px 0;display:inline-block${v==='동국'?';font-weight:800':''}">${esc(lab)}</span>`;
+  }).join('');
+}
+function vendorRankTags(r){
+  const vm=r.vmap||{};
+  const ranked=Object.keys(vm).filter(v=>vm[v]&&vm[v]!=='O').sort((a,b)=>(parseInt(vm[a])||9)-(parseInt(vm[b])||9));
+  if(!ranked.length)return '<span style="color:#d3d9df">-</span>';
+  return ranked.map(v=>{
+    const rk=vm[v];const n=parseInt(rk)||9;const c=n===1?'#15803d':n===2?'#b45309':'#64748b';
+    const lab=v==='동국'?'동국R&S':v;
+    return `<span class="tag" style="font-size:10px;color:#fff;background:${c};margin:1px 2px 1px 0;display:inline-block">${esc(rk)} ${esc(lab)}</span>`;
+  }).join('');
+}
 function renderPosco(){
   const all=POSCO_SEED, rows=poscoRows();
   const tot=all.reduce((s,r)=>s+(r.amount||0),0);
@@ -5289,18 +5827,22 @@ function renderPosco(){
     +cb('동국 낙찰',won.length+'품목',(wonAmt/1e8).toFixed(1)+'억',true)
     +cb('낙찰 점유율',tot?(wonAmt/tot*100).toFixed(1):'-','%');
   document.getElementById('p_count').textContent=`${rows.length} / ${all.length} 품목`;
+  renderPvendMgr();
   // 결과표: 동국R&S 입찰가능 품목을 상단 그룹으로, 나머지는 하단 그룹으로 표시
   const {canBid,cannotBid}=poscoSplit(rows);
+  const COLN=12;
   const rowHtml=r=>`<tr${r.dkWin>0?' style="background:#f0fdf4"':''}>
-      <td><b>${esc(r.item)}</b></td><td>${vendorTags(r)}</td><td style="font-size:11.5px">${esc(r.baseVendor||'-')}</td>
+      <td><b>${esc(r.item)}</b></td><td>${vendorPlainTags(r)}</td><td>${vendorRankTags(r)}</td><td style="font-size:11.5px">${esc(r.baseVendor||'-')}</td>
       <td class="n">${pN(r.basePrice)}</td><td class="n">${pN(r.winPrice)}</td>
       <td class="n">${pN(r.qty)}</td><td class="n">${pN(r.amount)}</td>
       <td>${r.alloc?`<span class="tag t-vendor" style="font-size:10.5px">${esc(r.alloc)}</span>`:'-'}</td>
-      <td>${dkBadge(r)}</td><td class="n">${r.dkWin>0?'<b>'+pN(r.dkWin)+'</b>':'-'}</td></tr>`;
+      <td>${dkBadge(r)}</td><td class="n">${r.dkWin>0?'<b>'+pN(r.dkWin)+'</b>':'-'}</td>
+      <td style="cursor:pointer" onclick="editPoscoContract('${esc(r.item)}')" title="클릭해서 현재 계약업체·계약기간 입력/수정">${poscoContractCell(r.item)} <span style="font-size:10px;color:var(--accent)">✎</span>
+        ${((poscoContractStore[r.item]||{}).history||[]).length?`<br><button class="btn sm" style="font-size:10px;padding:1px 6px;margin-top:3px" onclick="event.stopPropagation();showPoscoHistory('${esc(r.item)}')">이력보기</button>`:''}</td></tr>`;
   let body='';
-  if(canBid.length)body+=`<tr><td colspan="10" style="background:#eef6ff;font-weight:800;color:#1d4ed8;padding:7px 10px;font-size:12px">🏷️ 동국R&amp;S 입찰가능 품목 (${canBid.length}건)</td></tr>`+canBid.map(rowHtml).join('');
-  if(cannotBid.length)body+=`<tr><td colspan="10" style="background:#f4f5f7;font-weight:700;color:#64748b;padding:7px 10px;font-size:12px">기타 품목 (${cannotBid.length}건)</td></tr>`+cannotBid.map(rowHtml).join('');
-  if(!rows.length)body=`<tr><td colspan="10"><div class="empty">해당 조건의 품목이 없습니다.</div></td></tr>`;
+  if(canBid.length)body+=`<tr><td colspan="${COLN}" style="background:#eef6ff;font-weight:800;color:#1d4ed8;padding:7px 10px;font-size:12px">🏷️ 동국R&amp;S 입찰가능 품목 (${canBid.length}건)</td></tr>`+canBid.map(rowHtml).join('');
+  if(cannotBid.length)body+=`<tr><td colspan="${COLN}" style="background:#f4f5f7;font-weight:700;color:#64748b;padding:7px 10px;font-size:12px">기타 품목 (${cannotBid.length}건)</td></tr>`+cannotBid.map(rowHtml).join('');
+  if(!rows.length)body=`<tr><td colspan="${COLN}"><div class="empty">해당 조건의 품목이 없습니다.</div></td></tr>`;
   document.getElementById('poscoBody').innerHTML=body;
   // 매트릭스
   if(poscoSub==='matrix')renderPoscoMatrix(rows);
@@ -5333,8 +5875,9 @@ function renderPoscoRank(all){
 }
 function downloadPosco(){
   const rows=poscoRows();
-  let t=`<table><tr><th>품명</th><th>기존업체</th><th>기존단가</th><th>낙찰가</th><th>물량</th><th>금액</th><th>배분율</th><th>동국순위</th><th>동국낙찰금액</th>`+PVEND.map(v=>`<th>${v}</th>`).join('')+`</tr>`;
-  rows.forEach(r=>{const vm=r.vmap||{};t+=`<tr><td>${esc(r.item)}</td><td>${esc(r.baseVendor||'')}</td><td>${r.basePrice??''}</td><td>${r.winPrice??''}</td><td>${r.qty??''}</td><td>${r.amount??''}</td><td>${esc(r.alloc||'')}</td><td>${r.dkWin>0?'낙찰':esc(r.dkRank)}</td><td>${r.dkWin||''}</td>`+PVEND.map(v=>`<td>${esc(vm[v]||'')}</td>`).join('')+`</tr>`;});
+  let t=`<table><tr><th>품명</th><th>기존업체</th><th>기존단가</th><th>낙찰가</th><th>물량</th><th>금액</th><th>배분율</th><th>동국순위</th><th>동국낙찰금액</th><th>계약업체</th><th>계약기간</th>`+PVEND.map(v=>`<th>${v}</th>`).join('')+`</tr>`;
+  rows.forEach(r=>{const vm=r.vmap||{};const ct=poscoContractStore[r.item]||{};
+    t+=`<tr><td>${esc(r.item)}</td><td>${esc(r.baseVendor||'')}</td><td>${r.basePrice??''}</td><td>${r.winPrice??''}</td><td>${r.qty??''}</td><td>${r.amount??''}</td><td>${esc(r.alloc||'')}</td><td>${r.dkWin>0?'낙찰':esc(r.dkRank)}</td><td>${r.dkWin||''}</td><td>${esc(ct.vendor||'')}</td><td>${esc(ct.period||'')}</td>`+PVEND.map(v=>`<td>${esc(vm[v]||'')}</td>`).join('')+`</tr>`;});
   t+=`</table>`;downloadXls('포스코_범용B_입찰통합',t);
 }
 
@@ -8181,7 +8724,7 @@ function setAdminPin(){if(!requireAdmin())return;const p=prompt('새 관리자 P
   document.getElementById('l_date').value=todayStr();document.getElementById('t_date').value=todayStr();
   document.getElementById('e_date').value=todayStr();
   {const bd=document.getElementById('board_date');if(bd)bd.value=todayStr();}
-  try{db=await openDB();ladleData=await txAll('ladle');tundishData=await txAll('tundish');
+  try{db=await openDB();await initPhotoCache();ladleData=await txAll('ladle');tundishData=await txAll('tundish');
     if(ladleData.length===0&&tundishData.length===0){await loadSeedInto();setMeta('seedVersion',SEED_VERSION);}
     else if(getMeta('seedVersion')!==SEED_VERSION){await refreshSeedData();setMeta('seedVersion',SEED_VERSION);}
     await migrateVendor();await loadSchedule();await loadBom();await loadEaf();await loadInv();
