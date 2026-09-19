@@ -117,6 +117,8 @@
   .subtab{padding:9px 16px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;border-radius:6px 6px 0 0}
   .subtab:hover{color:var(--ink);background:#f4f6f8}
   .subtab.active{color:var(--accent);border-bottom-color:var(--accent);background:#fff}
+  /* 작업현황판 3페이지(전기로/래들/턴디쉬) 탭 — 잘 보이도록 확대 */
+  #boardSubtabs .subtab{font-size:15.5px;padding:11px 22px;font-weight:700}
   .subpanel{display:none}
   .subpanel.active{display:block}
   .bomtbl{font-size:12.5px;min-width:720px}
@@ -154,10 +156,11 @@
   @media(max-width:900px){.boardwrap3{grid-template-columns:1fr}}
   .bcol{min-width:0}
   .boardwrap3>.bcol{min-width:0;overflow:hidden}
-  .btd-row{display:grid;grid-template-columns:26px 92px 56px 56px minmax(0,1fr);gap:5px;align-items:center;padding:5px 9px;border-bottom:1px solid #eef1f4;font-size:11px}
+  /* 작업현황판 기본 셀(래들/턴디쉬) 크기 확대 — 툴/구조는 동일, 가독성만 개선 */
+  .btd-row{display:grid;grid-template-columns:34px 116px 70px 70px minmax(0,1fr);gap:8px;align-items:center;padding:9px 12px;border-bottom:1px solid #eef1f4;font-size:13.5px}
   .btd-row>*{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-  .btd-head{background:#f4f6f8;font-weight:700;color:#516170;font-size:10.5px}
-  .btd-row .bno{font-size:12.5px;font-weight:800}
+  .btd-head{background:#f4f6f8;font-weight:700;color:#516170;font-size:12.5px}
+  .btd-row .bno{font-size:15px;font-weight:800}
   .prodstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
   @media(max-width:800px){.prodstrip{grid-template-columns:1fr}}
   .prodbox{border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:linear-gradient(135deg,#1e3a5f,#2b5580);color:#fff}
@@ -167,18 +170,18 @@
   .prodbox .pb-v{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
   .prodbox .pb-v small{font-size:12px;font-weight:600;opacity:.8}
   .bcol{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-  .bcol-h{padding:9px 12px;font-weight:800;font-size:13px;color:#fff}
-  .btbl{width:100%;border-collapse:collapse;font-size:12px}
-  .btbl th{background:#f4f6f8;padding:5px 7px;font-weight:700;color:#516170;border-bottom:1px solid var(--line);text-align:left}
-  .btbl td{padding:5px 7px;border-bottom:1px solid #eef1f4;vertical-align:middle}
+  .bcol-h{padding:12px 16px;font-weight:800;font-size:15.5px;color:#fff}
+  .btbl{width:100%;border-collapse:collapse;font-size:14.5px}
+  .btbl th{background:#f4f6f8;padding:9px 10px;font-weight:700;color:#516170;border-bottom:1px solid var(--line);text-align:left}
+  .btbl td{padding:10px 10px;border-bottom:1px solid #eef1f4;vertical-align:middle}
   .btbl td.n{text-align:right;font-variant-numeric:tabular-nums}
-  .btbl .bno{font-weight:800;font-size:13px}
-  .bstat{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:20px}
-  .bsel{font-size:10.5px;font-weight:700;padding:2px 4px;border:none;border-radius:6px;cursor:pointer;width:100%;min-width:0}
+  .btbl .bno{font-weight:800;font-size:16.5px}
+  .bstat{display:inline-block;font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:20px}
+  .bsel{font-size:12.5px;font-weight:700;padding:4px 6px;border:none;border-radius:6px;cursor:pointer;width:100%;min-width:0}
   .btbl td .binp{width:100%;box-sizing:border-box;min-width:0}
   .btbl td{overflow:hidden}
   .bsel:focus{outline:1px solid var(--accent)}
-  .binp{width:100%;border:1px solid transparent;background:transparent;font-size:11.5px;padding:2px 4px;border-radius:4px}
+  .binp{width:100%;border:1px solid transparent;background:transparent;font-size:13.5px;padding:4px 6px;border-radius:4px}
   .binp:hover{border-color:var(--line)}.binp:focus{border-color:var(--accent);background:#fff;outline:none}
   .eafgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:720px){.eafgrid{grid-template-columns:1fr}}
@@ -652,8 +655,8 @@
     <div class="side-item" data-view="handover" onclick="nav('handover')"><span class="ic">🔁</span>교대반 인수인계</div>
   </div>
   <div class="side-group">
-    <div class="gh">기준정보(설비별 내화물 소요량)</div>
-    <div class="side-item" data-view="prodm" onclick="nav('prodm')"><span class="ic">📦</span>내화물 기본정보 관리</div>
+    <div class="gh">기준정보</div>
+    <div class="side-item" data-view="prodm" onclick="nav('prodm')"><span class="ic">📦</span>내화물 기본정보</div>
     <div class="side-item" data-view="bom" onclick="nav('bom')"><span class="ic">🧱</span>내화물 축조물량표</div>
   </div>
   <div class="side-group">
@@ -861,6 +864,7 @@
         <input type="number" class="selbox" id="l_diaCH" style="width:74px" value="0" onchange="renderLadleDia()">
         <button class="btn primary" onclick="saveDia()">💾 저장</button>
         <button class="btn" onclick="printDia()" title="A4 가로 1페이지로 인쇄합니다">🖨️ A4 가로 인쇄</button>
+        <button class="btn" onclick="exportDiaXls()" title="현재 화면에 표시된 모식도 내용을 엑셀로 내보냅니다">📊 엑셀로 내보내기</button>
         <button class="btn sm danger del-rec" onclick="delDia()">삭제</button>
         <span class="spacer"></span>
         <span style="font-size:11.5px;color:var(--muted)">#1·#2 PP측 잔존(mm) 입력 → 단면도·용손율 자동</span>
@@ -1043,7 +1047,7 @@
               <button class="btn sm" onclick="otAddPerson()" title="여러 명을 한 번에 신청합니다">＋</button>
             </div></div>
           <div class="field grow" id="otPeopleWrap" hidden><label>함께 신청할 인원 <span style="font-size:10px;color:var(--muted)">(클릭하면 제외)</span></label>
-            <div id="otPeople" style="display:flex;gap:6px;flex-wrap:wrap;min-height:34px;align-items:center"></div></div>
+            <div id="otPeople" style="display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;min-height:34px;align-items:center;padding-bottom:4px"></div></div>
           <div class="field w-date"><label>일자</label><input type="date" id="ot_date"></div>
           <div class="field w-ch"><label>시작</label><input type="time" id="ot_st" value="17:30" onchange="otCalcHours()"></div>
           <div class="field w-ch"><label>종료</label><input type="time" id="ot_et" value="20:00" onchange="otCalcHours()"></div>
@@ -1226,8 +1230,8 @@
       <button class="btn" onclick="setPartPin()" title="업무 파트별 공용 PIN 설정(관리자)">🔒 파트 PIN 설정</button>
       <span class="spacer"></span><span style="font-size:12px;color:var(--muted)" id="em_count"></span>
     </div>
-    <div class="tablewrap"><table style="min-width:1430px">
-      <thead><tr><th style="width:80px">성명</th><th style="width:96px">소속</th><th style="width:78px">직급</th><th style="width:104px">파트(권한)</th><th style="width:272px">결재선</th><th style="width:128px">반/근무</th><th style="width:92px">입사일</th><th class="n" style="width:92px">연차(잔여/부여)</th><th class="n" style="width:74px">연중휴가</th><th style="width:70px">사인</th><th style="width:74px">비밀번호</th><th style="width:170px">관리</th></tr></thead>
+    <div class="tablewrap"><table style="min-width:1500px">
+      <thead><tr><th style="width:80px">성명</th><th style="width:96px">소속</th><th style="width:78px">직급</th><th style="width:104px">파트(권한)</th><th style="width:272px">결재선</th><th style="width:128px">반/근무</th><th style="width:92px">입사일</th><th class="n" style="width:100px">연차(잔여/부여)</th><th class="n" style="width:100px">연중휴가(잔여/부여)</th><th style="width:96px">사인</th><th style="width:80px">비밀번호</th><th style="width:170px">관리</th></tr></thead>
       <tbody id="empBody"></tbody>
     </table></div>
   </section>
@@ -1453,35 +1457,24 @@ service cloud.firestore {
 
 <!-- ===== 작업현황판 ===== -->
   <section id="v-board" class="hidden">
+    <div id="modeBar" class="modebar" hidden></div>
     <div class="startbrand">
       <div class="sb-logo">동국<br>R&amp;S</div>
       <div><div class="sb-t1">동국R&amp;S 포항사업소</div>
         <div class="sb-t2">작업현황판 · 업무 파트를 선택하면 해당 메뉴가 열립니다</div>
         <div style="font-size:11px;color:var(--muted);margin-top:8px">버전 <span id="boardVer">로딩중</span> · <button class="btn sm" onclick="appReload()" style="font-size:11px;padding:3px 6px">🔄 최신 버전 받기</button></div></div>
     </div>
-    
+
     <!-- 작업현황판 탭 네비게이션 -->
     <div class="subtabs" id="boardSubtabs" style="margin-top:12px;padding:0 16px">
-      <button class="subtab active" data-board="eaf" onclick="boardTab('eaf')">🔥 전기로(EAF)</button>
-      <button class="subtab" data-board="ladle" onclick="boardTab('ladle')">🔧 래들(Ladle)</button>
+      <button class="subtab active" data-board="ladle" onclick="boardTab('ladle')">🔧 래들(Ladle)</button>
       <button class="subtab" data-board="tundish" onclick="boardTab('tundish')">🌊 턴디쉬(Tundish)</button>
     </div>
-    
-    <div id="modePanel" class="modepanel" hidden></div>
-    <div id="modeBar" class="modebar" hidden></div>
 
-    <!-- 전기로 패널 -->
-    <div id="boardEafPanel" class="board-panel" style="padding:16px">
-      <div class="toolrow" style="margin-bottom:16px">
-        <label style="font-size:13px;font-weight:700;color:var(--muted)">기준일</label>
-        <input type="date" class="selbox" id="board_date" onchange="setBoardDate(this.value)">
-        <button class="btn" onclick="setBoardDate(todayStr())">오늘</button>
-      </div>
-      <div id="boardEaf" style="display:grid;gap:16px"></div>
-    </div>
+    <div id="modePanel" class="modepanel" hidden></div>
 
     <!-- 래들 패널 -->
-    <div id="boardLadlePanel" class="board-panel hidden" style="padding:16px;display:none">
+    <div id="boardLadlePanel" class="board-panel" style="padding:16px">
       <div style="font-size:16px;font-weight:700;margin-bottom:16px">래들 (Ladle) · 신축 및 수명 현황</div>
       <div id="boardLadle" style="display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))"></div>
     </div>
@@ -1699,7 +1692,7 @@ service cloud.firestore {
     </div>
     <div class="subpanel active" id="psp-result">
       <div class="tablewrap"><table class="bomtbl" style="min-width:980px">
-        <thead><tr><th>품명</th><th>기존업체</th><th class="n">기존단가</th><th class="n">낙찰가</th><th class="n">물량(kg)</th><th class="n">금액(원)</th><th>배분율</th><th>동국 순위</th><th class="n">동국 낙찰금액</th></tr></thead>
+        <thead><tr><th>품명</th><th style="min-width:160px">입찰가능업체</th><th>기존업체</th><th class="n">기존단가</th><th class="n">낙찰가</th><th class="n">물량(kg)</th><th class="n">금액(원)</th><th>배분율</th><th>동국 순위</th><th class="n">동국 낙찰금액</th></tr></thead>
         <tbody id="poscoBody"></tbody>
       </table></div>
       <div style="font-size:11.5px;color:var(--accent);margin-top:8px">※ 25·26년 범용B 입찰을 통합(중복 품목은 최신 회차 기준). 27년 통합 입찰 준비용 마스터 품목 리스트입니다.</div>
@@ -2261,444 +2254,378 @@ function renderLadleCards(){
 const LADLE_TON_DEFAULT=143;
 // 보수유형 카탈로그(시드) — 사용자가 수량/단가/패턴을 직접 편집·저장
 const LADLE_BOM_SEED=[
- {code:'NEW',name:'신축 (전체)',group:'신축',baseCH:145,order:1,
+ {code:'NEW',name:'마모장 신축 (전체, 1~16단)',group:'신축',baseCH:145,order:1,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_중수리 (마모장 1단-16단).xls (2026-09-19 수령)
   rows:[
-   ['영구장','AMC-BS','LW90',4.81,198,1488],
-   ['영구장','AMC-BS','LW95',4.75,654,1488],
-   ['영구장','HAU-BS','LW90',4.91,297,1504],
-   ['영구장','HAU-BS','LW95',5.04,981,1504],
-   ['영구장','SK-36','1/2반형',1.8,1515,658],
-   ['영구장','루미보드','312*100*12.7T',0.3,480,4443],
-   ['영구장','유입재','TC-2',1000,3,1042],
-   ['바닥','AMC-B','LW250',14.35,30,1814],
-   ['바닥','AMC-B','LW280',16.07,124,1814],
-   ['슬래그라인','MgO-C','LW210',11.55,340,2033],
-   ['메탈라인','MgO-C','LW180',9.9,760,2033],
+   ['바닥','AMC-B','LW250',14.35,30,1931],
+   ['바닥','AMC-B','LW280',16.07,124,1931],
+   ['바닥','AMC-B','LW300-1/2',8.54,30,1931],
+   ['바닥 (IMPACT)','AMC-B','LW300',17.3,144,1931],
+   ['바닥 C/T','CA-180M','B1000',500,3,1528],
+   ['노즐수','ASC-NS','SN-6',65.35,1,306987],
+   ['노즐수','ASC-NS','SN-5',1,1,306986],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',1,2,997650],
+   ['2단~9단','MAC-W','LW21K',6,16,2033],
+   ['2단~9단','MAC-W','LW21',6.05,8,2033],
+   ['2단~9단','MAC-W','LW21-5',6.82,8,2033],
+   ['2단~9단','MAC-W','LW210',12.13,48,2033],
+   ['2단~9단','MAC-W','LW211',11.37,1032,2033],
+   ['10단~14단','PGT-BT','LW21K',5.8,10,2033],
+   ['10단~14단','PGT-BT','LW21',5.78,2,2033],
+   ['10단~14단','PGT-BT','LW21-5',6.5,2,2033],
+   ['10단~14단','PGT-BT','LW210',11.55,30,2033],
+   ['10단~14단','PGT-BT','LW211',10.83,645,2033],
+   ['1단 , 15단','PGT-BT','LW21-5(160H)',4.54,4,2033],
+   ['1단 , 15단','PGT-BT','LW21(160H)',4.03,4,2033],
+   ['1단 , 15단','PGT-BT','LW210(160H)',8.06,20,2033],
+   ['1단 , 15단','PGT-BT','LW211(160H)',7.56,256,2033],
+   ['FB','AMC-FB','LW25-5FS',6.53,2,1247],
+   ['FB','AMC-FB','LW25FS',5.8,2,1247],
+   ['FB','AMC-FB','LW251FBP',11.12,144,1247],
+   ['FB C/T','CA-160','B250',250,1,687],
   ]},
- {code:'PERM_ALL',name:'영구장 All 축조',group:'영구장',baseCH:0,order:2,
+ {code:'RECY1',name:'중수리 (1단 재활용 패턴)',group:'기타',baseCH:0,order:2,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_중수리 (1단 재활용).xls (2026-09-19 수령)
   rows:[
-   ['영구장','AMC-BS','LW90',4.81,198,1488],
-   ['영구장','AMC-BS','LW95',4.75,654,1488],
-   ['영구장','HAU-BS','LW90',4.91,297,1504],
-   ['영구장','HAU-BS','LW95',5.04,981,1504],
-   ['영구장','SK-36','1/2반형',1.8,1515,658],
-   ['영구장','루미보드','312*100*12.7T',0.3,480,4443],
+   ['바닥','AMC-B','LW250',14.35,30,1931],
+   ['바닥','AMC-B','LW280',16.07,124,1931],
+   ['바닥','AMC-B','LW300-1/2',8.54,30,1931],
+   ['바닥 (IMPACT)','AMC-B','LW300',17.3,144,1931],
+   ['바닥 C/T','CA-180M','B1000',500,3,1528],
+   ['노즐수','ASC-NS','SN-6',65.35,1,306987],
+   ['노즐수','ASC-NS','SN-5',1,1,306986],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',1,2,997650],
+   ['2단~9단','MAC-W','LW21K',6,16,2033],
+   ['2단~9단','MAC-W','LW21',6.05,8,2033],
+   ['2단~9단','MAC-W','LW21-5',6.82,8,2033],
+   ['2단~9단','MAC-W','LW210',12.13,48,2033],
+   ['2단~9단','MAC-W','LW211',11.37,1032,2033],
+   ['10단~14단','PGT-BT','LW21K',5.8,10,2033],
+   ['10단~14단','PGT-BT','LW21',5.78,2,2033],
+   ['10단~14단','PGT-BT','LW21-5',6.5,2,2033],
+   ['10단~14단','PGT-BT','LW210',11.55,30,2033],
+   ['10단~14단','PGT-BT','LW211',10.83,645,2033],
+   ['15단','PGT-BT','LW21-5(160H)',4.54,2,2033],
+   ['15단','PGT-BT','LW21(160H)',4.03,2,2033],
+   ['15단','PGT-BT','LW210(160H)',8.06,10,2033],
+   ['15단','PGT-BT','LW211(160H)',7.56,128,2033],
+   ['FB','AMC-FB','LW25-5FS',6.53,2,1247],
+   ['FB','AMC-FB','LW25FS',5.8,2,1247],
+   ['FB','AMC-FB','LW251FBP',11.12,144,1247],
+   ['FB C/T','CA-160','B250',250,1,687],
   ]},
- {code:'PERM_BOTTOM',name:'영구장 부분축조 - 바닥 유입재',group:'영구장',baseCH:0,order:3,
+ {code:'PERM_ALL',name:'영구장 전체 축조',group:'영구장',baseCH:0,order:3,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_영구장.xls (2026-09-19 수령)
   rows:[
-   ['바닥','유입재','TC-2',1000,3,1042],
-   ['바닥','AMC-B','LW250',14.35,30,1814],
+   ['영구장','단열보드','LB 312*100*12.7',0.3,500,4730],
+   ['영구장','TC-2','B1000',1000,3,1109],
+   ['영구장','SK-36','1/2STD',1.8,1515,700],
+   ['준영구장','AMC-BS','LW9',2.5,10,1584],
+   ['준영구장','AMC-BS','LW9-5',2.7,40,1584],
+   ['준영구장(ML)','HAU-BS','LW90',4.91,297,1601],
+   ['준영구장(ML)','HAU-BS','LW95',5.04,981,1601],
+   ['준영구장(SL)','AMC-BS','LW90',4.81,198,1584],
+   ['준영구장(SL)','AMC-BS','LW95',4.75,654,1584],
   ]},
- {code:'PERM_WALL',name:'영구장 부분축조 - 벽체/슬래그라인 교체',group:'영구장',baseCH:0,order:4,
+ {code:'PERM_BOTTOM',name:'영구장 바닥(유입재)',group:'영구장',baseCH:0,order:4,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_영구장(바닥).xls (2026-09-19 수령)
   rows:[
-   ['벽체','MgO-C','LW210',11.55,120,2033],
-   ['슬래그라인','MgO-C','LW180',9.9,80,2033],
+   ['영구장','단열보드','LB 312*100*12.7',0.3,500,4730],
+   ['영구장','TC-2','B1000',1000,4,1109],
   ]},
- {code:'SL_P1',name:'10단 LW150 패턴',group:'SL보수',baseCH:66,order:5,
+ {code:'SEMI_PERM',name:'준영구장',group:'영구장',baseCH:0,order:5,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_준영구장.xls (2026-09-19 수령)
   rows:[
-   ['슬래그라인 10단','MgO-C','LW150',8.25,40,2033],
+   ['준영구장','AMC-BS','LW9',2.5,10,1584],
+   ['준영구장','AMC-BS','LW9-5',2.7,40,1584],
+   ['준영구장(ML)','HAU-BS','LW90',4.91,297,1601],
+   ['준영구장(ML)','HAU-BS','LW95',5.04,981,1601],
+   ['준영구장(SL)','AMC-BS','LW90',4.81,198,1584],
+   ['준영구장(SL)','AMC-BS','LW95',4.75,654,1584],
   ]},
- {code:'SL_P2',name:'10단 LW180 패턴',group:'SL보수',baseCH:0,order:6,
+ {code:'CONE',name:'콘보수 패턴1 (PP520)',group:'콘보수',baseCH:63,order:11,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_콘보수 (PP520).xls (2026-09-19 수령)
   rows:[
-   ['슬래그라인 10단','MgO-C','LW180',9.9,40,2033],
+   ['바닥 C/T','CA-180M','B1000',1000,2.3,1528],
+   ['노즐수','ASC-NS','SN-6',65.35,1,306987],
+   ['노즐수','ASC-NS','SN-5',1,1,306986],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',1,2,997650],
+   ['FB C/T','CA-160','B250',250,1,687],
+   ['FB C/T','CA-160','B25',25,4,687],
   ]},
- {code:'SL_P3',name:'9단 LW150 패턴',group:'SL보수',baseCH:0,order:7,
+ {code:'CONE2',name:'콘보수 패턴2 (PP370)',group:'콘보수',baseCH:0,order:12,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_콘보수 (PP370).xls (2026-09-19 수령)
   rows:[
-   ['슬래그라인 9단','MgO-C','LW150',8.25,40,2033],
+   ['바닥 C/T','CA-180M','B1000',1000,2.3,1528],
+   ['노즐수','ASC-NS','SN-6',65.35,1,306987],
+   ['노즐수','ASC-NS','SN-5',1,1,306986],
+   ['PP-CONE','PP-CONE SET','PPSET RD375L PR IS-N',1,2,627075],
+   ['FB C/T','CA-160','B250',250,1,687],
+   ['FB C/T','CA-160','B25',25,4,687],
   ]},
- {code:'CONE',name:'PP-CONE 보수',group:'콘보수',baseCH:63,order:8,
+ {code:'SL_P1',name:'10단 LW150 패턴',group:'SL보수',baseCH:66,order:6,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_SL 보수 (10단 LW150).xls (2026-09-19 수령)
   rows:[
-   ['PP-CONE','포러스콘','PP #1',1,1,0],
-   ['PP-CONE','포러스콘','PP #2',1,1,0],
+   ['SL 10단','PGT-BT','LW151',7.8,96,2033],
+   ['SL 10단','PGT-BT','LW15',4.2,2,2033],
+   ['SL 10단','PGT-BT','LW15-5',4.7,2,2033],
+   ['SL 10단','PGT-BT','LW150',8.25,42,2033],
+   ['SL 11단','PGT-BT','LW180',10,26,2033],
+   ['SL 11단','PGT-BT','LW181',9.3,112,2033],
+   ['SL 11단','PGT-BT','LW18',5.6,2,2033],
+   ['SL 11단','PGT-BT','LW18-5',5.6,2,2033],
+   ['SL 12~14단','PGT-BT','LW210',11.6,30,2033],
+   ['SL 12~14단','PGT-BT','LW211',10.9,384,2033],
+   ['SL 12~14단','PGT-BT','LW21',5.8,1,2033],
+   ['SL 12~14단','PGT-BT','LW21-5',6.5,2,2033],
+   ['SL 12~14단','PGT-BT','LW21K',5.8,2,2033],
+   ['SL 15단','PGT-BT','LW211(160H)',7.6,10,2033],
+   ['SL 15단','PGT-BT','LW210(160H)',8.1,128,2033],
+   ['SL 15단','PGT-BT','LW21-5(160H)',4.55,2,2033],
+   ['SL 15단','PGT-BT','LW21(160H)',4.1,2,2033],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',178,2,997650],
+   ['ASC-NS','ASC-NS','SN-5',62.85,1,306986],
+   ['ASC-NS','ASC-NS','SN-6',65.35,1,306987],
+   ['CA-160','CA-160','B25',25,3,687],
+   ['CA-160','CA-160','B250',250,1,687],
+   ['CA-180M','CA-180M','B1000',1000,2.3,1528],
+   ['FB','AMC-FB','LW251FBP',11.01,142,1247],
+   ['FB','AMC-FB','LW25-5FS',6.53,2,1247],
+   ['FB','AMC-FB','LW25FS',5.8,2,1247],
+  ]},
+ {code:'SL_P2',name:'10단 LW180 패턴',group:'SL보수',baseCH:0,order:7,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_SL 보수 (10단 LW180).xls (2026-09-19 수령)
+  rows:[
+   ['SL 10단','PGT-BT','LW180',10,26,2033],
+   ['SL 10단','PGT-BT','LW181',9.3,112,2033],
+   ['SL 10단','PGT-BT','LW18',5.6,2,2033],
+   ['SL 10단','PGT-BT','LW18-5',5.6,2,2033],
+   ['SL 11~14단','PGT-BT','LW210',11.6,40,2033],
+   ['SL 11~14단','PGT-BT','LW211',10.9,512,2033],
+   ['SL 11~14단','PGT-BT','LW21',5.8,4,2033],
+   ['SL 11~14단','PGT-BT','LW21-5',6.5,8,2033],
+   ['SL 11~14단','PGT-BT','LW21K',5.8,8,2033],
+   ['SL 15단','PGT-BT','LW211(160H)',7.6,10,2033],
+   ['SL 15단','PGT-BT','LW210(160H)',8.1,128,2033],
+   ['SL 15단','PGT-BT','LW21-5(160H)',4.55,2,2033],
+   ['SL 15단','PGT-BT','LW21(160H)',4.1,2,2033],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',178,2,997650],
+   ['ASC-NS','ASC-NS','SN-5',62.85,1,306986],
+   ['ASC-NS','ASC-NS','SN-6',65.35,1,306987],
+   ['CA-160','CA-160','B25',25,3,687],
+   ['CA-160','CA-160','B250',250,1,687],
+   ['CA-180M','CA-180M','B1000',1000,2.3,1528],
+   ['FB','AMC-FB','LW251FBP',11.01,142,1247],
+   ['FB','AMC-FB','LW25-5FS',6.53,2,1247],
+   ['FB','AMC-FB','LW25FS',5.8,2,1247],
+  ]},
+ {code:'SL_P3',name:'9단 LW150 패턴',group:'SL보수',baseCH:0,order:8,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_SL 보수 (9단 LW150).xls (2026-09-19 수령)
+  rows:[
+   ['SL 9~10단','PGT-BT','LW151',7.8,192,2033],
+   ['SL 9~10단','PGT-BT','LW15',4.2,4,2033],
+   ['SL 9~10단','PGT-BT','LW15-5',4.7,4,2033],
+   ['SL 9~10단','PGT-BT','LW150',8.25,84,2033],
+   ['SL 11단','PGT-BT','LW180',10,26,2033],
+   ['SL 11단','PGT-BT','LW181',9.3,112,2033],
+   ['SL 11단','PGT-BT','LW18',5.6,2,2033],
+   ['SL 11단','PGT-BT','LW18-5',5.6,2,2033],
+   ['SL 12~14단','PGT-BT','LW210',11.6,30,2033],
+   ['SL 12~14단','PGT-BT','LW211',10.9,384,2033],
+   ['SL 12~14단','PGT-BT','LW21',5.8,1,2033],
+   ['SL 12~14단','PGT-BT','LW21-5',6.5,2,2033],
+   ['SL 12~14단','PGT-BT','LW21K',5.8,2,2033],
+   ['SL 15단','PGT-BT','LW211(160H)',7.6,10,2033],
+   ['SL 15단','PGT-BT','LW210(160H)',8.1,128,2033],
+   ['SL 15단','PGT-BT','LW21-5(160H)',4.55,2,2033],
+   ['SL 15단','PGT-BT','LW21(160H)',4.1,2,2033],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',178,2,997650],
+   ['ASC-NS','ASC-NS','SN-5',62.85,1,306986],
+   ['ASC-NS','ASC-NS','SN-6',65.35,1,306987],
+   ['CA-160','CA-160','B25',25,3,687],
+   ['CA-160','CA-160','B250',250,1,687],
+   ['CA-180M','CA-180M','B1000',1000,2.3,1528],
+   ['FB','AMC-FB','LW251FBP',11.01,142,1247],
+   ['FB','AMC-FB','LW25-5FS',6.53,2,1247],
+   ['FB','AMC-FB','LW25FS',5.8,2,1247],
+  ]},
+ {code:'SL_P4',name:'10단 LW150 패턴 (PP-CONE 無보수)',group:'SL보수',baseCH:0,order:9,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_SL 보수,PP-CONE無보수 (10단 LW150).xls (2026-09-19 수령)
+  rows:[
+   ['SL 10단','PGT-BT','LW151',7.8,96,2033],
+   ['SL 10단','PGT-BT','LW15',4.2,2,2033],
+   ['SL 10단','PGT-BT','LW15-5',4.7,2,2033],
+   ['SL 10단','PGT-BT','LW150',8.25,42,2033],
+   ['SL 11단','PGT-BT','LW180',10,26,2033],
+   ['SL 11단','PGT-BT','LW181',9.3,112,2033],
+   ['SL 11단','PGT-BT','LW18',5.6,2,2033],
+   ['SL 11단','PGT-BT','LW18-5',5.6,2,2033],
+   ['SL 12~14단','PGT-BT','LW210',11.6,30,2033],
+   ['SL 12~14단','PGT-BT','LW211',10.9,384,2033],
+   ['SL 12~14단','PGT-BT','LW21',5.8,1,2033],
+   ['SL 12~14단','PGT-BT','LW21-5',6.5,2,2033],
+   ['SL 12~14단','PGT-BT','LW21K',5.8,2,2033],
+   ['SL 15단','PGT-BT','LW211(160H)',7.6,10,2033],
+   ['SL 15단','PGT-BT','LW210(160H)',8.1,128,2033],
+   ['SL 15단','PGT-BT','LW21-5(160H)',4.55,2,2033],
+   ['SL 15단','PGT-BT','LW21(160H)',4.1,2,2033],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',178,2,997650],
+   ['ASC-NS','ASC-NS','SN-5',62.85,1,306986],
+   ['ASC-NS','ASC-NS','SN-6',65.35,1,306987],
+   ['CA-160','CA-160','B25',25,3,687],
+   ['CA-160','CA-160','B250',250,1,687],
+   ['CA-180M','CA-180M','B1000',1000,2.3,1528],
+   ['FB','AMC-FB','LW251FBP',11.01,142,1247],
+   ['FB','AMC-FB','LW25-5FS',6.53,2,1247],
+   ['FB','AMC-FB','LW25FS',5.8,2,1247],
+  ]},
+ {code:'SL_P5',name:'9단 LW150 패턴 (PP-CONE 無보수)',group:'SL보수',baseCH:0,order:10,
+  // 출처: 2. 축조 물량표/1. 래들/래들_물량표_SL 보수,PP-CONE無보수 (9단 LW150).xls (2026-09-19 수령)
+  rows:[
+   ['SL 9~10단','PGT-BT','LW151',7.8,192,2033],
+   ['SL 9~10단','PGT-BT','LW15',4.2,4,2033],
+   ['SL 9~10단','PGT-BT','LW15-5',4.7,4,2033],
+   ['SL 9~10단','PGT-BT','LW150',8.25,84,2033],
+   ['SL 11단','PGT-BT','LW180',10,26,2033],
+   ['SL 11단','PGT-BT','LW181',9.3,112,2033],
+   ['SL 11단','PGT-BT','LW18',5.6,2,2033],
+   ['SL 11단','PGT-BT','LW18-5',5.6,2,2033],
+   ['SL 12~14단','PGT-BT','LW210',11.6,30,2033],
+   ['SL 12~14단','PGT-BT','LW211',10.9,384,2033],
+   ['SL 12~14단','PGT-BT','LW21',5.8,1,2033],
+   ['SL 12~14단','PGT-BT','LW21-5',6.5,2,2033],
+   ['SL 12~14단','PGT-BT','LW21K',5.8,2,2033],
+   ['SL 15단','PGT-BT','LW211(160H)',7.6,10,2033],
+   ['SL 15단','PGT-BT','LW210(160H)',8.1,128,2033],
+   ['SL 15단','PGT-BT','LW21-5(160H)',4.55,2,2033],
+   ['SL 15단','PGT-BT','LW21(160H)',4.1,2,2033],
+   ['PP-CONE','PP-CONE SET','S520-250N PR540-360 OS',178,2,997650],
+   ['ASC-NS','ASC-NS','SN-5',62.85,1,306986],
+   ['ASC-NS','ASC-NS','SN-6',65.35,1,306987],
+   ['CA-160','CA-160','B25',25,3,687],
+   ['CA-160','CA-160','B250',250,1,687],
+   ['CA-180M','CA-180M','B1000',1000,2.3,1528],
+   ['FB','AMC-FB','LW251FBP',11.01,142,1247],
+   ['FB','AMC-FB','LW25-5FS',6.53,2,1247],
+   ['FB','AMC-FB','LW25FS',5.8,2,1247],
   ]},
 ];
+// 주의: 위 코드들의 실제 반영 내용은 loadBom()의 dgrns_ladlebom_v6 1회성 마이그레이션에서 putRec으로 직접 갱신됨
+// (기존 사용자 브라우저는 위 정적 시드가 아니라 IndexedDB 데이터를 그대로 쓰기 때문 — 새 값을 보려면 새 버전의
+// localStorage 플래그로 마이그레이션을 한 번 더 태워야 한다). 신규 설치 시에는 이 정적 시드가 그대로 seedIf()로 들어간다.
 function seedBomRecs(){return LADLE_BOM_SEED.map(s=>({id:'ladle:'+s.code,equip:'ladle',code:s.code,name:s.name,group:s.group,baseCH:s.baseCH,order:s.order,
   rows:s.rows.map(r=>({bu:r[0],nm:r[1],spec:r[2],uw:r[3],qty:r[4],price:r[5]}))}));}
 /* ===== 제품 마스터(백데이터): 제품명·배합·규격·단중·단가 =====
    축조물량표는 제품을 참조(pcode)하고 수량(qty)만 관리 → 단가는 마스터에서 1회 수정으로 전 물량표 반영 */
 const PROD_SEED=[
- // 래들
- {cat:'래들',name:'AMC-BS',spec:'LW90',uw:4.81,price:1488},
- {cat:'래들',name:'AMC-BS',spec:'LW95',uw:4.75,price:1488},
- {cat:'래들',name:'HAU-BS',spec:'LW90',uw:4.91,price:1504},
- {cat:'래들',name:'HAU-BS',spec:'LW95',uw:5.04,price:1504},
- {cat:'공통',name:'SK-36',spec:'1/2반형',uw:1.8,price:658},
- {cat:'공통',name:'루미보드',spec:'312*100*12.7T',uw:0.3,price:4443},
- {cat:'공통',name:'유입재',spec:'TC-2',uw:1000,price:1042},
- {cat:'래들',name:'AMC-B',spec:'LW250',uw:14.35,price:1814},
- {cat:'래들',name:'AMC-B',spec:'LW280',uw:16.07,price:1814},
- {cat:'래들',name:'MgO-C',spec:'LW210',uw:11.55,price:2033},
- {cat:'래들',name:'MgO-C',spec:'LW180',uw:9.9,price:2033},
- {cat:'래들',name:'MgO-C',spec:'LW150',uw:8.25,price:2033},
- {cat:'래들',name:'포러스콘',spec:'PP #1',uw:1,price:0},
- {cat:'래들',name:'포러스콘',spec:'PP #2',uw:1,price:0},
- // 전기로
- {cat:'전기로',name:'SMC-95',spec:'K4',uw:5.9,price:1500},
- {cat:'전기로',name:'SMC-95',spec:'K5',uw:6.57,price:1500},
- {cat:'전기로',name:'SMC-95',spec:'K6',uw:5.9,price:1500},
- {cat:'전기로',name:'SMC-95',spec:'1.5J',uw:7.53,price:1500},
- {cat:'전기로',name:'SMC-95',spec:'281',uw:4.88,price:1500},
- {cat:'전기로',name:'SMC-95',spec:'282',uw:4.68,price:1500},
- {cat:'전기로',name:'SMC-95',spec:'STD',uw:4.61,price:1500},
- {cat:'전기로',name:'SMC-95',spec:'EBS-317',uw:15.5,price:1500},
- {cat:'전기로',name:'SK-36',spec:'STD',uw:3.8,price:658},
- {cat:'전기로',name:'FM7C',spec:'452',uw:8.72,price:2289},
- {cat:'전기로',name:'FM7C',spec:'453',uw:7.84,price:2289},
- {cat:'전기로',name:'FM7C',spec:'K5 1/2',uw:3.21,price:2289},
- {cat:'전기로',name:'FM7C',spec:'K4',uw:7.52,price:2289},
- {cat:'전기로',name:'FM7C',spec:'K5',uw:6.84,price:2289},
- {cat:'전기로',name:'FM7C',spec:'K6',uw:6.15,price:2289},
- {cat:'전기로',name:'FM7C',spec:'604D',uw:27.09,price:2289},
- {cat:'전기로',name:'FM7C',spec:'1.5J',uw:7.83,price:2289},
- {cat:'전기로',name:'DONG-DC',spec:'15~20',uw:1,price:21150324,unit:'ea'},
- {cat:'전기로',name:'앙카하스',spec:'DC25',uw:1250,price:1231},
- {cat:'전기로',name:'Maram95',spec:'',uw:1000,price:2608},
- // 턴디쉬
- {cat:'턴디쉬',name:'T/D Gunning재',spec:'',uw:1,price:1010},
- {cat:'턴디쉬',name:'탕수연와B',spec:'',uw:1,price:2294},
- {cat:'턴디쉬',name:'CA-180M',spec:'',uw:1,price:1412},
- {cat:'턴디쉬',name:'RM-37S',spec:'',uw:1,price:1286},
- {cat:'턴디쉬',name:'AMC-W',spec:'',uw:1,price:1786},
- {cat:'턴디쉬',name:'AMC TDP',spec:'',uw:1,price:25976},
- // === 동국제강 포항공장 거래처 등록 품명(2026-09-14, 단가 미포함) ===
- {cat:'공통',name:'ACT-20',spec:'TMB-190',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'ACT-20',spec:'TMB-200',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-BS',spec:'LW7',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-BS',spec:'LW7-5',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-BS',spec:'LW75',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-BS',spec:'LW78',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-BS',spec:'LW9',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-BS',spec:'LW9-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-DAM',spec:'T3 75T',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-TD',spec:'LW151',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-TDP',spec:'TD-SLP350',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMC-W',spec:'LT150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-W',spec:'LT151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-W',spec:'LW153',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'AMUD-85P',spec:'B20',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'AMUD-85P',spec:'B25',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'AMUD-85P',spec:'B25-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'ARAM-80S',spec:'B30',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'ARAM-80S',spec:'B30-1',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'ASC-NS',spec:'SN-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'ASC-NS',spec:'SN-6',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'BILLET CRUCIBLE',spec:'Billet Crucible ㅁ155 X 350h',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'CA-150S',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-150S',spec:'B1000-1',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'CA-150S',spec:'B500-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B250-1',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B400-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B500',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'CA-160',spec:'B500-2',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'CA-165S',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-165SYD',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-165SYD',spec:'B500',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'CA-165SYD',spec:'B500-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-165SYD',spec:'B500-3',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'CA-180M',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-180M',spec:'B25',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'CA-180M',spec:'B500-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CERABOND #38',spec:'B25-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'EBT-S',spec:'EBT-S1',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAF-80',spec:'T3 500',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAF-80',spec:'T3 500*75t',mix:'소성',kind:'내화물',use:0},
- {cat:'공통',name:'HAU-BS',spec:'DONG-DC17',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-BS',spec:'DONG-DC18',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-BS',spec:'DONG-DC19',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-BS',spec:'DONG-DC20',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-BS',spec:'LW7',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'HAU-BS',spec:'LW7-5',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'HAU-BS',spec:'LW75',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'HAU-BS',spec:'LW78',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'HAU-BS',spec:'LW9',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-BS',spec:'LW9-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-BS',spec:'LW91',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-CAP',spec:'C-52 CAP BLOCK',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MA-POT',spec:'B500',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MA-POT',spec:'CAN-20',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LW211',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAGGUN-85S',spec:'B1000',mix:'부정형',kind:'내화물',use:0},
- {cat:'공통',name:'MAGGUN-85S',spec:'B2000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGGUN-85S',spec:'B500',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGGUN-85S',spec:'B700',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-95',spec:'B25-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-95CR',spec:'B25-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-95S',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-95S',spec:'B25-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-95S',spec:'B25-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-95S',spec:'B250-1',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-98',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-98',spec:'B2000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAGRAM-98',spec:'B25-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAL',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MCT-18',spec:'TTB-200',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MCT-18',spec:'TTB-200L',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MH-34',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MH-36',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MOPC',spec:'CAN-20',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'PA-165',spec:'B25-1',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'PCB-BT(버너타일)',spec:'포항TD번버너타일',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-CAP BLOCK',spec:'C-52 CAP BLOCK',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-DB(댐블록)',spec:'DP-DAM-2',mix:'불소성',kind:'기능성',use:0},
- {cat:'공통',name:'PCB-DB(댐블록)',spec:'DP-DAM-2(NEW)',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-DB(댐블록)',spec:'DP-DAM-3',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-IP(TD IMPACT)',spec:'IMPACT PAD(NEW)',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-IP(TD IMPACT)',spec:'TD-IP-1',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-R(전기로 천정슬리브)',spec:'R/S 동국포항',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-R(전기로 천정슬리브)',spec:'R/S 동국포항 30',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-RL(래들 천정슬리브)',spec:'L/F SV 동국포항520-3',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-RL(래들 천정슬리브)',spec:'L/F 천정S/V-2(포항)',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-TD-HOLE',spec:'TD COVER HOLE',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-TD-HOLE',spec:'TD COVER HOLE Ø410',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PCB-US(이형 블록)',spec:'EBT SAND 투입S/V',mix:'불소성',kind:'기능성',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'450',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'451',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-FM7C',spec:'452',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-FM7C',spec:'452-1/2',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-FM7C',spec:'453',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-FM7C',spec:'604D',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-FM7C',spec:'EBT-S1',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'EBT-S1-SET',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'K5',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-FM7C',spec:'K5 1/2',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-IND',spec:'LW211',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-IND',spec:'LW231',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-IND SET',spec:'LW211-IND50-90/100',mix:'결합',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-IND SET',spec:'LW211-IND70-90/100',mix:'결합',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-LL',spec:'LW150',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-LL',spec:'LW151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'P430-250N NS423-320 OS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'P520-330N NS530-360 IS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'PPSET RD375L PR IS-N',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'S420-250N NS430-360IS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'S460-250N PS505-360 OS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'S465-250N NS505-360 OS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'S465-250N PR485-360 OS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'S465-250N PR505-360 IS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'PP-CONE SET',spec:'S520-250N PR540-360 OS',mix:'결합',kind:'기능성',use:1},
- {cat:'공통',name:'RM-37S',spec:'B20',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'RM-37S',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'SK-34',spec:'STD',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'TC-2',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'TC-2',spec:'B500-2',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'TC-2',spec:'B500-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'TUNGUN-5',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'TUNGUN-6',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'ACT-20',spec:'TMB-200',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AIR INLET COUPLING',spec:'AIR INLET COUPLING',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'AMC-B',spec:'LW300',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-B',spec:'LW300-1/2',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-BS',spec:'LW9',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-BS',spec:'LW9-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-DAM',spec:'T3 75T',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-FB',spec:'LW231F',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-FB',spec:'LW25-5FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-FB',spec:'LW251FBP',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-FB',spec:'LW251FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-FB',spec:'LW25FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-LW',spec:'LW200',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-T3',spec:'T3 90T(450*450)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-TD',spec:'LW150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-TD',spec:'LW151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-TD',spec:'LW152',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-TDP',spec:'TD-SLP350',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-TDP',spec:'TD-SLP440',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-W',spec:'LW150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-W',spec:'LW151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-W',spec:'LW181',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'AMC-W',spec:'LW200',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'BEARING CPL',spec:'BEARING CPL',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'C-52 S-COVER',spec:'C-52 S-COVER 244',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B250-1',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B400-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-160',spec:'B500-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-180M',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-180M',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-180M',spec:'B250-1',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CA-180M',spec:'B500-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'CNC-RAMMING',spec:'B25',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'CNC-RAMMING',spec:'B500',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'COLLECTOR NOZZLE',spec:'',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'COLLECTOR NOZZLE',spec:'SN CS-60',mix:'기타',kind:'내화물',use:1},
- {cat:'공통',name:'CONVEY SCREW RISE',spec:'CONVEYOR SCREW 50',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'DOL-STAMP',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'DOL-STAMP',spec:'B1000(C)',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'DONG-DC',spec:'Φ480xΦ280x425L',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'DONG-DC',spec:'Φ600xΦ280x365L',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'Dry material tube',spec:'Dry material tube',mix:'금형',kind:'내화물',use:1},
- {cat:'공통',name:'EBT충진재',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'ECCENTRIC LOCK',spec:'Eccentric lock',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'FLAP FOR MIXING TUBE CPL',spec:'MIXING TUBE CPL',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'FLOW METER',spec:'600L',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'FLOW METER',spec:'600MM',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'FLOW SCRAPER;DCM-C08-010;00;CASTABLE MIX',spec:'FLOW SCRAPER',mix:'기타',kind:'내화물',use:1},
- {cat:'공통',name:'GEKA COUPLING',spec:'coupling',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'HAU-BS',spec:'LW9',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HAU-BS',spec:'LW9-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'HERIX',spec:'38Φ',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'LADLE NOZZLE',spec:'SN CS-60',mix:'기타',kind:'내화물',use:1},
- {cat:'공통',name:'LG32C',spec:'포항 SN-COL NZ',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'LG32C',spec:'포항 SN-PLATE',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'LG32C',spec:'포항 SN-TOP NZ',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'LWC-110',spec:'B20',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MA95E',spec:'B1250',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LT150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LT151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LW180',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'MAC-W',spec:'LW181',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'MAC-W',spec:'LW21',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LW21-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LW210',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LW211',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LW21K',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MAC-W',spec:'LW23-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MCT-18',spec:'TTB-200',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'MH-34',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MH-36',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'MIXER 내부 SCRAPER;DCM-C08-014;00;CASTABLE',spec:'MIXER 내부 SCRAPER',mix:'기타',kind:'내화물',use:1},
- {cat:'공통',name:'MIXING SHAFT',spec:'MIXING SHAFT Ø190',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'MIXING TUBE',spec:'MIXING TUBE',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'MONO PUMP',spec:'MONO PUMP(M-TEC)',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'MORTAR HOSE',spec:'Mortar Hose-NW35 set',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'MORTAR HOSE',spec:'Ø45',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'NOZZLE TIP',spec:'NOZZLE Ø14',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW11',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW11-5',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW110',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW111',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW15',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW15-5',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW152',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW18',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW18-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW18-5FS',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW180',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW181',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW200',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW202',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW21',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'PGT-BT',spec:'LW21(160H)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW21-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW21-5(160H)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW21-5FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW210',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW210(160H)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW210FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW211',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW211(160H)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW211FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW212',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW21FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW21K',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW23',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW23-5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW231',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-BT',spec:'LW232',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FB-SD',spec:'LW211FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FB-SD',spec:'LW251FS',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM4C(M/C)',spec:'K5 1/2',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'452',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'453',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'604D',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'K4',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'K5',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'K5 1/2',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'K6',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'LW150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-FM7C',spec:'LW90',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-IND SET',spec:'LW211-IND50-90/100',mix:'결합',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-LBT',spec:'LW151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-LL',spec:'LT150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-LL',spec:'LW150',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-LL',spec:'LW151',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-LL',spec:'LW20',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-LL',spec:'LW211',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-MBT',spec:'LW210',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PGT-MBT',spec:'LW211',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PLATE',spec:'',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'PLATE',spec:'SN CS-60',mix:'기타',kind:'내화물',use:1},
- {cat:'공통',name:'PUMP END PIECE CPL',spec:'PUMP END PIECE CPL',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'Pressure reducing valve',spec:'1/2 INCH',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'Pump Motor Set',spec:'PUMP MOTOR SET',mix:'기타',kind:'내화물',use:1},
- {cat:'공통',name:'RHIM WELL BLOCK',spec:'SN CS-60',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'ROTATOR',spec:'SPRAY GUN',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'S/N MORTAR',spec:'B25',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'SHROUD NOZZLE',spec:'롱노즐(베스)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-34',spec:'STD',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-34',spec:'STD-B',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-36',spec:'1/2STD',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-36',spec:'STD-B',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-36',spec:'입10정',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-36',spec:'입6정',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-36',spec:'입8정',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SK-38',spec:'STD',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SMC-95',spec:'EBT-S2',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SMC-95',spec:'LW281',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SMC-95',spec:'LW282',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'SOLENOID VALVE',spec:'3/4 INCH',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'SPRAY GUN',spec:'600MM',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'SPRAY GUN',spec:'SPRAY GUN',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'T/D 연속측온내화물',spec:'ACCUCONE TUBE(VES)',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'TC-2',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'TC-2',spec:'B500-3',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'626mm',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'Ar-MTMP',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 BB SES BL00M',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 Gasket',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 Lower plate',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 Lower plate (G)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 MTNP',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 MTNP(Z)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 Middle plate',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 Middle plate(Z)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 Middleplate(AL)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube350mm*30t',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube350mm*40t',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube400mm*30t',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube400mm*40t',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube420L*40t',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube420mm*30t',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube430mm*30t',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 S-Tube460mm*30t',mix:'불소성',kind:'내화물',use:0},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 SES Bloom',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 SES bloom(무)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'C-52 SES bloom(장)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'Funnel shroud',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'SES BEAM 100(장)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'SES BLOOM 130(장)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD Slide gate',spec:'롱노즐(베스)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'TD 연속측온 설비',spec:'T.B.A',mix:'기타',kind:'기타',use:1},
- {cat:'공통',name:'TRANSFER CONVEYOR SCREW',spec:'TRANSPORT SCREW',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'Tension rod&Clampnut set',spec:'Tension rod&Clampnut set',mix:'금형',kind:'내화물',use:1},
- {cat:'공통',name:'VARIFORM',spec:'B10',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'WELL BLOCK',spec:'A87CRS-15-IN',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'WELL BLOCK(A)',spec:'포항 WB-A (VES)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'WELL BLOCK(B)',spec:'포항 WB-B (vES)',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'건닝기부품',spec:'Pressure Control 2.2bar pre-set',mix:'기타',kind:'기타',use:1},
- {cat:'공통',name:'건닝기부품',spec:'Pressure reducer 1/2″',mix:'기타',kind:'기타',use:1},
- {cat:'공통',name:'건닝기부품',spec:'Solenoid Valve 3/4″ 24V',mix:'기타',kind:'기타',use:1},
- {cat:'공통',name:'건닝기자재감지센서',spec:'Probe Set',mix:'기타',kind:'기타',use:1},
- {cat:'공통',name:'금형',spec:'Billet Crucible ㅁ155x380H',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'금형',spec:'IMPACT PAD(NEW)',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'금형',spec:'턴디쉬카바홀',mix:'금형',kind:'기타',use:1},
- {cat:'공통',name:'단열벽돌B5',spec:'STD',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'단열보드',spec:'LB 312*100*12.7',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'루미보드',spec:'312*100*12.7t',mix:'소성',kind:'내화물',use:1},
- {cat:'공통',name:'소괴탄',spec:'B1000',mix:'부재료',kind:'기타',use:1},
- {cat:'공통',name:'앙카허스 DC-25',spec:'B1200',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'앙카허스 DC-25',spec:'B1250',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'앙카허스 DC-25',spec:'B2000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'앙카허스 DC-25',spec:'B500',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'에어 시린더',spec:'63×160 TC TYPE',mix:'기타',kind:'내화물',use:1},
- {cat:'공통',name:'올리빈샌드',spec:'B1000',mix:'부정형',kind:'내화물',use:1},
- {cat:'공통',name:'전극봉',spec:'L/F 전극봉 16인치',mix:'불소성',kind:'내화물',use:1},
- {cat:'공통',name:'캐스터블믹스기',spec:'MIXER&HOPPER',mix:'금형',kind:'기타',use:1}
+ // 내화물_제품마스터.xls 전체 반영(2026-09-19) — 107개 품목, 여기 없는 품목은 미표시
+ {cat:'전기로',name:'ACT-20',mix:'EBT-TM-07-2',spec:'TMB-200',uw:77.2,price:642753,gubun:'상품'},
+ {cat:'래들',name:'AMC-B',mix:'DB8',spec:'LW250',uw:14.7,price:1931,gubun:'상품'},
+ {cat:'래들',name:'AMC-B',mix:'DB8',spec:'LW280',uw:16.4,price:1931,gubun:'상품'},
+ {cat:'래들',name:'AMC-B',kind:'내화물',mix:'DB17',spec:'LW300',uw:18.1,price:1931,gubun:'상품'},
+ {cat:'래들',name:'AMC-B',kind:'내화물',mix:'DB8',spec:'LW300-1/2',uw:8.7,price:1931,gubun:'상품'},
+ {cat:'래들',name:'AMC-BS',mix:'BS',spec:'LW9',uw:2.5,price:1584,gubun:'상품'},
+ {cat:'래들',name:'AMC-BS',mix:'BS',spec:'LW9-5',uw:2.7,price:1584,gubun:'상품'},
+ {cat:'래들',name:'AMC-BS',mix:'BS',spec:'LW90',uw:4.88,price:1584,gubun:'상품'},
+ {cat:'래들',name:'AMC-BS',mix:'BS',spec:'LW95',uw:4.88,price:1584,gubun:'상품'},
+ {cat:'래들',name:'AMC-FB',kind:'내화물',mix:'FBP',spec:'LW25-5FS',uw:6.53,price:1247,gubun:'상품'},
+ {cat:'래들',name:'AMC-FB',kind:'내화물',mix:'FBP',spec:'LW251FBP',uw:11.01,price:1247,gubun:'상품'},
+ {cat:'래들',name:'AMC-FB',kind:'내화물',mix:'FBP',spec:'LW25FS',uw:5.8,price:1247,gubun:'상품'},
+ {cat:'턴디쉬',name:'AMC-T3',kind:'내화물',mix:'T3',spec:'T3 90T(450*450)',uw:58.68,price:2480,gubun:'상품'},
+ {cat:'턴디쉬',name:'AMC-TD',kind:'내화물',mix:'TDH5',spec:'LW150',uw:9.3,price:1931,gubun:'상품'},
+ {cat:'턴디쉬',name:'AMC-TD',kind:'내화물',mix:'TDH5',spec:'LW152',uw:8.1,price:1931,gubun:'상품'},
+ {cat:'턴디쉬',name:'AMC-TDP',mix:'SLP-A',spec:'TD-SLP 350',uw:5.31,price:28094,gubun:'상품'},
+ {cat:'공통',name:'AMUD-85P',kind:'내화물',mix:'BU-57-01-07',spec:'B20',uw:20,price:2148,gubun:'제품'},
+ {cat:'래들',name:'ASC-NS',kind:'내화물',mix:'ASC-NS-26',spec:'SN-5',uw:62.85,price:306986,gubun:'제품'},
+ {cat:'래들',name:'ASC-NS',kind:'내화물',mix:'ASC-NS-26',spec:'SN-6',uw:65.35,price:306987,gubun:'제품'},
+ {cat:'턴디쉬',name:'C-52 S-COVER',kind:'내화물',mix:'C-52 S-COVER 244',spec:'C-52 S-COVER 244',uw:3,price:44793,gubun:'상품'},
+ {cat:'래들',name:'CA-160',mix:'20000311',spec:'B25',uw:25,price:687,gubun:'상품'},
+ {cat:'래들',name:'CA-160',kind:'내화물',mix:'20000311',spec:'B250',uw:250,price:687,gubun:'상품'},
+ {cat:'래들',name:'CA-180M',kind:'내화물',mix:'20000330',spec:'B1000',uw:1000,price:1528,gubun:'상품'},
+ {cat:'공통',name:'CA-180M',kind:'내화물',mix:'20000330',spec:'B25',uw:25,price:1528,gubun:'상품'},
+ {cat:'공통',name:'CERABOND #38',kind:'내화물',mix:'BU-60-01-05',spec:'B25-2',uw:25,price:2148,gubun:'제품'},
+ {cat:'공통',name:'CNC-RAMMING',kind:'내화물',mix:'CNC',spec:'B1000',uw:1000,price:1589,gubun:'상품'},
+ {cat:'전기로',name:'DONG-DC',kind:'내화물',mix:'20000193',spec:'Φ480xΦ280x425L',uw:143.1,price:1992565,gubun:'상품'},
+ {cat:'전기로',name:'DONG-DC',kind:'내화물',mix:'20000193',spec:'Φ600xΦ280x365L',uw:227.6,price:3289613,gubun:'상품'},
+ {cat:'전기로',name:'FM7C',mix:'FM7C(DK)-B',spec:'452',uw:8.8,price:2437,gubun:'제품'},
+ {cat:'전기로',name:'FM7C',mix:'FM7C(DK)-B',spec:'453',uw:7.9,price:2437,gubun:'제품'},
+ {cat:'전기로',name:'FM7C',mix:'FM7C(HY)',spec:'604D',uw:27.09,price:2437,gubun:'제품'},
+ {cat:'전기로',name:'FM7C',mix:'EBT-S1',spec:'EBT-S-03',uw:7.74,price:2437,gubun:'제품'},
+ {cat:'전기로',name:'FM7C',mix:'FM7C(DK)-B',spec:'K4',uw:7.55,price:2437,gubun:'상품'},
+ {cat:'전기로',name:'FM7C',mix:'FM7C(DK)-B',spec:'K5',uw:6.8,price:2437,gubun:'상품'},
+ {cat:'전기로',name:'FM7C',mix:'FM7C(DK)-B',spec:'K5 1/2',uw:3.3,price:2437,gubun:'상품'},
+ {cat:'전기로',name:'FM7C',mix:'FM7C(DK)-B',spec:'K6',uw:6.15,price:2437,gubun:'상품'},
+ {cat:'턴디쉬',name:'HAF-80',kind:'내화물',mix:'HAF-80S-04',spec:'T3 500*75T',uw:54.85,price:2083,gubun:'제품'},
+ {cat:'전기로',name:'HAU-BS',kind:'내화물',mix:'HAU-P83-13-1',spec:'DONG-DC17',uw:6.38,price:101653,gubun:'제품'},
+ {cat:'전기로',name:'HAU-BS',kind:'내화물',mix:'HAU-P83-13-1',spec:'DONG-DC18',uw:7,price:110790,gubun:'제품'},
+ {cat:'전기로',name:'HAU-BS',kind:'내화물',mix:'HAU-P83-13-1',spec:'DONG-DC19',uw:8.3,price:125639,gubun:'제품'},
+ {cat:'전기로',name:'HAU-BS',kind:'내화물',mix:'HAU-P83-13-1',spec:'DONG-DC20',uw:8.29,price:125639,gubun:'제품'},
+ {cat:'래들',name:'HAU-BS',mix:'HB1',spec:'LW90',uw:5.07,price:1601,gubun:'상품'},
+ {cat:'래들',name:'HAU-BS',mix:'HB1',spec:'LW95',uw:4.83,price:1601,gubun:'상품'},
+ {cat:'턴디쉬',name:'HAU-CAP',kind:'내화물',mix:'HAU-CAP-03-1',spec:'C-52 CAP BLOCK',uw:12.61,price:47174,gubun:'제품'},
+ {cat:'래들',name:'MAC-W',kind:'내화물',mix:'MW3B',spec:'LW21',uw:6,price:2033,gubun:'상품'},
+ {cat:'래들',name:'MAC-W',kind:'내화물',mix:'MW3B',spec:'LW21-5',uw:6.7,price:2033,gubun:'상품'},
+ {cat:'래들',name:'MAC-W',kind:'내화물',mix:'MW3B',spec:'LW210',uw:12,price:2033,gubun:'상품'},
+ {cat:'래들',name:'MAC-W',kind:'내화물',mix:'MW3B',spec:'LW211',uw:11.1,price:2033,gubun:'상품'},
+ {cat:'래들',name:'MAC-W',kind:'내화물',mix:'MW3B',spec:'LW21K',uw:6,price:2033,gubun:'상품'},
+ {cat:'전기로',name:'MAGRAM-95CR',kind:'내화물',mix:'MR-95CR-01',spec:'B25-2',uw:25,price:1855,gubun:'제품'},
+ {cat:'턴디쉬',name:'MAGRAM-98',kind:'내화물',mix:'ST-M98-04',spec:'B1000',uw:1000,price:2776,gubun:'제품'},
+ {cat:'전기로',name:'MAGRAM-98',kind:'내화물',mix:'ST-M98-04',spec:'B2000',uw:2000,price:2776,gubun:'제품'},
+ {cat:'공통',name:'MAL',kind:'내화물',mix:'BU-28-01-10',spec:'B25',uw:25,price:1182,gubun:'제품'},
+ {cat:'전기로',name:'MCT-18',kind:'내화물',mix:'TTB-200',spec:'MCT-18',uw:42,price:365007,gubun:'상품'},
+ {cat:'턴디쉬',name:'PCB-DB(댐블록)',kind:'기능성',mix:'DP-DAM-2(NEW)',spec:'PCB-DB2-13-BL',uw:121,price:293997,gubun:'제품'},
+ {cat:'턴디쉬',name:'PCB-IP(TD IMPACT)',kind:'기능성',mix:'PCB-IP-11-BL',spec:'TD-IP-1',uw:133,price:2447224,gubun:'제품'},
+ {cat:'공통',name:'PCB-R(전기로 천정슬리브)',kind:'기능성',mix:'불소성',spec:'R/S 동국포항',uw:900,price:3409,gubun:'제품'},
+ {cat:'래들',name:'PCB-RL(래들 천정슬리브)',kind:'기능성',mix:'PCB-RL1-15-BL',spec:'L/F SV 동국포항520-3',uw:50,price:3423,gubun:'제품'},
+ {cat:'래들',name:'PCB-RL(래들 천정슬리브)',kind:'기능성',mix:'PCB-RL1-17-BL',spec:'L/F 천정S/V-2(포항)',uw:700,price:3423,gubun:'제품'},
+ {cat:'전기로',name:'PCB-US(이형 블록)',kind:'기능성',mix:'PCB-US-11',spec:'EBT SAND 투입S/V',uw:47,price:287888,gubun:'제품'},
+ {cat:'래들',name:'PGT-BT',mix:'ES-1A',spec:'LW15',uw:4.2,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',mix:'ES-1A',spec:'LW15-5',uw:4.7,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1A',spec:'LW150',uw:8.4,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1A',spec:'LW151',uw:7.8,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'U5B',spec:'LW18',uw:5.6,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'U5B',spec:'LW18-5',uw:5.6,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1A',spec:'LW180',uw:10,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1A',spec:'LW181',uw:9.3,price:2033,gubun:'상품'},
+ {cat:'턴디쉬',name:'PGT-BT',mix:'JTM3',spec:'LW200',uw:11.08,price:2033,gubun:'제품'},
+ {cat:'래들',name:'PGT-BT',mix:'ES-1A',spec:'LW21',uw:5.8,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW21-5',uw:6.5,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW21-5(160H)',uw:4.55,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW21(160H)',uw:4.1,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW210',uw:11.6,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW210(160H)',uw:8.1,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW211',uw:10.9,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW211(160H)',uw:7.6,price:2033,gubun:'상품'},
+ {cat:'래들',name:'PGT-BT',kind:'내화물',mix:'ES-1B',spec:'LW21K',uw:5.8,price:2033,gubun:'상품'},
+ {cat:'전기로',name:'PGT-FM7C',kind:'내화물',mix:'EBT-S1',spec:'EBT-S-03',uw:7.74,price:2437,gubun:'상품'},
+ {cat:'래들',name:'PGT-IND SET',kind:'내화물',mix:'결합',spec:'LW211-IND50-90/100',uw:13.8,price:3352,gubun:'제품'},
+ {cat:'래들',name:'PP-CONE SET',kind:'기능성',mix:'결합',spec:'PPSET RD375L PR IS-N',uw:127,price:627075,gubun:'제품'},
+ {cat:'래들',name:'PP-CONE SET',kind:'기능성',mix:'결합',spec:'S520-250N PR540-360 OS',uw:178,price:997650,gubun:'제품'},
+ {cat:'턴디쉬',name:'RM-37S',kind:'내화물',mix:'BU-14-01-23',spec:'B20',uw:20,price:1391,gubun:'제품'},
+ {cat:'공통',name:'SK-36',kind:'내화물',mix:'월드이엔티32T',spec:'1/2STD',uw:1.87,price:700,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'1.5J',uw:7.52,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'281',uw:5.78,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'282',uw:5.25,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'EBS-317',uw:15.5,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',kind:'내화물',mix:'20000095',spec:'EBT-S2',uw:7.21,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'K4',uw:7.22,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'K5',uw:6.57,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'K6',uw:5.9,price:1500,gubun:'상품'},
+ {cat:'전기로',name:'SMC-95',mix:'20000095',spec:'STD',uw:5,price:1500,gubun:'상품'},
+ {cat:'공통',name:'TC-2',kind:'내화물',mix:'부정형',spec:'B1000',uw:1000,price:1109,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'Ar-MTMP',uw:13.4,price:264027,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 Lower plate (G)',uw:8.6,price:155217,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 Middle plate(Z)',uw:5.1,price:158783,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 Middleplate(AL)',uw:5.1,price:105637,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 MTNP(Z)',uw:13.4,price:324114,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 S-Tube350mm*40t',uw:3,price:103321,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 S-Tube400mm*40t',uw:3,price:105982,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 S-Tube420L*40t',uw:3,price:107209,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'C-52 SES bloom(장)',uw:13.16,price:254176,gubun:'상품'},
+ {cat:'턴디쉬',name:'TD Slide gate',kind:'내화물',mix:'불소성',spec:'SES BEAM 100(장)',uw:12.02,price:307733,gubun:'상품'},
+ {cat:'턴디쉬',name:'TUNGUN-5',kind:'내화물',mix:'BU-11-60-09',spec:'B1000',uw:1000,price:1092,gubun:'제품'},
+ {cat:'래들',name:'단열보드',kind:'내화물',mix:'(대한동방)',spec:'LB 312*100*12.7',uw:0.3,price:4730,gubun:'상품'},
+ {cat:'전기로',name:'앙카허스 DC-25',kind:'내화물',mix:'부정형',spec:'B1250',uw:1250,price:1275,gubun:'상품'},
 ];
 function seedProdObj(x,id){return {id,cat:x.cat||'공통',name:x.name,mix:x.mix||'',spec:x.spec||'',
   uw:x.uw||0,price:x.price||0,kind:x.kind||'',gubun:x.gubun||'제품',use:(x.use==null?1:x.use),since:x.since||'2026Q3',unit:x.unit||'kg'};}
@@ -2719,6 +2646,13 @@ function dedupProd(arr){
 function loadProd(){
   const tomb=loadProdDel();let arr,changed=false;
   try{const s=JSON.parse(localStorage.getItem('dgrns_prod'));if(Array.isArray(s)&&s.length)arr=s;}catch(e){}
+  // 내화물_제품마스터.xls 전면 반영(1회, 2026-09-19): 엑셀에 없는 품목은 삭제하고 107개 품목으로 완전 교체.
+  // 기존 병합(추가만 하고 단가/단중은 갱신 안 함) 로직으로는 이미 존재하는 품목의 단가 변경이 반영되지 않으므로
+  // 별도 버전 플래그로 한 번은 전체를 새로 씀(그 이후 편집분은 기존 병합 로직이 보존).
+  if(!localStorage.getItem('dgrns_prodmaster_v2')){
+    arr=PROD_SEED.map((x,i)=>seedProdObj(x,'p'+(i+1)));changed=true;
+    try{localStorage.setItem('dgrns_prodmaster_v2','1');}catch(e){}
+  }
   if(!arr){arr=PROD_SEED.filter(x=>!tomb.has((x.name||'')+'|'+(x.spec||''))).map((x,i)=>seedProdObj(x,'p'+(i+1)));changed=true;}
   else{
     let maxn=arr.reduce((m,p)=>{const n=+String(p.id).replace(/\D/g,'');return n>m?n:m;},0);
@@ -2935,6 +2869,81 @@ async function loadBom(){
     setRows('CONE2','콘보수 패턴2 (PP370)','콘보수',CONE2,63);
     for(const c of ['NEW','PERM_ALL','PERM_BOTTOM','PERM_WALL','CONE','CONE2']){const b=bomRecByCode('ladle',c);if(b){try{await putRec('bomstd',b);}catch(e){}}}
     try{localStorage.setItem('dgrns_ladlebom_v4','1');}catch(e){}
+  }
+  // 래들 축조물량표 전체 반영(1회): 동국포항140T 축조물량표(MAC 적용) 2026년 1분기 단가조정 시트 기준
+  // - 신축: 영구장7+바닥4+벽체8+메탈라인4+슬래그라인1+노즐4 = 28개 품목 전체로 확대(기존 v3/v4는 대표 품목만 있었음)
+  // - 콘보수(1차/2차): 기존 CONE/CONE2가 단가 0원(S/N W/B·PP-CONE SET이 제품마스터에 없어 연동 실패)였던 것을 정확한 단중·단가로 수정
+  // - 슬라그라인보수 전체(SL_FULL) 신규 추가: 기존 SL_P1~3(단일 품목 패턴)과 별개로 실제 8개 벽돌+캐스터블 전체 구성 반영
+  if(!localStorage.getItem('dgrns_ladlebom_v5')){
+    const V=(bu,nm,spec,uw,qty,price)=>({bu,nm,spec,uw,qty,price,pcode:null});
+    const NEW_FULL=[
+     ['영구장','AMC-BS','LW90',4.81,198,1488],['영구장','AMC-BS','LW95',4.75,654,1488],
+     ['영구장','HAU-BS','LW90',4.91,297,1504],['영구장','HAU-BS','LW95',5.04,981,1504],
+     ['영구장','SK-36','1/2반형',1.8,1515,658],['영구장','루미보드','312*100*12.7T',0.3,480,4443],
+     ['영구장','유입재','TC-2',1000,3,1042],
+     ['바닥','AMC-B','LW250',14.35,30,1814],['바닥','AMC-B','LW280',16.07,124,1814],
+     ['바닥','AMC-B','LW300',17.3,144,1814],['바닥','AMC-B','LW300-1/2',8.54,30,1814],
+     ['벽체','PGT-BT','LW21(160H)',4.03,2,1910],['벽체','PGT-BT','LW21-5(160H)',4.54,2,1910],
+     ['벽체','PGT-BT','LW210(160H)',8.06,12,1910],['벽체','PGT-BT','LW211(160H)',7.56,258,1910],
+     ['벽체','PGT-BT','LW21',5.78,5,1910],['벽체','PGT-BT','LW21-5',6.5,5,1910],
+     ['벽체','PGT-BT','LW210',11.55,30,1910],['벽체','PGT-BT','LW211',10.83,645,1910],
+     ['메탈라인','MAC-W','LW21',6.05,8,1910],['메탈라인','MAC-W','LW21-5',6.82,8,1910],
+     ['메탈라인','MAC-W','LW210',12.13,48,1910],['메탈라인','MAC-W','LW211',11.37,1032,1910],
+     ['슬래그라인','AMC-FB','LW251FS',11.12,144,1171],
+     ['노즐','CA-180M','신축용',500,3,1435],['노즐','S/N W/B','신축용',112,1,576771],
+     ['노즐','PP-CONE SET','신축용',182,2,937201],['노즐','CA-160','신축용',250,1,645],
+    ];
+    const CONE1_FIX=[['콘','CA-180M','CA-180M',500,5,1435],['콘','S/N W/B','S/N W/B',112,1,576771],['콘','PP-CONE SET','PP520',182,2,937201]];
+    const CONE2_FIX=[['콘','CA-180M','CA-180M',500,3,1435],['콘','S/N W/B','S/N W/B',112,1,576771],['콘','PP-CONE SET','PP370',127,2,589079]];
+    const SL_FULL_ROWS=[
+     ['슬래그라인','PGT-BT','LW150',8.27,114,1910],['슬래그라인','PGT-BT','LW151',7.75,300,1910],
+     ['슬래그라인','PGT-BT','LW180',9.93,10,1910],['슬래그라인','PGT-BT','LW181',9.28,128,1910],
+     ['슬래그라인','PGT-BT','LW210',11.55,10,1910],['슬래그라인','PGT-BT','LW211',10.83,128,1910],
+     ['슬래그라인','PGT-BT','LW160H',8.06,7,1910],['슬래그라인','PGT-BT','LW161H',7.56,130,1910],
+     ['슬래그라인','AMC-FB','LW251FS',11.12,144,1171],['슬래그라인','CA-160','B250-1',250,1,645],
+    ];
+    const setRows2=(code,name,group,rows,baseCH)=>{let b=bomRecByCode('ladle',code);
+      if(!b){b={id:'ladle:'+code,equip:'ladle',code,name,group,baseCH:baseCH||0,order:(Math.max(0,...bomsFor('ladle').map(x=>+x.order||0))+1),rows:[]};bomData.push(b);}
+      b.name=name;b.group=group;if(baseCH!=null)b.baseCH=baseCH;b.rows=rows.map(r=>V(r[0],r[1],r[2],r[3],r[4],r[5]));return b;};
+    setRows2('NEW','신축 (전체)','신축',NEW_FULL,145);
+    setRows2('CONE','1차콘보수 (전체)','콘보수',CONE1_FIX,0);
+    setRows2('CONE2','2차콘보수 (전체)','콘보수',CONE2_FIX,0);
+    setRows2('SL_FULL','슬라그라인 보수 (전체)','SL보수',SL_FULL_ROWS,0);
+    for(const c of ['NEW','CONE','CONE2','SL_FULL']){const b=bomRecByCode('ladle',c);if(b){try{await putRec('bomstd',b);}catch(e){}}}
+    try{localStorage.setItem('dgrns_ladlebom_v5','1');}catch(e){}
+  }
+  // 래들 축조물량표 전면 개편(1회, 2026-09-19 수령 엑셀 기준): "2. 축조 물량표/1. 래들" 폴더의 11개 물량표
+  // (영구장/영구장바닥/준영구장/중수리(1단재활용)→신축/콘보수 PP520·PP370/SL보수 5패턴)를 그대로 반영.
+  // 엑셀에 없는 구성인 'SL_FULL'/'PERM_WALL'은 삭제.
+  if(!localStorage.getItem('dgrns_ladlebom_v6')){
+    const codes=['NEW','PERM_ALL','PERM_BOTTOM','SEMI_PERM','CONE','CONE2','SL_P1','SL_P2','SL_P3','SL_P4','SL_P5'];
+    for(const code of codes){
+      const seed=LADLE_BOM_SEED.find(s=>s.code===code);if(!seed)continue;
+      let b=bomRecByCode('ladle',code);
+      if(!b){b={id:'ladle:'+code,equip:'ladle',code,rows:[]};bomData.push(b);}
+      b.name=seed.name;b.group=seed.group;b.baseCH=seed.baseCH;b.order=seed.order;
+      b.rows=seed.rows.map(r=>({bu:r[0],nm:r[1],spec:r[2],uw:r[3],qty:r[4],price:r[5],pcode:null}));
+      try{await putRec('bomstd',b);}catch(e){}
+    }
+    for(const oldCode of ['SL_FULL','PERM_WALL']){
+      const b=bomRecByCode('ladle',oldCode);
+      if(b){bomData=bomData.filter(x=>x!==b);try{await delRec('bomstd',b.id);}catch(e){}}
+    }
+    try{localStorage.setItem('dgrns_ladlebom_v6','1');}catch(e){}
+  }
+  // 래들 축조물량표 보정(1회, 2026-09-19 추가 수령): 'NEW'(마모장 신축)를 "중수리(1단재활용)" 대신
+  // "중수리(마모장 1단~16단)" 전체 반영분으로 교체(1단 자재도 포함된 완전 신축 물량이 맞음).
+  // "중수리(1단재활용)"은 별도 코드 'RECY1'(1단 재활용 패턴)으로 신규 추가.
+  if(!localStorage.getItem('dgrns_ladlebom_v7')){
+    for(const code of ['NEW','RECY1']){
+      const seed=LADLE_BOM_SEED.find(s=>s.code===code);if(!seed)continue;
+      let b=bomRecByCode('ladle',code);
+      if(!b){b={id:'ladle:'+code,equip:'ladle',code,rows:[]};bomData.push(b);}
+      b.name=seed.name;b.group=seed.group;b.baseCH=seed.baseCH;b.order=seed.order;
+      b.rows=seed.rows.map(r=>({bu:r[0],nm:r[1],spec:r[2],uw:r[3],qty:r[4],price:r[5],pcode:null}));
+      try{await putRec('bomstd',b);}catch(e){}
+    }
+    try{localStorage.setItem('dgrns_ladlebom_v7','1');}catch(e){}
   }
 }
 // 설비별 물량표 조회 (일반)
@@ -3594,13 +3603,14 @@ function diaSVG(){
     const v1=+c.r1||0, v2=+c.r2||0;
     const w1=T*Math.max(0,Math.min(1,v1/sp)), w2=T*Math.max(0,Math.min(1,v2/sp));
     const lw=T*Math.min(1,lim/sp), b1=v1<lim, b2=v2<lim;
+    const zc=sl?'#dc2626':'#1d4ed8';  // S/L(슬래그라인)=빨강 · M/L(메탈라인)=파랑
     g+=`<rect x="${XL}" y="${y}" width="${T}" height="${H-2}" fill="#fff" stroke="#cbd5e1" stroke-width=".6"/>`;
-    g+=`<rect x="${XL}" y="${y}" width="${w1}" height="${H-2}" fill="${remColor(v1/sp*100)}" opacity=".9"/>`;
+    g+=`<rect x="${XL}" y="${y}" width="${w1}" height="${H-2}" fill="${zc}" opacity=".85"/>`;
     g+=`<rect x="${XR-T}" y="${y}" width="${T}" height="${H-2}" fill="#fff" stroke="#cbd5e1" stroke-width=".6"/>`;
-    g+=`<rect x="${XR-w2}" y="${y}" width="${w2}" height="${H-2}" fill="${remColor(v2/sp*100)}" opacity=".9"/>`;
+    g+=`<rect x="${XR-w2}" y="${y}" width="${w2}" height="${H-2}" fill="${zc}" opacity=".85"/>`;
     g+=`<line x1="${XL+lw}" y1="${y}" x2="${XL+lw}" y2="${y+H-2}" stroke="#dc2626" stroke-width="1.1" stroke-dasharray="2.5 2"/>`;
     g+=`<line x1="${XR-lw}" y1="${y}" x2="${XR-lw}" y2="${y+H-2}" stroke="#dc2626" stroke-width="1.1" stroke-dasharray="2.5 2"/>`;
-    g+=`<text x="${XL-15}" y="${y+14}" font-size="9.5" text-anchor="end" fill="${sl?'#c2410c':'#1d4ed8'}" font-weight="700">${c.n}</text>`;
+    g+=`<text x="${XL-15}" y="${y+14}" font-size="9.5" text-anchor="end" fill="${zc}" font-weight="700">${c.n}</text>`;
     g+=`<text x="${XR+15}" y="${y+14}" font-size="8.5" fill="#94a3b8">${sp}</text>`;
     g+=`<text x="${XL+T+5}" y="${y+14}" font-size="9.5" fill="${b1?'#dc2626':'#334155'}" font-weight="${b1?'800':'500'}">${v1}${b1?'⚠':''}</text>`;
     g+=`<text x="${XR-T-5}" y="${y+14}" font-size="9.5" text-anchor="end" fill="${b2?'#dc2626':'#334155'}" font-weight="${b2?'800':'500'}">${b2?'⚠':''}${v2}</text>`;
@@ -3635,9 +3645,9 @@ function renderLadleDia(){
   /* ① 단면도 */
   let col1=`<div class="dia-h">① 래들 단면 (${esc(isEnd?'해체':(tdRec.type||'점검'))})</div>${diaSVG()}
     <div class="dia-legend">
-      <span><b style="color:#16a34a">■</b>60↑</span><span><b style="color:#84cc16">■</b>45~60</span>
-      <span><b style="color:#eab308">■</b>32~45</span><span><b style="color:#f97316">■</b>20~32</span>
-      <span><b style="color:#dc2626">■</b>20↓%</span><span style="color:#dc2626">┆기준선</span></div>
+      <span><b style="color:#dc2626">■</b>S/L(슬래그라인)</span>
+      <span><b style="color:#1d4ed8">■</b>M/L(메탈라인)</span>
+      <span style="color:#dc2626">┆기준잔존선</span></div>
     <div class="dia-h" style="margin-top:8px">안전 기준잔존</div>
     <div style="display:flex;gap:6px">
       <label class="dlab" style="flex:1;color:#c2410c">S/L ${ni(L.sl,"diaCur.lim=Object.assign(diaLimits(),{sl:+this.value})")}</label>
@@ -3675,7 +3685,7 @@ function renderLadleDia(){
     const sl=c.n>=SL_COURSE_MIN, lim=diaLimit(c.n), bad=mn<lim;
     if(bad)warn.push(c.n+'단('+mn+')');
     col3+=`<tr style="background:${sl?'#fff7ed':'#f0f7ff'}">
-      <td style="font-weight:700;color:${sl?'#c2410c':'#1d4ed8'}">${c.n}</td>
+      <td style="font-weight:700;color:${sl?'#dc2626':'#1d4ed8'}">${c.n}</td>
       <td>${ni(c.spec,`diaCur.courses[${i}].spec=+this.value`)}</td>
       <td>${ni(c.r1,`diaCur.courses[${i}].r1=+this.value`)}</td>
       <td style="color:${eroColor(a.rate)};font-weight:700;font-size:10px">${a.rate.toFixed(2)}</td>
@@ -3729,6 +3739,39 @@ function delDia(){
   if(!diaStore[diaKey(no,date)]){toast('저장된 모식도가 없습니다');return;}
   if(!confirm(no+' '+fmtYMD(date)+' 모식도를 삭제할까요?'))return;
   delete diaStore[diaKey(no,date)];saveDiaStore(diaStore);initDiaTeardowns();toast('삭제되었습니다');
+}
+// 현재 화면에 표시된 해체 모식도 상태를 그대로 엑셀로 내보내기
+function exportDiaXls(){
+  if(!diaCur){toast('내보낼 모식도가 없습니다');return;}
+  const ch=+((document.getElementById('l_diaCH')||{}).value)||diaCur.ch||0;
+  const dv=ch||1;
+  const tdRec=ladleData.find(r=>r.no===diaCur.no&&r.date===diaCur.date&&DIA_EVT.includes(r.type));
+  const isEnd=!tdRec||END_EVT.includes(tdRec.type);
+  const kindLab=isEnd?'해체일지':((tdRec&&tdRec.type||'')+' 점검일지');
+  let t=`<table><tr><td class="hd" colspan="7">동국알앤에스 · 포항사업소 래들 ${xlEsc(kindLab)}</td></tr>
+    <tr><td class="nob">래들번호</td><td class="nob">${xlEsc(diaCur.no||'')}</td><td class="nob">구분</td><td class="nob">${xlEsc(diaCur.ev||'')}</td><td class="nob">총사용수명(CH)</td><td class="nob" colspan="2">${ch}</td></tr>
+    <tr><td class="hd">단</td><td class="hd">구간</td><td class="hd">규격(mm)</td><td class="hd">#1 잔존(mm)</td><td class="hd">#1 용손율</td><td class="hd">#2 잔존(mm)</td><td class="hd">#2 용손율</td></tr>`;
+  diaCur.courses.forEach(c=>{
+    const sl=c.n>=SL_COURSE_MIN;
+    const r1=Math.max(0,(+c.spec||0)-(+c.r1||0))/dv, r2=Math.max(0,(+c.spec||0)-(+c.r2||0))/dv;
+    t+=`<tr><td>${c.n}</td><td>${sl?'S/L':'M/L'}</td><td>${c.spec}</td><td>${c.r1}</td><td>${r1.toFixed(2)}</td><td>${c.r2}</td><td>${r2.toFixed(2)}</td></tr>`;
+  });
+  const bb=Math.max(0,(+diaCur.bottom.spec||0)-(+diaCur.bottom.rem||0))/dv;
+  t+=`<tr><td colspan="2">바닥</td><td>${diaCur.bottom.spec}</td><td colspan="2">${diaCur.bottom.rem}</td><td colspan="2">${bb.toFixed(2)}</td></tr></table>`;
+  let t2=`<table><tr><td class="hd" colspan="6">PP-CONE 구간별 용손</td></tr>
+    <tr><td class="hd">구분</td><td class="hd">기간</td><td class="hd">CH</td><td class="hd">#1 잔존</td><td class="hd">#2 잔존</td><td class="hd">용손율(#1/#2)</td></tr>`;
+  diaCur.segs.forEach(g=>{
+    const d=(+g.ch||1), r1=Math.max(0,PP_SPEC-(+g.p1||0))/d, r2=Math.max(0,PP_SPEC-(+g.p2||0))/d;
+    t2+=`<tr><td>${xlEsc(g.lab)}</td><td>${xlEsc(g.pd||'')}</td><td>${g.ch||0}</td><td>${g.p1}</td><td>${g.p2}</td><td>${r1.toFixed(2)}/${r2.toFixed(2)}</td></tr>`;
+  });
+  t2+='</table>';
+  const t3=`<table><tr><td class="hd" colspan="2">점검 정보</td></tr>
+    <tr><td class="nob">점검일</td><td class="nob">${xlEsc(fmtYMD(diaCur.insDate||diaCur.date||''))}</td></tr>
+    <tr><td class="nob">점검자</td><td class="nob">${xlEsc(diaCur.insBy||'')}</td></tr>
+    <tr><td class="nob">입회자</td><td class="nob">${xlEsc(diaCur.insWith||'')}</td></tr>
+    <tr><td class="nob">업체</td><td class="nob">${xlEsc(diaCur.vendor||'')}</td></tr>
+    <tr><td class="nob">Remark</td><td class="nob">${xlEsc(diaCur.remark||'')}</td></tr></table>`;
+  downloadXls(`래들해체모식도_${diaCur.no||''}_${diaCur.date||todayStr()}`,t+t2+t3);
 }
 /* ---- 잔존·용손율 요약(부위별 최소잔존·용손율 · 업체별) ---- */
 function diaZoneStats(rec){
@@ -4421,7 +4464,7 @@ function syncScheduleWho(){const who=[...new Set([...TEAM,...scheduleData.map(s=
 
 /* ============ 사이드바 네비 ============ */
 const VIEWS={home:['포항사업소 일정','일정·스케줄 관리 (향후 팀원별 연동)'],
-  board:['작업현황판','전기로(A/B)·래들·턴디쉬(150각/BL/BB) 한눈에 보기 · 전기로 일일 입력'],
+  board:['작업현황판','래들·턴디쉬(150각/BL/BB) 현황 한눈에 보기'],
   ladle:['래들 수명관리','신축~해체 수명 · 현재/누적/영구장 누적 · 업체·패턴'],
   tundish:['턴디쉬 수명관리','호수별 누적수명 · 종류별 관리'],
   monthly:['월별 실적','래들·턴디쉬 월별 해체 실적 조회'],
@@ -4432,7 +4475,7 @@ const VIEWS={home:['포항사업소 일정','일정·스케줄 관리 (향후 �
   perf:['내화물 실적현황','동국제강 설비별(전기로·래들·연주) 사용실적·원단위 자동 집계'],
   news:['업계 뉴스','국내 제철·제강사 · 경쟁 내화물사 · 내화물 기술·시장 (매일 자동 업데이트)'],
   fieldwork:['외근업무','외근보고서 히스토리 · 이슈·후속사항 관리'],
-  prodm:['내화물 기본정보 관리','래들·턴디쉬·전기로 내화물 제품(제품명·배합·규격·단중·단가) 통합 관리 · 분기별 단가'],
+  prodm:['내화물 기본정보','래들·턴디쉬·전기로 내화물 제품(제품명·배합·규격·단중·단가) 통합 관리 · 분기별 단가'],
   bom:['내화물 축조물량표','래들·턴디쉬·전기로 설비별 축조·보수 기준물량표 · 기본정보 연동'],
   sync:['팀 공유 · 실시간 동기화','여러 PC에서 실시간으로 함께 보고 수정 (Firebase 연동)'],
   attend:['휴가 · 잔업 신청','상신 → 주임 → 계장 → 기성 → 사업소장 결재 · 관리직 확인(회사 시스템 입력)'],
@@ -4555,42 +4598,27 @@ function boardTundishCol(colName,hcolor){
     <div class="btd-row btd-head"><span>No</span><span>현황</span><span>신축</span><span>영구장</span><span>메모</span></div>
     ${rows||'<div style="color:#98a2ad;padding:12px;font-size:12px">-</div>'}</div>`;
 }
+let curBoardTab='ladle';
 function renderBoard(){
-  const d=boardCurDate();
-  const di=document.getElementById('board_date');if(di&&di.value!==d)di.value=d;
-  // 전기로를 기본 탭으로 설정
-  const tabs=document.querySelectorAll('.subtabs .subtab[data-board]');
-  tabs.forEach(btn=>{
-    if(btn.dataset.board==='eaf'){
-      btn.style.borderBottom='3px solid currentColor';
-      btn.style.paddingBottom='9px';
-      btn.style.fontWeight='700';
-    }else{
-      btn.style.borderBottom='none';
-      btn.style.paddingBottom='12px';
-      btn.style.fontWeight='500';
-    }
-  });
-  // 모든 패널 렌더링
-  renderBoardEaf();
+  // 래들/턴디쉬 데이터 렌더링 (탭은 그대로 유지 — 현황 변경 시 화면이 앞으로 튀지 않도록)
   document.getElementById('boardLadle').innerHTML=boardLadle();
   document.getElementById('boardTundish').innerHTML=
     boardTundishCol('150각','#8a6d1f')
     +boardTundishCol('BL','#5b5fa0')
     +boardTundishCol('BB','#a06a3a');
-  // 첫 번째 탭(전기로) 활성화
-  boardTab('eaf');
+  boardTab(curBoardTab||'ladle');
 }
 function boardTab(tab){
-  // Hide all panels
-  ['boardEafPanel','boardLadlePanel','boardTundishPanel'].forEach(id=>{
+  curBoardTab=tab;
+  // Hide all panels — .hidden{display:none!important}가 인라인 style보다 우선이므로 클래스도 반드시 같이 토글해야 함
+  ['boardLadlePanel','boardTundishPanel'].forEach(id=>{
     const el=document.getElementById(id);
-    if(el){el.style.display='none';}
+    if(el){el.classList.add('hidden');el.style.display='none';}
   });
   // Show selected panel
-  const panelId=tab==='eaf'?'boardEafPanel':tab==='ladle'?'boardLadlePanel':'boardTundishPanel';
+  const panelId=tab==='ladle'?'boardLadlePanel':'boardTundishPanel';
   const panel=document.getElementById(panelId);
-  if(panel){panel.style.display='block';}
+  if(panel){panel.classList.remove('hidden');panel.style.display='block';}
   // Update active button styling
   document.querySelectorAll('.subtabs .subtab[data-board]').forEach(btn=>{
     if(btn.dataset.board===tab){
@@ -4604,67 +4632,11 @@ function boardTab(tab){
     }
   });
   // Render data for selected tab
-  if(tab==='eaf')renderBoardEaf();
-  else if(tab==='ladle')document.getElementById('boardLadle').innerHTML=boardLadle();
+  if(tab==='ladle')document.getElementById('boardLadle').innerHTML=boardLadle();
   else if(tab==='tundish')document.getElementById('boardTundish').innerHTML=
     boardTundishCol('150각','#8a6d1f')
     +boardTundishCol('BL','#5b5fa0')
     +boardTundishCol('BB','#a06a3a');
-}
-function renderBoardProd(){
-  const d=boardCurDate();const ym=d.slice(0,7);const mLab=(+ym.slice(5))+'월';
-  const dayCH=eafData.filter(r=>!r.base&&r.date===d).reduce((s,r)=>s+(+r.ch||0),0);          // 기준일 조업 CH (A+B)
-  const monCH=eafData.filter(r=>!r.base&&r.date.slice(0,7)===ym&&r.date<=d).reduce((s,r)=>s+(+r.ch||0),0); // 월 누계
-  const monTon=monCH*TON_PER_CH;                                                              // 월 생산량
-  document.getElementById('boardProd').innerHTML=
-    `<div class="prodbox alt"><div class="pb-l">기준일 조업 CH (A+B)</div><div class="pb-v">${dayCH.toLocaleString()}<small> CH</small></div></div>
-     <div class="prodbox alt"><div class="pb-l">${mLab} 누계 조업 CH</div><div class="pb-v">${monCH.toLocaleString()}<small> CH</small></div></div>
-     <div class="prodbox"><div class="pb-l">${mLab} 생산량 · 1CH=${TON_PER_CH}톤</div><div class="pb-v">${monTon.toLocaleString()}<small> TON</small></div></div>`;
-}
-function renderBoardEaf(){
-  const el=document.getElementById('boardEaf');if(!el)return;
-  const st=eafStatus(boardCurDate());
-  el.innerHTML=['A','B'].map(ro=>{const s=st[ro];const c=ro==='A'?'#1d4ed8':'#c81e1e';
-    return `<div style="background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.1);border-left:6px solid ${c}">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px">
-        <div style="text-align:center">
-          <div style="font-size:13px;color:var(--muted);margin-bottom:4px">${ro}로 누적 생산 CH</div>
-          <div style="font-size:42px;font-weight:700;color:${c}">${s.totCH.toLocaleString()}</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px">최근: ${s.lastCH} CH</div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:13px;color:var(--muted);margin-bottom:4px">월 생산량</div>
-          <div style="font-size:42px;font-weight:700;color:var(--accent)">${s.ton.toLocaleString()}</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px">TON</div>
-        </div>
-        <div style="text-align:center;display:flex;flex-direction:column;justify-content:center">
-          <button class="btn primary" onclick="nav('eaf')" style="font-size:14px;padding:10px 16px">상세 관리 →</button>
-        </div>
-      </div>
-      <div style="background:var(--head);border-radius:8px;padding:16px">
-        <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--ink)">부위별 누적 수명 (CH)</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-          ${EAF_PARTS.map(p=>`<div style="background:#fff;padding:12px;border-radius:6px;border-left:3px solid ${EAF_PART_COLOR[p]}">
-            <div style="font-size:12px;color:${EAF_PART_COLOR[p]};font-weight:700;margin-bottom:4px">${EAF_PART_LABEL[p]}</div>
-            <div style="font-size:28px;font-weight:700;color:var(--ink)">${(s[p]||0).toLocaleString()}</div>
-            ${s.prev[p]?`<div style="font-size:11px;color:var(--muted);margin-top:3px">이전: ${s.prev[p]}</div>`:''}
-          </div>`).join('')}
-        </div>
-      </div>
-    </div>`;}).join('');
-}
-async function boardEafSubmit(ro){
-  const ch=num(document.getElementById('be_ch_'+ro).value)||0;
-  const chk={};EAF_PARTS.forEach(p=>{const el=document.getElementById('be_'+p+'_'+ro);chk[p]=!!(el&&el.checked);});
-  const any=EAF_PARTS.some(p=>chk[p]);
-  if(!ch&&!any){toast('CH 또는 교체를 입력하세요');return;}
-  const d=boardCurDate();
-  const rec=Object.assign({id:uid(),date:d,ro,ch,ton:ch*TON_PER_CH,
-    post:num(document.getElementById('be_post_'+ro).value)||0,note:'현황판 입력',seq:Date.now()},chk);
-  await putRec('eaf',rec);eafData.push(rec);flashSave();
-  const parts=EAF_PARTS.filter(p=>chk[p]).map(p=>EAF_PART_LABEL[p]).join('·');
-  toast(`${ro}로 ${d} ${ch}CH${parts?' / '+parts+' 교체':''} 등록`);
-  renderBoard();if(curView==='eaf')renderEaf();
 }
 
 /* ============ 전기로(EAF) 수명관리 ============ */
@@ -5098,13 +5070,10 @@ function fieldRows(){
     .filter(r=>!yf||r.d.slice(0,4)===yf)
     .filter(r=>!q||(r.cu+r.iv+r.pu+r.co+r.t).toLowerCase().includes(q));
 }
-function renderFieldHist(){
-  const rows=fieldRows();
-  document.getElementById('f_count').textContent=rows.length+' 건';
-  document.getElementById('fieldHist').innerHTML=rows.map(r=>{const c=fieldTargetColor(r.t);
-    const cats=fieldCats(r).map(x=>`<span class="fc-tag" style="background:${CAT_COLOR[x]}">${x}</span>`).join('');
-    const eqs=fieldCats(r).includes('노재')?fieldEquips(r).map(e=>`<span class="fc-eq" style="color:${EQUIP_COLOR[e]||'#555'};border-color:${EQUIP_COLOR[e]||'#ccc'}">${e}</span>`).join(''):'';
-    return `<div class="fcard" style="border-left:4px solid ${c}">
+function fieldCardHtml(r){const c=fieldTargetColor(r.t);
+  const cats=fieldCats(r).map(x=>`<span class="fc-tag" style="background:${CAT_COLOR[x]}">${x}</span>`).join('');
+  const eqs=fieldCats(r).includes('노재')?fieldEquips(r).map(e=>`<span class="fc-eq" style="color:${EQUIP_COLOR[e]||'#555'};border-color:${EQUIP_COLOR[e]||'#ccc'}">${e}</span>`).join(''):'';
+  return `<div class="fcard" style="border-left:4px solid ${c}">
       <div class="fc-h" onclick="this.parentNode.classList.toggle('open')">
         <span class="fc-date">${esc(r.d)}</span>
         ${cats}${eqs}
@@ -5117,7 +5086,26 @@ function renderFieldHist(){
         ${r.tv?`<div class="fc-row"><b>출장자</b> ${esc(r.tv)}</div>`:''}
         ${r.pu?`<div class="fc-row"><b>목적</b> ${esc(r.pu)}</div>`:''}
         <div class="fc-content">${esc(r.co).replace(/\n/g,'<br>')}</div>
-      </div></div>`;}).join('')||`<div class="empty">보고서가 없습니다.</div>`;
+      </div></div>`;}
+/* 카테고리(담당 팀·설비)별로 묶어서 표시 — 구매팀 → 노재(설비별: RH·STS·혼선차·래들·턴디쉬·전기로) → 기타 */
+function fieldGroupHtml(title,badgeColor,rows){
+  if(!rows.length)return '';
+  return `<div class="subhead" style="margin-top:14px">${esc(title)} <span class="hint" style="background:${badgeColor}22;color:${badgeColor};border-radius:6px;padding:1px 8px;font-weight:700">${rows.length}건</span></div>`
+    +rows.map(fieldCardHtml).join('');
+}
+function renderFieldHist(){
+  const rows=fieldRows();
+  document.getElementById('f_count').textContent=rows.length+' 건';
+  const buy=rows.filter(r=>fieldCats(r).includes('구매'));
+  const furn=rows.filter(r=>fieldCats(r).includes('노재'));
+  let html='';
+  html+=fieldGroupHtml('🛒 구매팀',CAT_COLOR['구매'],buy);
+  FIELD_EQUIP.forEach(([name])=>{
+    html+=fieldGroupHtml('🔧 노재 — '+name+' 담당',EQUIP_COLOR[name]||'#555',furn.filter(r=>fieldEquips(r).includes(name)));
+  });
+  const etc=furn.filter(r=>fieldEquips(r).length===0);
+  html+=fieldGroupHtml('🔧 노재 — 기타',EQUIP_COLOR['RH']||'#555',etc);
+  document.getElementById('fieldHist').innerHTML=html||`<div class="empty">보고서가 없습니다.</div>`;
 }
 function fieldAllIssues(){
   const out=[];
@@ -5203,8 +5191,8 @@ function downloadPerf(){
 }
 
 /* ============ 업계 뉴스 (자동 업데이트) ============ */
-const NEWS_UPDATED="2026-09-10";
-const NEWS_SEED=[
+const NEWS_UPDATED="2026-09-18";
+const NEWS_SEED=[{date:"2026-09-16",cat:"제철/제강",title:"포스코 노조, 120시간 2차 부분파업 돌입…임금교섭 여전히 평행선",why:"포스코 조업 차질 시 납기·물량 변동 가능성 있어 영업·납품 일정에 주의 필요",url:"https://biz.sbs.co.kr/article/20000334908"},{date:"2026-09-02",cat:"제철/제강",title:"동국제강, 전기로 100% 체제로 2030년 탄소감축 목표 조기 달성…하이퍼 전기로로 효율 개선 추진",why:"주요 고객사 동국제강의 전기로 효율화 투자 방향은 내화물 스펙·수명관리 요구 변화로 이어질 수 있음",url:"https://www.asiatoday.co.kr/kn/view.php?key=20260903010001020"},{date:"2026-03-13",cat:"제철/제강",title:"포스코, 광양제철소에 6420억 투입 전기로 신설… 5월 가동 목표, 하이렉스 수소환원제철에도 1조3360억 투자",why:"포스코의 전기로·저탄소 전환 확대는 향후 내화물 수요처 확대 가능성을 시사",url:"https://www.snmnews.com/news/articleView.html?idxno=566361"},{date:"2026-01-02",cat:"내화물 기술·시장",title:"2026년 철강시장, 세계철강협회 수요 1%대 증가 전망…중국發 공급과잉·보호무역이 변수",why:"전방 철강 수요 둔화는 내화물 물량·단가 협상에도 영향을 줄 수 있어 시황 모니터링 필요",url:"https://www.ferrotimes.com/news/articleView.html?idxno=45548"},
   {date:"2026-09-06",cat:"제철/제강",title:"현대제철·포스코, 美 루이지애나 전기로 제철소 첫삽 — 탄소저감 강판 270만t",why:"국내 제철사 전기로 확대 = 전기로 내화물 수요 확대 신호",url:"https://www.imaeil.com/page/view/2026090616001271448"},
   {date:"2026-05-10",cat:"제철/제강",title:"포스코 광양 전기로 2026년 가동 초읽기 (하이렉스·AI 제철소)",why:"광양 전기로 가동 시 EBT·발코니·로저전극 등 전기로 내화물 신규 수요",url:"https://v.daum.net/v/20260510120338290"},
   {date:"2026-03-12",cat:"제철/제강",title:"포스코 국내 조강 생산능력 11년 만에 4,000만톤 아래로",why:"생산량 감소는 내화물 원단위·공급물량과 직결 — 물량 계획에 반영",url:"https://www.thebigdata.co.kr/view.php?ud=202603121044375352570d99e4c8_23"},
@@ -5274,6 +5262,20 @@ function vcell(v){ // 매트릭스 셀: 순위/O
     return `<span class="tag" style="font-size:10px;color:#fff;background:${c};padding:1px 6px">${esc(v)}</span>`;}
   return '<span style="color:#1d4ed8;font-weight:800">O</span>';
 }
+/* 동국R&S 입찰가능 품목을 항상 상단에, 나머지는 순서 무관(원래 정렬 유지)으로 재배치 */
+function poscoSplit(rows){
+  const canBid=rows.filter(r=>(r.vmap||{})['동국']);
+  const cannotBid=rows.filter(r=>!(r.vmap||{})['동국']);
+  return {canBid,cannotBid,all:[...canBid,...cannotBid]};
+}
+function vendorTags(r){
+  const vm=r.vmap||{};const keys=Object.keys(vm);
+  if(!keys.length)return '<span style="color:#d3d9df">-</span>';
+  return keys.map(v=>{
+    const rk=vm[v];const c=PVEND_COLOR[v]||'#64748b';const lab=v==='동국'?'동국R&S':v;
+    return `<span class="tag" style="font-size:10px;color:#fff;background:${c};margin:1px 2px 1px 0;display:inline-block${v==='동국'?';font-weight:800':''}">${esc(lab)}${rk&&rk!=='O'?' '+esc(rk):''}</span>`;
+  }).join('');
+}
 function renderPosco(){
   const all=POSCO_SEED, rows=poscoRows();
   const tot=all.reduce((s,r)=>s+(r.amount||0),0);
@@ -5287,25 +5289,29 @@ function renderPosco(){
     +cb('동국 낙찰',won.length+'품목',(wonAmt/1e8).toFixed(1)+'억',true)
     +cb('낙찰 점유율',tot?(wonAmt/tot*100).toFixed(1):'-','%');
   document.getElementById('p_count').textContent=`${rows.length} / ${all.length} 품목`;
-  // 결과표
-  let body=rows.map(r=>{
-    return `<tr${r.dkWin>0?' style="background:#f0fdf4"':''}>
-      <td><b>${esc(r.item)}</b></td><td style="font-size:11.5px">${esc(r.baseVendor||'-')}</td>
+  // 결과표: 동국R&S 입찰가능 품목을 상단 그룹으로, 나머지는 하단 그룹으로 표시
+  const {canBid,cannotBid}=poscoSplit(rows);
+  const rowHtml=r=>`<tr${r.dkWin>0?' style="background:#f0fdf4"':''}>
+      <td><b>${esc(r.item)}</b></td><td>${vendorTags(r)}</td><td style="font-size:11.5px">${esc(r.baseVendor||'-')}</td>
       <td class="n">${pN(r.basePrice)}</td><td class="n">${pN(r.winPrice)}</td>
       <td class="n">${pN(r.qty)}</td><td class="n">${pN(r.amount)}</td>
       <td>${r.alloc?`<span class="tag t-vendor" style="font-size:10.5px">${esc(r.alloc)}</span>`:'-'}</td>
-      <td>${dkBadge(r)}</td><td class="n">${r.dkWin>0?'<b>'+pN(r.dkWin)+'</b>':'-'}</td></tr>`;}).join('');
-  if(!rows.length)body=`<tr><td colspan="9"><div class="empty">해당 조건의 품목이 없습니다.</div></td></tr>`;
+      <td>${dkBadge(r)}</td><td class="n">${r.dkWin>0?'<b>'+pN(r.dkWin)+'</b>':'-'}</td></tr>`;
+  let body='';
+  if(canBid.length)body+=`<tr><td colspan="10" style="background:#eef6ff;font-weight:800;color:#1d4ed8;padding:7px 10px;font-size:12px">🏷️ 동국R&amp;S 입찰가능 품목 (${canBid.length}건)</td></tr>`+canBid.map(rowHtml).join('');
+  if(cannotBid.length)body+=`<tr><td colspan="10" style="background:#f4f5f7;font-weight:700;color:#64748b;padding:7px 10px;font-size:12px">기타 품목 (${cannotBid.length}건)</td></tr>`+cannotBid.map(rowHtml).join('');
+  if(!rows.length)body=`<tr><td colspan="10"><div class="empty">해당 조건의 품목이 없습니다.</div></td></tr>`;
   document.getElementById('poscoBody').innerHTML=body;
   // 매트릭스
   if(poscoSub==='matrix')renderPoscoMatrix(rows);
   // 순위 분포 + 경쟁사
   if(poscoSub==='rank')renderPoscoRank(all);
 }
-function renderPoscoMatrix(rows){
+function renderPoscoMatrix(rows0){
+  const {all:rows}=poscoSplit(rows0);
   const head=`<thead><tr><th>품명</th><th class="n">물량(kg)</th><th>배분율</th>`+PVEND.map(v=>`<th style="text-align:center;color:${PVEND_COLOR[v]}">${v}</th>`).join('')+`</tr></thead>`;
   const b=rows.map(r=>{const vm=r.vmap||{};
-    return `<tr><td><b>${esc(r.item)}</b></td><td class="n">${pN(r.qty)}</td><td>${r.alloc?`<span class="tag t-vendor" style="font-size:10px">${esc(r.alloc)}</span>`:'-'}</td>`
+    return `<tr${vm['동국']?' style="background:#eef6ff"':''}><td><b>${esc(r.item)}</b></td><td class="n">${pN(r.qty)}</td><td>${r.alloc?`<span class="tag t-vendor" style="font-size:10px">${esc(r.alloc)}</span>`:'-'}</td>`
       +PVEND.map(v=>`<td style="text-align:center">${vcell(vm[v])}</td>`).join('')+`</tr>`;}).join('');
   document.getElementById('poscoMatrix').innerHTML=head+`<tbody>${b||`<tr><td colspan="${PVEND.length+3}"><div class="empty">품목이 없습니다.</div></td></tr>`}</tbody>`;
 }
@@ -8174,7 +8180,7 @@ function setAdminPin(){if(!requireAdmin())return;const p=prompt('새 관리자 P
   }
   document.getElementById('l_date').value=todayStr();document.getElementById('t_date').value=todayStr();
   document.getElementById('e_date').value=todayStr();
-  document.getElementById('board_date').value=todayStr();
+  {const bd=document.getElementById('board_date');if(bd)bd.value=todayStr();}
   try{db=await openDB();ladleData=await txAll('ladle');tundishData=await txAll('tundish');
     if(ladleData.length===0&&tundishData.length===0){await loadSeedInto();setMeta('seedVersion',SEED_VERSION);}
     else if(getMeta('seedVersion')!==SEED_VERSION){await refreshSeedData();setMeta('seedVersion',SEED_VERSION);}
@@ -8214,166 +8220,6 @@ function dayWatch(){
   },30000);
 }
 
-/* ============ Firestore 실시간 대시보드 ============ */
-let boardData = {
-  EAF: { status: '대기중', temperature: 0, lastUpdate: new Date().toISOString().split('T')[0] },
-  Ladle: { status: '대기중', temperature: 0, lastUpdate: new Date().toISOString().split('T')[0] },
-  Tundish: { status: '대기중', temperature: 0, lastUpdate: new Date().toISOString().split('T')[0] }
-};
-
-// Firestore에서 실시간 데이터 수신 및 대시보드 업데이트
-async function initFirestoreBoard(){
-  try {
-    // Firebase 설정 확인
-    const fbCfgVal = document.getElementById('fb_cfg')?.value;
-    if(!fbCfgVal){
-      console.log('📊 Firestore 설정 미적용 - 팀 공유 설정 후 활성화됩니다');
-      return;
-    }
-
-    // Firestore 초기화 (기존 팀 공유 코드 활용)
-    if(!window.firebase){
-      console.log('⏳ Firebase SDK 로딩 중...');
-      return;
-    }
-
-    const db = firebase.firestore();
-    const boardsRef = db.collection('boards');
-
-    // 실시간 리스너 설정
-    boardsRef.onSnapshot(snapshot => {
-      snapshot.forEach(doc => {
-        const docId = doc.id;
-        const data = doc.data();
-
-        if(docId === 'EAF' || docId === 'Ladle' || docId === 'Tundish'){
-          boardData[docId] = {
-            status: data.status || '대기중',
-            temperature: data.temperature || 0,
-            lastUpdate: data.lastUpdate || new Date().toISOString().split('T')[0]
-          };
-          console.log(`📊 ${docId} 업데이트:`, boardData[docId]);
-        }
-      });
-
-      // ✅ 수정: 항상 렌더링 (보드 탭 활성화 여부 무관)
-      setTimeout(() => renderBoardFromFirestore(), 50);
-    }, error => {
-      console.warn('⚠️ Firestore 연결 오류:', error.message);
-    });
-
-    console.log('✅ Firestore 실시간 리스너 활성화');
-  } catch(e){
-    console.log('ℹ️ Firestore 설정이 필요합니다 (팀 공유 메뉴에서)');
-  }
-}
-
-// Firestore 데이터로 대시보드 렌더링
-function renderBoardFromFirestore(){
-  const eafCard = createEquipmentCard('EAF', '전기로', boardData.EAF);
-  const ladleCard = createEquipmentCard('Ladle', '래들', boardData.Ladle);
-  const tundishCard = createEquipmentCard('Tundish', '턴디쉬', boardData.Tundish);
-
-  // 각 탭에 카드 렌더링
-  const eafContainer = document.getElementById('boardEaf');
-  const ladleContainer = document.getElementById('boardLadle');
-  const tundishContainer = document.getElementById('boardTundish');
-
-  if(eafContainer) eafContainer.innerHTML = eafCard;
-  if(ladleContainer) ladleContainer.innerHTML = ladleCard;
-  if(tundishContainer) tundishContainer.innerHTML = tundishCard;
-}
-
-// 장비 카드 HTML 생성
-function createEquipmentCard(equipId, equipName, data){
-  const statusColor = data.status === '정상' ? '#16a34a' :
-                      data.status === '사용중' ? '#2563eb' :
-                      data.status === '점검중' ? '#ea580c' : '#64748b';
-
-  const statusBgColor = data.status === '정상' ? '#dcfce7' :
-                        data.status === '사용중' ? '#dbeafe' :
-                        data.status === '점검중' ? '#fff2e8' : '#f1f5f9';
-
-  return `
-    <div style="border:1px solid var(--line);border-radius:12px;padding:20px;background:#fff;display:grid;gap:16px;grid-template-columns:1fr 1fr">
-      <div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">설비 상태</div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-          <div style="font-size:28px;font-weight:800;color:${statusColor}">${equipName}</div>
-          <span style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;background:${statusBgColor};color:${statusColor}">${data.status}</span>
-        </div>
-        <div style="font-size:11.5px;color:var(--muted)">마지막 업데이트: ${data.lastUpdate}</div>
-      </div>
-      <div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">온도</div>
-        <div style="font-size:32px;font-weight:800;color:var(--accent);line-height:1">${data.temperature}<small style="font-size:14px;font-weight:600;color:var(--muted)">°C</small></div>
-        <button class="btn primary" onclick="openEquipmentUpdate('${equipId}')" style="margin-top:12px;width:100%">상태 업데이트</button>
-      </div>
-    </div>
-  `;
-}
-
-// 장비 상태 업데이트 폼 열기
-function openEquipmentUpdate(equipId){
-  const equipName = {EAF:'전기로(EAF)', Ladle:'래들(Ladle)', Tundish:'턴디쉬(Tundish)'}[equipId];
-  const current = boardData[equipId] || {};
-
-  const status = prompt(`${equipName} 상태 입력\n(정상 / 사용중 / 점검중 / 대기중):`, current.status || '정상');
-  if(status === null) return;
-
-  const tempStr = prompt(`${equipName} 온도 입력 (숫자):`, current.temperature || '0');
-  if(tempStr === null) return;
-
-  const temperature = parseInt(tempStr, 10) || 0;
-  updateEquipmentStatus(equipId, status, temperature);
-}
-
-// Firestore에 장비 상태 저장
-async function updateEquipmentStatus(equipId, status, temperature){
-  try {
-    if(!window.firebase){
-      toast('Firestore 설정이 필요합니다');
-      return;
-    }
-
-    const db = firebase.firestore();
-    const boardsRef = db.collection('boards');
-
-    await boardsRef.doc(equipId).set({
-      status: status,
-      temperature: temperature,
-      lastUpdate: todayStr()
-    }, { merge: true });
-
-    // 로컬 상태 업데이트
-    boardData[equipId] = { status, temperature, lastUpdate: todayStr() };
-
-    console.log(`✅ ${equipId} 저장 완료:`, { status, temperature });
-    toast(`${equipId} 상태가 업데이트되었습니다`);
-
-    // 대시보드 재렌더링
-    renderBoardFromFirestore();
-  } catch(e){
-    console.error('❌ 저장 실패:', e);
-    toast('저장에 실패했습니다: ' + e.message);
-  }
-}
-
-// 보드 탭 클릭 이벤트 처리
-const originalBoardTab = window.boardTab;
-window.boardTab = function(tab){
-  if(originalBoardTab) originalBoardTab(tab);
-  // Firestore 데이터로 렌더링
-  setTimeout(() => renderBoardFromFirestore(), 100);
-};
-
-// 페이지 로드 시 초기화
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    initFirestoreBoard();
-    renderBoardFromFirestore();
-  }, 1000);
-});
 </script>
 </body>
 </html>
